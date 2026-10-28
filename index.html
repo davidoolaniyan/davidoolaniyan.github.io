@@ -58,9 +58,10 @@
   .vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, .6)); }
   .bar { position: absolute; top: 0; left: 0; height: 2px; width: 100%; background: var(--blue); transform-origin: left; transform: scaleX(0); z-index: 5; }
 
-  .intro { position: absolute; left: 28px; bottom: 110px; max-width: 640px; pointer-events: none; transition: opacity .5s, transform .5s; text-shadow: 0 2px 24px var(--bg), 0 0 8px var(--bg); }
-  .intro h1 { font-size: clamp(44px, 7.4vw, 104px); line-height: .92; font-weight: 750; font-stretch: 112%; letter-spacing: -.025em; }
+  .intro { position: absolute; left: 28px; bottom: 96px; max-width: 760px; pointer-events: none; transition: opacity .5s, transform .5s; text-shadow: 0 2px 24px var(--bg), 0 0 8px var(--bg); }
+  .intro h1 { font-size: clamp(40px, 5vw, 76px); line-height: .95; font-weight: 750; font-stretch: 112%; letter-spacing: -.025em; }
   .intro h1 em { font-style: normal; color: var(--blue); }
+  @media (max-aspect-ratio: 1/1) { .intro { isolation: isolate; } .intro::before { content: ""; position: absolute; inset: -60px -28px -96px; z-index: -1; background: linear-gradient(to top, var(--bg) 55%, rgba(10,10,11,.85) 75%, transparent); } }
   .intro p { margin-top: 18px; color: var(--muted); font-size: 17px; max-width: 470px; line-height: 1.5; }
 
   .titleblock { position: absolute; right: 28px; bottom: 28px; display: grid; grid-template-columns: auto auto; border: 1px solid var(--line); background: rgba(10, 10, 11, .6); backdrop-filter: blur(8px); transition: opacity .5s; }
@@ -898,7 +899,7 @@ let lastScroll = performance.now(); addEventListener('scroll', () => lastScroll 
    ===================================================================== */
 const OVER = { pos: v3(), tgt: v3(), up: v3() };
 function overhead() {
-  if (camera.aspect >= 1) { OVER.pos.set(12, 70, -50); OVER.tgt.set(12, 0, -50); OVER.up.set(-1, 0, 0); } // plan runs left to right
+  if (camera.aspect >= 1) { OVER.pos.set(17, 70, -50); OVER.tgt.set(17, 0, -50); OVER.up.set(-1, 0, 0); } // plan runs left to right
   else { OVER.pos.set(0, 92, -42); OVER.tgt.set(0, 0, -42); OVER.up.set(0, 0, -1); }                     // portrait: bottom to top
 }
 function resize() {
