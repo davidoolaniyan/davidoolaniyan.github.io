@@ -318,13 +318,13 @@
     <article class="case reveal">
       <div class="num mono">03 / Borderless &times; AfriChange</div>
       <h3>A fintech event, end to end</h3>
-      <dl><dt>Goal</dt><dd>Build hype for The Borderless Experience 2026 in Lagos.</dd><dt>Role</dt><dd>Motion graphics lead and video editor: speaker and sponsor announcements, founder interviews, explainers, countdowns, recap.</dd><dt>Result</dt><dd>A full content campaign from first teaser to post-event review.</dd></dl>
+      <dl><dt>Goal</dt><dd>Build hype for The Borderless Experience 2026 in Lagos.</dd><dt>Role</dt><dd>Motion graphics lead and video editor: speaker and sponsor announcements, founder interviews, explainers, countdowns, recap.</dd><dt>Result</dt><dd>A full content campaign from first teaser to the recap, when #TBE2026 trended on X.</dd></dl>
       <div class="stats"><div><b>~20</b><small>deliverables</small></div><div><b>500+</b><small>attendees</small></div></div>
     </article>
     <article class="case reveal">
       <div class="num mono">04 / HYPE Empire</div>
       <h3>Agency motion for edtech &amp; events</h3>
-      <dl><dt>Goal</dt><dd>Turn event results into proof that sells the next event.</dd><dt>Role</dt><dd>Video editing lead: kinetic case-study films, anniversary film, campaign promos.</dd><dt>Result</dt><dd>Case-study films like AltSchool sTaRt that turn one event into the pitch for the next.</dd></dl>
+      <dl><dt>Goal</dt><dd>Turn event results into proof that sells the next event.</dd><dt>Role</dt><dd>Video editing lead: kinetic case-study films, anniversary film, campaign promos.</dd><dt>Result</dt><dd>The 3-year anniversary film, plus case-study films like AltSchool sTaRt that turn one event into the pitch for the next.</dd></dl>
     </article>
   </div>
 </section>
@@ -404,12 +404,16 @@ const WORKS = {
   'test-edit': { t: 'Why AI products fail', c: 'Creator edit / YouTube', f: 'youtube', o: 'land', full: 1, d: 'Talking-head longform with animated book pages, graph overlays and UI inserts that keep the argument visual.' },
   'anna': { t: 'When AI support gets it right, but still wrong', c: 'TARS / YouTube longform', f: 'youtube', o: 'land', yt: '40sibixDd_I', d: 'An explainer on AI customer support with illustrated scenes, chatbot UI recreations and animated checklists.' },
   'podcast-trailer': { t: 'Podcast trailer', c: 'TARS / Trailer', f: 'youtube', o: 'land', full: 1, d: 'A 30-second trailer cut like a film teaser: cold open, kinetic text and icon animation.' },
+  'podcast-short': { t: 'How Birkenstock won', c: 'Ecommerce on Tap / Podcast short', f: 'youtube', o: 'port', d: 'A podcast clip rebuilt as a story: AI-generated period b-roll, archive textures and word-by-word captions carry a founder history in under a minute.' },
+  'peace': { t: 'Fintech hot takes', c: 'Borderless × AfriChange / Vox pop', f: 'youtube', o: 'port', d: 'Event vox pop from Founders Connect Lagos: question cards, brand callouts and quick cuts that keep a live-floor interview moving.' },
+  'vee': { t: 'Not just listening', c: 'Borderless × AfriChange / Explainer', f: 'youtube', o: 'land', d: 'A speaker-led event explainer with kinetic keywords, icon animation and branded transitions.' },
   'habaripay': { t: 'HabariPay breakdown', c: 'Saamu Eleja / YouTube', f: 'youtube', o: 'land', d: 'A 15-minute fintech longform with website callouts, product inserts and clean talking-head pacing.' },
   'altschool': { t: 'sTaRt made impact', c: 'HYPE Empire / AltSchool', f: 'motion', o: 'land', role: 'Kinetic type, edit, sound', tools: 'After Effects / Premiere', d: 'An event case-study film made for HYPE Empire. Bold kinetic type and real community footage turn one event into the pitch for the next edition.' },
+  'tbe-review': { t: '#TBE2026 trended', c: 'Borderless × AfriChange / Event recap', f: 'motion', o: 'port', role: 'Motion graphics lead, edit', d: 'The post-event recap: a terminal boot sequence, trending X posts and LinkedIn reviews flown through 3D space to prove the event landed.' },
+  'anniversary': { t: '3 years of HYPE', c: 'HYPE Empire / Anniversary film', f: 'motion', o: 'port', d: 'A three-year anniversary film: kinetic type, a glowing wireframe city and real event footage, from a WhatsApp promo to credible events.' },
   'builders': { t: 'Cool kids work in fintech', c: 'Borderless × AfriChange', f: 'motion', o: 'land', role: 'Motion graphics lead, edit', d: 'Giant kinetic headlines layered with the speaker. Part of a 20+ video campaign for a Lagos fintech event.' },
   'edge-cases': { t: "Edge cases aren't edge cases", c: 'TARS / Short', f: 'motion', o: 'port', yt: 'R-Nks71zI1Q', short: 1, d: 'A vertical explainer with a holographic HUD language: face scans, neon UI panels and data callouts.' },
   'metrics': { t: 'The Metrics identity', c: 'The Metrics / Brand motion', f: 'motion', o: 'port', d: 'A brand identity reveal: 3D logo build, phone mockups and editorial type.' },
-  'move9ja': { t: 'Travel lite insurance', c: 'Move9ja / Product promo', f: 'motion', o: 'port', d: 'From a two-year partnership with a Nigerian travel app: brand system, UI motion and character animation.' },
   'chaos': { t: 'Press 1 for Chaos', c: 'TARS / AI-anchored news show', f: 'ai', o: 'land', yt: 'IWKu6zyaBVs', role: 'Direction, AI generation, edit', tools: 'Veo / ElevenLabs / Premiere', d: 'An AI-generated narrative short: robot desk scenes, an angry candle and illustrated crowds, cut to a news-broadcast frame.' },
   'spark': { t: 'SPARK collage promo', c: 'Spec / AI-assisted pipeline', f: 'ai', o: 'port', full: 1, d: 'A viral collage-style promo rebuilt with an AI image pipeline, 3D-composited paper layers and generated music.' },
   'maven': { t: 'Indulge in radiance', c: 'Spec / Beauty ad', f: 'ai', o: 'land', full: 1, d: 'A premium skincare spot with elegant serif typography and soft, warm grading.' },
@@ -422,8 +426,8 @@ const TAGS = { youtube: 'Story / YouTube', motion: 'Rhythm / Motion', ai: 'Scale
 // The building: rooms run along -Z and every door sits on the centre line (x = 0).
 const ROOMS = [
   { key: 'lobby', no: '00', theme: 'Lobby', name: 'Film & Space', z0: 0, z1: -14 },
-  { key: 'youtube', no: '01', theme: 'Story', name: 'YouTube & creators', z0: -14, z1: -32, main: 'tars-longform', frames: ['tokens', 'anna', 'podcast-trailer', 'habaripay'], line: 'Every edit starts with a reason to keep watching.' },
-  { key: 'motion', no: '02', theme: 'Rhythm', name: 'Motion & brand', z0: -32, z1: -50, main: 'altschool', frames: ['builders', 'edge-cases', 'metrics', 'move9ja'], line: 'Motion gives the story a pulse.' },
+  { key: 'youtube', no: '01', theme: 'Story', name: 'YouTube & creators', z0: -14, z1: -32, main: 'tars-longform', frames: ['tokens', 'anna', 'podcast-short', 'habaripay'], line: 'Every edit starts with a reason to keep watching.' },
+  { key: 'motion', no: '02', theme: 'Rhythm', name: 'Motion & brand', z0: -32, z1: -50, main: 'altschool', frames: ['tbe-review', 'anniversary', 'edge-cases', 'builders'], line: 'Motion gives the story a pulse.' },
   { key: 'ai', no: '03', theme: 'Scale', name: 'AI video', z0: -50, z1: -68, main: 'chaos', frames: ['spark', 'maven'], line: 'AI lets one editor direct a whole crew.' },
   { key: 'archviz', no: '04', theme: 'Space', name: 'Architectural viz', z0: -68, z1: -86, main: 'lakowe', frames: ['building', 'northgate'], line: 'Where the architect in me shows up.' },
   { key: 'about', no: '05', theme: 'The person', name: 'Off the clock', z0: -86, z1: -100, line: 'The habits behind the work.' },
