@@ -229,6 +229,57 @@
     .modal-inner { grid-template-columns: 1fr; }
     .foot { padding: 20px 16px; }
   }
+
+  /* ---------- futuristic art deco layer: platinum lines, chrome type, stepped geometry ---------- */
+  :root { --chrome: #dfe3e9; --rule: rgba(223, 227, 233, .2); --rule-2: rgba(223, 227, 233, .08); --radius: 0px;
+    --chrome-text: linear-gradient(180deg, #ffffff 0%, #eef0f3 34%, #9aa1ab 49%, #5f656e 51%, #c9ced6 66%, #ffffff 100%);
+    --cut: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px); }
+  .intro h1, .block h2.big, .contact h2 { background: var(--chrome-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .intro h1 { text-shadow: none; filter: drop-shadow(0 4px 18px rgba(0, 0, 0, .9)); }
+  .intro h1 em, .contact h2 em { color: var(--blue); background: none; -webkit-text-fill-color: var(--blue); }
+  .stage::after { content: ""; position: absolute; inset: 12px; border: 1px solid var(--rule-2); outline: 1px solid var(--rule-2); outline-offset: 5px; pointer-events: none; z-index: 4; }
+
+  /* symmetrical section headers with a fan above */
+  section.block::before { content: ""; position: absolute; top: 58px; left: 50%; width: 120px; height: 62px; transform: translateX(-50%); background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 62%22 fill=%22none%22 stroke=%22%23dfe3e9%22 stroke-width=%221%22%3E%3Cpath d=%22M4 61 A56 56 0 0 1 116 61%22 stroke-opacity=%22.55%22/%3E%3Cpath d=%22M14 61 A46 46 0 0 1 106 61%22 stroke-opacity=%22.3%22/%3E%3Cg stroke-opacity=%22.38%22%3E%3Cline x1=%2273.5%22 y1=%2256.4%22 x2=%22110.2%22 y2=%2246.5%22/%3E%3Cline x1=%2272.1%22 y1=%2253.0%22 x2=%22105.0%22 y2=%2234.0%22/%3E%3Cline x1=%2269.9%22 y1=%2250.1%22 x2=%2296.8%22 y2=%2223.2%22/%3E%3Cline x1=%2267.0%22 y1=%2247.9%22 x2=%2286.0%22 y2=%2215.0%22/%3E%3Cline x1=%2263.6%22 y1=%2246.5%22 x2=%2273.5%22 y2=%229.8%22/%3E%3Cline x1=%2260.0%22 y1=%2246.0%22 x2=%2260.0%22 y2=%228.0%22/%3E%3Cline x1=%2256.4%22 y1=%2246.5%22 x2=%2246.5%22 y2=%229.8%22/%3E%3Cline x1=%2253.0%22 y1=%2247.9%22 x2=%2234.0%22 y2=%2215.0%22/%3E%3Cline x1=%2250.1%22 y1=%2250.1%22 x2=%2223.2%22 y2=%2223.2%22/%3E%3Cline x1=%2247.9%22 y1=%2253.0%22 x2=%2215.0%22 y2=%2234.0%22/%3E%3Cline x1=%2246.5%22 y1=%2256.4%22 x2=%229.8%22 y2=%2246.5%22/%3E%3C/g%3E%3Cpath d=%22M46 61 A14 14 0 0 1 74 61%22 stroke-opacity=%22.7%22/%3E%3Cpath d=%22M0 61.5 H120%22 stroke-opacity=%22.55%22/%3E%3C/svg%3E") center / contain no-repeat; opacity: .9; }
+  section.block > .eyebrow, section.block > h2.big, section.block > .lede { margin-left: auto; margin-right: auto; text-align: center; justify-content: center; }
+  .eyebrow { gap: 16px; }
+  .eyebrow::before, .eyebrow::after { content: ""; flex: 0 0 64px; height: 5px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: none; }
+  .about-top .eyebrow::before { display: none; }
+  .filters { justify-content: center; }
+
+  /* sharp, architectural surfaces */
+  .brand, .titleblock, .minimap, .hud .pill, .hud .skip, .hint, .tip, .tools span, .filters button, .close, .work, .modal .mbody, .modal video, .modal .acts button { border-radius: 0; }
+  .brand, .titleblock, .minimap, .hud .pill, .hint { border-color: var(--rule); box-shadow: 0 0 0 3px rgba(10, 10, 11, .6), 0 0 0 4px var(--rule-2); }
+  .work { border: 1px solid var(--rule-2); background: #0d0e10; transition: transform .35s cubic-bezier(.2, .8, .2, 1), border-color .3s; }
+  .work:hover { border-color: var(--chrome); }
+  .work .meta { border-top: 1px solid var(--rule-2); }
+  .work h3 { font-family: var(--display); font-weight: 800; font-size: 21px; letter-spacing: .015em; text-transform: uppercase; }
+  .case { position: relative; border: 1px solid var(--rule); box-shadow: 0 0 0 5px var(--bg), 0 0 0 6px var(--rule-2); background: linear-gradient(180deg, rgba(223, 227, 233, .045), transparent 45%); }
+  .case::before, .modal .mbody::after { content: ""; position: absolute; top: -1px; left: 50%; width: 96px; height: 12px; transform: translateX(-50%); background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 96 12%22 fill=%22%230a0a0b%22 stroke=%22%23dfe3e9%22 stroke-opacity=%22.55%22 stroke-width=%221%22%3E%3Cpath d=%22M0 .5 H96 V1.5 H78 V5.5 H64 V9.5 H32 V5.5 H18 V1.5 H0 Z%22/%3E%3Cpath d=%22M44 9.5 L48 5.5 L52 9.5%22 fill=%22none%22/%3E%3C/svg%3E") center / contain no-repeat; }
+  .case .num, .case dt, .modal dt { color: var(--chrome); }
+  .case .stats { border-top: 0; padding-top: 18px; background: linear-gradient(var(--rule), var(--rule)) top / 100% 1px no-repeat, linear-gradient(var(--rule-2), var(--rule-2)) 0 4px / 100% 1px no-repeat; }
+  .process { background: var(--rule-2); border-color: var(--rule); box-shadow: 0 0 0 5px var(--bg), 0 0 0 6px var(--rule-2); }
+  .process div { background: repeating-linear-gradient(90deg, rgba(223, 227, 233, .025) 0 1px, transparent 1px 16px), var(--bg); text-align: center; }
+  .process span.mono { color: var(--chrome) !important; }
+  .modal .mbody { border-color: var(--rule); box-shadow: 0 0 0 5px rgba(14, 16, 20, .9), 0 0 0 6px var(--rule-2); }
+
+  /* chamfered buttons */
+  .btn { border-radius: 0; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; border-color: var(--rule); padding: 17px 26px; }
+  .btn.solid, .reel-btn, .filters button.on { border-radius: 0; clip-path: var(--cut); background: linear-gradient(180deg, #ffffff, #c4c9d1); color: var(--bg); border-color: transparent; }
+  .reel-btn { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .16em; padding: 9px 20px 9px 12px; }
+  .reel-btn i { border-radius: 0; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); background: var(--bg); }
+  .reel-btn i::after { border-color: transparent transparent transparent var(--chrome); left: 10px; }
+  .filters button { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; padding: 11px 16px; }
+
+  /* the exit: a sunburst behind the contact block */
+  .contact { position: relative; overflow: hidden; border-top: 0; }
+  .contact::before { content: ""; position: absolute; left: 50%; top: 100%; width: 170vmax; height: 170vmax; transform: translate(-50%, -50%); pointer-events: none;
+    background: repeating-conic-gradient(from 0deg, rgba(223, 227, 233, .07) 0 .8deg, transparent .8deg 5deg);
+    -webkit-mask: radial-gradient(circle, #000 0 12%, transparent 34%); mask: radial-gradient(circle, #000 0 12%, transparent 34%); }
+  .contact::after { content: ""; position: absolute; left: 50%; top: 0; width: min(900px, 80%); height: 5px; transform: translateX(-50%); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .contact > * { position: relative; z-index: 1; }
+  @media (max-width: 860px) { section.block::before { top: 34px; width: 96px; height: 50px; } }
+  .foot { border-top: 0; background: linear-gradient(var(--rule), var(--rule)) top / 100% 1px no-repeat, linear-gradient(var(--rule-2), var(--rule-2)) 0 4px / 100% 1px no-repeat; }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
 <script type="importmap">
@@ -544,6 +595,31 @@ walls.forEach(([x1, z1, x2, z2]) => {
   solid(new THREE.BoxGeometry(vertical ? T : len, WH, vertical ? len : T), (x1 + x2) / 2, WH / 2, (z1 + z2) / 2);
 });
 BOUNDS.forEach(z => solid(new THREE.BoxGeometry(DOOR, WH - 3.2, T), 0, (WH + 3.2) / 2, z));
+// art deco detailing in platinum line: stepped portals, fluting, a chevron frieze, an inlaid runner and medallions
+const decoMat = new THREE.LineBasicMaterial({ color: 0xdfe3e9, transparent: true, opacity: 0 });
+const dp = [];
+const dl = (x1, y1, z1, x2, y2, z2) => dp.push(x1, y1, z1, x2, y2, z2);
+const IN = HALF - T / 2 - .01;
+BOUNDS.forEach(z => [z + T / 2 + .01, z - T / 2 - .01].forEach(fz => {
+  [[.2, 3.38], [.4, 3.56]].forEach(([o, top]) => {                          // stepped portal around the door
+    const x = DOOR / 2 + o; dl(-x, 0, fz, -x, top, fz); dl(-x, top, fz, x, top, fz); dl(x, top, fz, x, 0, fz);
+  });
+  [-1, 1].forEach(sd => { for (let f = 0; f < 6; f++) { const x = sd * (DOOR / 2 + .75 + f * .13); dl(x, .1, fz, x, 3.56, fz); } });   // fluted pilasters
+  [-1, 1].forEach(sd => { dl(sd * IN, 4.62, fz, sd * (DOOR / 2 + .4), 4.62, fz); dl(sd * IN, 4.72, fz, sd * (DOOR / 2 + .4), 4.72, fz); });
+}));
+[-IN, IN].forEach(x => {                                                     // crown: double rule + chevron frieze along both walls
+  dl(x, 4.62, 0, x, 4.62, -100); dl(x, 4.72, 0, x, 4.72, -100); dl(x, .12, 0, x, .12, -100);
+  for (let z = 0; z > -100; z -= .5) { dl(x, 4.38, z, x, 4.56, z - .25); dl(x, 4.56, z - .25, x, 4.38, z - .5); }
+});
+[-1.05, -.95, .95, 1.05].forEach(x => dl(x, .012, 0, x, .012, -100));      // inlaid runner
+for (let z = -1; z > -100; z -= 2) { dl(-.95, .012, z, 0, .012, z - .7); dl(0, .012, z - .7, .95, .012, z); }
+ROOMS.forEach(r => {                                                         // sunburst medallion at each room's centre
+  const zc = (r.z0 + r.z1) / 2;
+  [1.0, 1.6].forEach(rad => { for (let a = 0; a < 48; a++) { const a0 = a / 48 * Math.PI * 2, a1 = (a + 1) / 48 * Math.PI * 2; dl(Math.cos(a0) * rad, .014, zc + Math.sin(a0) * rad, Math.cos(a1) * rad, .014, zc + Math.sin(a1) * rad); } });
+  for (let a = 0; a < 24; a++) { const t = a / 24 * Math.PI * 2; dl(Math.cos(t) * .35, .014, zc + Math.sin(t) * .35, Math.cos(t) * (a % 2 ? 1.0 : 1.6), .014, zc + Math.sin(t) * (a % 2 ? 1.0 : 1.6)); }
+});
+const decoGeo = new THREE.BufferGeometry(); decoGeo.setAttribute('position', new THREE.Float32BufferAttribute(dp, 3));
+building.add(new THREE.LineSegments(decoGeo, decoMat));
 building.scale.y = .001;
 
 const pts = [];
@@ -574,9 +650,11 @@ function holo(w, h, draw) {
   const g = c.getContext('2d'), W = c.width, H = c.height;
   g.fillStyle = 'rgba(90,169,255,.06)'; g.fillRect(0, 0, W, H);
   g.fillStyle = 'rgba(90,169,255,.05)'; for (let y = 0; y < H; y += 4) g.fillRect(0, y, W, 1);
-  g.strokeStyle = 'rgba(90,169,255,.55)'; g.lineWidth = 2; g.strokeRect(1, 1, W - 2, H - 2);
-  g.strokeStyle = '#9fd0ff'; g.lineWidth = 5; const k = Math.min(34, H / 4);
-  [[0, 0, 1, 1], [W, 0, -1, 1], [0, H, 1, -1], [W, H, -1, -1]].forEach(([x, y, sx, sy]) => { g.beginPath(); g.moveTo(x + sx * 3, y + sy * k); g.lineTo(x + sx * 3, y + sy * 3); g.lineTo(x + sx * k, y + sy * 3); g.stroke(); });
+  const cut = (i, c) => { g.beginPath(); g.moveTo(i + c, i); g.lineTo(W - i - c, i); g.lineTo(W - i, i + c); g.lineTo(W - i, H - i - c); g.lineTo(W - i - c, H - i); g.lineTo(i + c, H - i); g.lineTo(i, H - i - c); g.lineTo(i, i + c); g.closePath(); g.stroke(); };
+  const k = Math.min(26, H / 5);
+  g.strokeStyle = 'rgba(223,227,233,.75)'; g.lineWidth = 3; cut(2, k);          // outer rule, corners cut
+  g.strokeStyle = 'rgba(223,227,233,.3)'; g.lineWidth = 1.5; cut(11, k * .7);    // inner rule
+  g.fillStyle = '#dfe3e9'; g.beginPath(); g.moveTo(W / 2, 0); g.lineTo(W / 2 + 9, 9); g.lineTo(W / 2, 18); g.lineTo(W / 2 - 9, 9); g.fill();
   draw(g, W, H);
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
   const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, fog: false });
@@ -954,7 +1032,7 @@ function frame(now) {
   // 1. the plan draws itself, 2. walls rise, 3. the room fills
   planGeo.setDrawRange(0, Math.floor(ease(clamp((now - t0) / 2600, 0, 1)) * planCount / 2) * 2);
   const ex = ease(range(p, ...PH.extrude));
-  building.scale.y = Math.max(.001, ex); wallMat.opacity = ex; edgeMat.opacity = .9 - ex * .72;
+  building.scale.y = Math.max(.001, ex); wallMat.opacity = ex; decoMat.opacity = ex * .5; edgeMat.opacity = .9 - ex * .72;
   floor.material.opacity = ex; planMat.opacity = 1 - ex * .75; blueprint.material.opacity = .6 - ex * .45;
   ambient.intensity = ex * .5; hemi.intensity = ex * .7; roomLights.forEach(l => l.intensity = ex * 14);
   furniture.visible = ex > .6;
