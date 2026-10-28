@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David Olaniyan | Film & Space</title>
+<meta name="description" content="David Olaniyan: video editor, motion designer, AI video and archviz. Architect by training, editor by trade. Available for full-time, contract and freelance.">
+<meta property="og:title" content="David Olaniyan | Film & Space">
+<meta property="og:description" content="I design spaces. Then I walk you through them. YouTube, motion, AI video and architectural visualization.">
+<meta property="og:image" content="https://dhaveid.github.io/media/reel.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230a0a0b%27/%3E%3Cpath d=%27M7 25V7h18v18M7 16h8m4 0h6m-10 0a4 4 0 0 1 4-4%27 stroke=%27%235aa9ff%27 stroke-width=%272%27 fill=%27none%27/%3E%3C/svg%3E">
+<meta name="description" content="Video editor, motion designer, AI video creator and architectural visualizer based in Nigeria. Walk through the work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,100,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --card: #141518;
+    --text: #ededed;
+    --muted: #8b8f96;
+    --line: rgba(255, 255, 255, .1);
+    --blue: #5aa9ff;
+    --blue-dim: rgba(90, 169, 255, .28);
+    --red: #ff4d4d;
+    --radius: 6px;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --sans: "Archivo", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  .mono { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+
+  /* ---------- nav ---------- */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; pointer-events: none; }
+  .nav > * { pointer-events: auto; }
+  .nav::before { content: ""; position: absolute; inset: 0 0 -30px 0; z-index: -1; background: linear-gradient(rgba(10, 10, 11, .92), rgba(10, 10, 11, .6) 60%, transparent); opacity: 0; transition: opacity .3s; }
+  .nav.solid::before { opacity: 1; }
+  .brand { display: grid; grid-template-columns: auto auto; border: 1px solid var(--line); background: rgba(10, 10, 11, .55); backdrop-filter: blur(10px); }
+  .brand span { padding: 7px 12px; }
+  .brand span + span { border-left: 1px solid var(--line); color: var(--blue); }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a { padding: 9px 14px; color: var(--muted); transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .reel-btn { display: inline-flex; align-items: center; gap: 10px; padding: 9px 18px 9px 10px; border-radius: 999px; background: var(--text); color: var(--bg); font-weight: 650; font-size: 14px; transition: transform .2s cubic-bezier(.2, .8, .2, 1); }
+  .reel-btn:hover { transform: scale(1.04); }
+  .reel-btn i { width: 26px; height: 26px; border-radius: 50%; background: var(--blue); position: relative; }
+  .reel-btn i::after { content: ""; position: absolute; left: 10px; top: 8px; width: 0; height: 0; border-style: solid; border-width: 5px 0 5px 8px; border-color: transparent transparent transparent var(--bg); }
+
+  /* ---------- walkthrough ---------- */
+  .build { position: relative; height: 1700vh; }
+  .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, .6)); }
+  .bar { position: absolute; top: 0; left: 0; height: 2px; width: 100%; background: var(--blue); transform-origin: left; transform: scaleX(0); z-index: 5; }
+
+  .intro { position: absolute; left: 28px; bottom: 110px; max-width: 640px; pointer-events: none; transition: opacity .5s, transform .5s; text-shadow: 0 2px 24px var(--bg), 0 0 8px var(--bg); }
+  .intro h1 { font-size: clamp(44px, 7.4vw, 104px); line-height: .92; font-weight: 750; font-stretch: 112%; letter-spacing: -.025em; }
+  .intro h1 em { font-style: normal; color: var(--blue); }
+  .intro p { margin-top: 18px; color: var(--muted); font-size: 17px; max-width: 470px; line-height: 1.5; }
+
+  .titleblock { position: absolute; right: 28px; bottom: 28px; display: grid; grid-template-columns: auto auto; border: 1px solid var(--line); background: rgba(10, 10, 11, .6); backdrop-filter: blur(8px); transition: opacity .5s; }
+  .titleblock div { padding: 7px 12px; border-bottom: 1px solid var(--line); color: var(--muted); }
+  .titleblock div:nth-child(even) { color: var(--text); border-left: 1px solid var(--line); }
+  .titleblock div:nth-last-child(-n+2) { border-bottom: 0; }
+  .titleblock .live { color: var(--red); }
+
+  /* navigation guide */
+  .hint { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(8px); display: flex; align-items: center; gap: 12px; padding: 10px 16px 10px 12px; border-radius: 999px; background: rgba(10, 10, 11, .72); border: 1px solid var(--line); backdrop-filter: blur(10px); opacity: 0; transition: opacity .4s, transform .4s; pointer-events: none; white-space: nowrap; }
+  .hint.on { opacity: 1; transform: translateX(-50%); }
+  .hint b { color: var(--blue); font-weight: 500; }
+  .mouse { width: 18px; height: 28px; border: 1.5px solid var(--text); border-radius: 10px; position: relative; flex: none; }
+  .mouse::after { content: ""; position: absolute; left: 50%; top: 5px; width: 2px; height: 6px; margin-left: -1px; border-radius: 2px; background: var(--blue); animation: wheel 1.6s infinite; }
+  @keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(8px); opacity: 0; } 100% { opacity: 0; } }
+
+  .hud { position: absolute; top: 84px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; opacity: 0; transition: opacity .4s; white-space: nowrap; }
+  .hud.on { opacity: 1; }
+  .hud .pill { padding: 8px 14px; border-radius: 999px; background: rgba(10, 10, 11, .72); border: 1px solid var(--line); backdrop-filter: blur(10px); }
+  .hud .pill b { color: var(--blue); font-weight: 500; }
+  .hud .skip { padding: 8px 14px; border-radius: 999px; color: var(--muted); border: 1px solid var(--line); background: rgba(10, 10, 11, .5); backdrop-filter: blur(10px); }
+  .hud .skip:hover { color: var(--text); }
+
+  .minimap { position: absolute; left: 28px; bottom: 28px; padding: 12px 14px 10px; background: rgba(10, 10, 11, .72); border: 1px solid var(--line); border-radius: var(--radius); backdrop-filter: blur(10px); opacity: 0; transition: opacity .4s; }
+  .minimap.on { opacity: 1; }
+  .minimap .mono { color: var(--muted); display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .minimap svg { display: block; }
+  .minimap .room { fill: rgba(255, 255, 255, .03); stroke: rgba(255, 255, 255, .25); stroke-width: 1; cursor: pointer; transition: fill .2s; }
+  .minimap .room:hover, .minimap .room.cur { fill: rgba(90, 169, 255, .14); stroke: var(--blue); }
+  .minimap text { font-family: var(--mono); font-size: 8px; fill: var(--muted); letter-spacing: .08em; pointer-events: none; }
+  .minimap text.cur { fill: var(--text); }
+
+  .m-card { display: none; }
+  .loader { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; color: var(--muted); transition: opacity .6s; }
+  .loader.done { opacity: 0; pointer-events: none; }
+  .loader path { fill: none; stroke: var(--blue); stroke-width: 1.5; stroke-dasharray: 400; stroke-dashoffset: 400; animation: draft 1.8s ease-in-out infinite alternate; }
+  @keyframes draft { to { stroke-dashoffset: 0; } }
+
+  /* ---------- sections ---------- */
+  section.block { position: relative; padding: 140px 28px 60px; max-width: 1320px; margin: 0 auto; }
+  .eyebrow { color: var(--blue); display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ""; flex: 0 0 60px; height: 1px; background: var(--blue-dim); }
+  .block h2.big { font-size: clamp(36px, 5.4vw, 72px); font-weight: 720; font-stretch: 112%; letter-spacing: -.02em; line-height: .98; margin: 18px 0 14px; max-width: 900px; }
+  .lede { color: var(--muted); font-size: 18px; max-width: 640px; line-height: 1.55; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 40px 0 26px; }
+  .filters button { padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 14px; transition: color .2s, background-color .2s; }
+  .filters button:hover { color: var(--text); }
+  .filters button.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  .grid { columns: 3 320px; column-gap: 18px; }
+  .work { break-inside: avoid; margin-bottom: 18px; background: var(--card); border-radius: var(--radius); overflow: hidden; cursor: pointer; position: relative; transition: transform .35s cubic-bezier(.2, .8, .2, 1); }
+  .work:hover { transform: translateY(-4px); }
+  .work .media { position: relative; overflow: hidden; background: #000; }
+  .work.land .media { aspect-ratio: 16/9; }
+  .work.port .media { aspect-ratio: 9/14; }
+  .work img, .work video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .work video { opacity: 0; transition: opacity .3s; }
+  .work.playing video { opacity: 1; }
+  .work .meta { padding: 14px 16px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .work h3 { font-size: 17px; font-weight: 650; }
+  .work .client { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .work .tag { color: var(--blue); white-space: nowrap; }
+  .work.hide { display: none; }
+
+  .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; margin-top: 44px; }
+  .case { border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; background: linear-gradient(180deg, rgba(90, 169, 255, .05), transparent); display: flex; flex-direction: column; gap: 14px; }
+  .case .num { color: var(--blue); }
+  .case h3 { font-size: 24px; font-stretch: 108%; line-height: 1.08; }
+  .case dl { display: grid; grid-template-columns: 70px 1fr; gap: 8px 12px; font-size: 14.5px; line-height: 1.45; }
+  .case dt { color: var(--blue); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding-top: 3px; }
+  .case dd { color: var(--muted); }
+  .case .stats { display: flex; gap: 22px; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); }
+  .case .stats b { display: block; font-size: 26px; font-stretch: 110%; }
+  .case .stats small { color: var(--muted); font-size: 12px; }
+  .todo { color: var(--red); }
+
+  .process { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 44px; }
+  .process div { background: var(--bg); padding: 26px; }
+  .process b { display: block; font-size: 34px; font-stretch: 110%; margin: 10px 0 6px; }
+  .process p { color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+
+  /* about: life in clips */
+  .about-top { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: end; }
+  .about-top p { color: var(--muted); font-size: 17px; line-height: 1.65; margin-top: 14px; }
+  .clips { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 120px; gap: 12px; margin-top: 44px; }
+  .clip { position: relative; border-radius: var(--radius); overflow: hidden; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .025) 0 2px, transparent 2px 4px), linear-gradient(140deg, #17181b, #0d0d0f); border: 1px dashed rgba(255, 255, 255, .16); display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; }
+  .clip:nth-child(1) { grid-column: span 5; grid-row: span 3; }
+  .clip:nth-child(2) { grid-column: span 4; grid-row: span 2; }
+  .clip:nth-child(3) { grid-column: span 3; grid-row: span 2; }
+  .clip:nth-child(4) { grid-column: span 3; grid-row: span 2; }
+  .clip:nth-child(5) { grid-column: span 4; grid-row: span 2; }
+  .clip:nth-child(6) { grid-column: span 5; grid-row: span 1; }
+  .clip .rec { position: absolute; top: 14px; left: 16px; display: flex; align-items: center; gap: 7px; color: var(--muted); }
+  .clip .rec::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: blink 1.4s infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+  .clip h4 { font-size: 19px; font-stretch: 108%; }
+  .clip p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .tools span { border: 1px solid var(--line); padding: 7px 11px; border-radius: 999px; font-size: 13px; }
+
+  .contact { text-align: center; padding: 160px 28px 120px; border-top: 1px solid var(--line); }
+  .contact h2 { font-size: clamp(44px, 9vw, 140px); font-weight: 760; font-stretch: 115%; letter-spacing: -.03em; line-height: .9; }
+  .contact h2 em { font-style: normal; color: var(--blue); }
+  .contact .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
+  .socials { display: flex; justify-content: center; gap: 28px; margin-top: 34px; }
+  .socials a { color: var(--muted); text-decoration: none; }
+  .socials a:hover { color: var(--blue); }
+  .btn { padding: 15px 24px; border-radius: 999px; border: 1px solid var(--line); font-weight: 600; }
+  .btn.solid { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 22px 28px; color: var(--muted); border-top: 1px solid var(--line); }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s, transform .8s cubic-bezier(.2, .8, .2, 1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- modal ---------- */
+  .modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: rgba(3, 3, 4, .88); backdrop-filter: blur(12px); opacity: 0; pointer-events: none; transition: opacity .3s; padding: 24px; }
+  .modal.on { opacity: 1; pointer-events: auto; }
+  .modal-inner { width: min(1100px, 100%); display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; align-items: center; transform: scale(.82); transition: transform .4s cubic-bezier(.2, .8, .2, 1); }
+  .modal-inner.solo { grid-template-columns: 1fr; width: min(620px, 100%); }
+  .modal .mbody { background: rgba(14, 16, 20, .9); border: 1px solid var(--blue-dim); border-radius: var(--radius); padding: 28px; position: relative; }
+  .modal .mbody::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; background: linear-gradient(180deg, rgba(90, 169, 255, .1), transparent 40%); pointer-events: none; }
+  .modal .msub { color: var(--text); opacity: .75; margin-top: -4px; }
+  .modal dl { display: grid; grid-template-columns: 70px 1fr; gap: 6px 14px; margin: 16px 0; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .modal dl:empty { display: none; }
+  .modal dt { color: var(--blue); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding-top: 3px; }
+  .modal .acts { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+  .modal .acts:empty { display: none; }
+  .modal .acts button { text-align: left; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius); transition: border-color .2s, background-color .2s; }
+  .modal .acts button:hover { border-color: var(--blue); background: rgba(90, 169, 255, .08); }
+  .modal .hint-close { margin-top: 14px; color: var(--muted); }
+  .tip { position: fixed; left: 0; top: 0; z-index: 60; padding: 7px 12px; border-radius: 999px; background: rgba(10, 10, 11, .85); border: 1px solid var(--blue-dim); color: var(--text); opacity: 0; pointer-events: none; transition: opacity .2s; white-space: nowrap; }
+  .tip.on { opacity: 1; }
+  .tip b { color: var(--blue); font-weight: 500; }
+  .modal.on .modal-inner { transform: none; }
+  .modal video { width: 100%; max-height: 78vh; border-radius: var(--radius); background: #000; }
+  .modal h3 { font-size: 32px; font-stretch: 110%; line-height: 1.02; margin: 10px 0 12px; }
+  .modal p { color: var(--muted); line-height: 1.6; }
+  .modal .note { margin-top: 18px; color: var(--blue); }
+  .close { position: absolute; top: 20px; right: 24px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); font-size: 20px; }
+
+  @media (max-width: 860px) {
+    .nav { padding: 14px 16px; }
+    .nav-links a { display: none; }
+    .brand span:last-child { display: none; }
+    .intro { left: 16px; right: 16px; bottom: 120px; }
+    .titleblock, .minimap { display: none; }
+    .hud { top: 72px; }
+    .hint { white-space: normal; width: max-content; max-width: calc(100vw - 32px); bottom: 20px; }
+    .hint b { white-space: nowrap; }
+    .hud .skip { display: none; }
+    .m-card { display: block; position: absolute; left: 16px; right: 16px; bottom: 84px; padding: 18px; background: rgba(10, 10, 11, .8); backdrop-filter: blur(14px); border: 1px solid var(--blue-dim); border-radius: var(--radius); opacity: 0; transform: translateY(16px); transition: opacity .4s, transform .4s; pointer-events: none; }
+    .m-card.on { opacity: 1; transform: none; }
+    .m-card .mono { color: var(--blue); }
+    .m-card h3 { font-size: 22px; margin: 6px 0; font-stretch: 108%; }
+    .m-card p { color: var(--muted); font-size: 14px; line-height: 1.5; }
+    section.block { padding: 110px 16px 40px; }
+    .about-top { grid-template-columns: 1fr; gap: 10px; }
+    .clips { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; }
+    .clip:nth-child(n) { grid-column: span 1; grid-row: span 1; }
+    .clip:nth-child(1) { grid-column: span 2; }
+    .modal-inner { grid-template-columns: 1fr; }
+    .foot { padding: 20px 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#top" class="brand mono"><span>David Olaniyan</span><span>Film &amp; Space</span></a>
+  <div class="nav-links mono">
+    <a href="#work">All work</a><a href="#cases">Case studies</a><a href="#about">About</a><a href="#contact">Contact</a>
+    <button class="reel-btn" data-reel><i></i>Reel</button>
+  </div>
+</nav>
+
+<!-- ============ THE WALKTHROUGH ============ -->
+<div class="loader" id="loader"><svg width="120" height="80" viewBox="0 0 120 80"><path d="M10 70V10h100v60H10M10 40h45M75 40h35M55 40a20 20 0 0 1 20 -20" /></svg><span class="mono">Drafting the building</span></div>
+<header class="build" id="top">
+  <div class="stage">
+    <canvas id="gl"></canvas>
+    <div class="vignette"></div>
+    <div class="bar" id="bar"></div>
+
+    <div class="intro" id="intro">
+      <div class="mono" style="color:var(--blue)">Video editor / Motion designer / AI video / Archviz</div>
+      <h1>I design spaces.<br><em>Then I walk you through them.</em></h1>
+      <p>Architect by training, editor by trade. Every project here is a walk-through: a space, a story, a reason to keep watching. Scroll to step inside.</p>
+    </div>
+
+    <div class="titleblock mono" id="titleblock">
+      <div>Project</div><div>Portfolio 2026</div>
+      <div>Drawn by</div><div>D. O. Olaniyan</div>
+      <div>Location</div><div>Akure, NG (UTC+1)</div>
+      <div>Status</div><div class="live">&#9679; Available</div>
+    </div>
+
+    <div class="hud mono" id="hud">
+      <span class="pill" id="hudRoom">Lobby</span>
+      <button class="skip" id="skip">Skip the tour &darr;</button>
+    </div>
+
+    <div class="minimap" id="minimap">
+      <div class="mono"><span id="mmName">Floor plan</span><span id="mmCount">00 / 05</span></div>
+      <svg id="mm" width="300" height="64" viewBox="0 0 300 64"></svg>
+    </div>
+
+    <div class="hint mono" id="hint"><span class="mouse"></span><span id="hintText">Scroll to walk in</span></div>
+
+    <div class="m-card" id="mcard"><div class="mono" id="mcTag"></div><h3 id="mcTitle"></h3><p id="mcDesc"></p></div>
+  </div>
+</header>
+
+<!-- ============ ALL WORK ============ -->
+<section class="block" id="work">
+  <div class="eyebrow mono reveal">All work</div>
+  <h2 class="big reveal">Every room, on one wall.</h2>
+  <p class="lede reveal" id="worklede">The quick view, if you skipped the tour. Hover to preview. Click for the story behind each piece.</p>
+  <div class="filters reveal" id="filters">
+    <button class="on" data-f="all">All</button>
+    <button data-f="youtube">Story / YouTube</button>
+    <button data-f="motion">Rhythm / Motion</button>
+    <button data-f="ai">Scale / AI video</button>
+    <button data-f="archviz">Space / Archviz</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- ============ CASE STUDIES ============ -->
+<section class="block" id="cases">
+  <div class="eyebrow mono reveal">Case studies</div>
+  <h2 class="big reveal">The long game.</h2>
+  <p class="lede reveal">What happened when a client stayed.</p>
+  <div class="cases">
+    <article class="case reveal">
+      <div class="num mono">01 / TARS</div>
+      <h3>YouTube for an AI SaaS company</h3>
+      <dl><dt>Goal</dt><dd>Grow a founder-led channel and creator videos for an AI agent platform.</dd><dt>Role</dt><dd>Longform + Shorts editor, motion, AI-assisted b-roll pipeline, hover-preview hooks.</dd><dt>Result</dt><dd>Edits for 6+ creators across two channels, including the AI FOMO explainer series, a monthly AI-anchored news show and AI narrative shorts.</dd></dl>
+      <div class="stats"><div><b>11+</b><small>longforms</small></div><div><b>6+</b><small>creators</small></div><div><b>2</b><small>channels</small></div></div>
+    </article>
+    <article class="case reveal">
+      <div class="num mono">02 / Move9ja &rarr; WiaMove</div>
+      <h3>Two years and a rebrand</h3>
+      <dl><dt>Goal</dt><dd>Launch and grow a Nigerian flight and travel booking app.</dd><dt>Role</dt><dd>Launch films, app UI motion, mascot animation, UGC edits, and the rebrand film start to finish.</dd><dt>Result</dt><dd>One consistent visual voice across 60+ videos through a full rebrand.</dd></dl>
+      <div class="stats"><div><b>60+</b><small>videos</small></div><div><b>2 yrs</b><small>partnership</small></div><div><b>1</b><small>rebrand</small></div></div>
+    </article>
+    <article class="case reveal">
+      <div class="num mono">03 / Borderless &times; AfriChange</div>
+      <h3>A fintech event, end to end</h3>
+      <dl><dt>Goal</dt><dd>Build hype for The Borderless Experience 2026 in Lagos.</dd><dt>Role</dt><dd>Motion graphics lead and video editor: speaker and sponsor announcements, founder interviews, explainers, countdowns, recap.</dd><dt>Result</dt><dd>A full content campaign from first teaser to post-event review.</dd></dl>
+      <div class="stats"><div><b>~20</b><small>deliverables</small></div><div><b>500+</b><small>attendees</small></div></div>
+    </article>
+    <article class="case reveal">
+      <div class="num mono">04 / HYPE Empire</div>
+      <h3>Agency motion for edtech &amp; events</h3>
+      <dl><dt>Goal</dt><dd>Turn event results into proof that sells the next event.</dd><dt>Role</dt><dd>Video editing lead: kinetic case-study films, anniversary film, campaign promos.</dd><dt>Result</dt><dd>Case-study films like AltSchool sTaRt that turn one event into the pitch for the next.</dd></dl>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="block" id="process">
+  <div class="eyebrow mono reveal">How I work</div>
+  <h2 class="big reveal">Fast, clear, on your clock.</h2>
+  <div class="process reveal">
+    <div><span class="mono" style="color:var(--blue)">First cut</span><b>48–72h</b><p>For a standard longform. Shorts in 24h.</p></div>
+    <div><span class="mono" style="color:var(--blue)">Revisions</span><b>24h</b><p>Two rounds included. Send notes however suits you: a doc, a PDF or timestamps.</p></div>
+    <div><span class="mono" style="color:var(--blue)">Overlap</span><b>UTC+1</b><p>Full overlap with UK/EU, mornings with US East.</p></div>
+    <div><span class="mono" style="color:var(--blue)">Updates</span><b>Daily</b><p>Check-ins on whatever channel your team already uses. You never chase me.</p></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT: OFF THE CLOCK ============ -->
+<section class="block" id="about">
+  <div class="about-top">
+    <div>
+      <div class="eyebrow mono reveal">About / Off the clock</div>
+      <h2 class="big reveal">Less résumé.<br>More rushes.</h2>
+    </div>
+    <div class="reveal">
+      <p>I'm David Oluwabukunmi Olaniyan, a video editor and motion designer finishing a master's in architecture at FUTA, Nigeria. Architecture taught me composition, light and how people move through space. Editing taught me how they move through time.</p>
+      <p>Off the clock you'll find me sketching, on a basketball court, buried in a book or out on a long walk. All four feed the work.</p>
+    </div>
+  </div>
+  <div class="tools reveal">
+    <span>Premiere Pro</span><span>After Effects</span><span>DaVinci Resolve</span><span>Photoshop</span><span>Veo / Flow</span><span>ElevenLabs</span><span>Claude Code</span><span>Twinmotion</span><span>D5 Render</span>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="mono reveal" style="color:var(--blue)">Exit / Next project</div>
+  <h2 class="reveal" style="margin-top:20px">Let's build<br><em>something.</em></h2>
+  <div class="actions reveal">
+    <a class="btn solid" href="mailto:davielaniyanb@gmail.com">davielaniyanb@gmail.com</a>
+    <a class="btn" href="https://wa.me/2348093493835" target="_blank" rel="noopener">WhatsApp me</a>
+    <button class="btn" data-reel>Watch the reel</button>
+  </div>
+<p class="socials mono reveal"><a href="https://www.linkedin.com/in/dhaveid" target="_blank" rel="noopener">LinkedIn</a><a href="https://instagram.com/dha_veid_" target="_blank" rel="noopener">Instagram</a><a href="https://twitter.com/Dha_veid" target="_blank" rel="noopener">X</a></p>
+</section>
+<footer class="foot mono"><span>&copy; 2026 David Oluwabukunmi Olaniyan</span><span>Available for full-time, contract &amp; freelance</span><span>Akure &rarr; Anywhere</span></footer>
+
+<!-- ============ MODAL ============ -->
+<div class="modal" id="modal">
+  <button class="close" id="close" aria-label="Close">&times;</button>
+  <div class="modal-inner" id="minner">
+    <video id="mvideo" playsinline loop muted controls></video>
+    <div class="mbody">
+      <div class="mono" id="mtag" style="color:var(--blue)"></div>
+      <h3 id="mtitle"></h3>
+      <div class="msub" id="msub"></div>
+      <dl id="mrows"></dl>
+      <p id="mdesc"></p>
+      <div class="acts" id="macts"></div>
+      <p class="note mono" id="mnote"></p>
+      <p class="hint-close mono">Click outside to go back</p>
+    </div>
+  </div>
+</div>
+<div class="tip mono" id="tip">Click for <b>details</b></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+
+/* =====================================================================
+   CONTENT
+   ===================================================================== */
+const WORKS = {
+  'tars-longform': { t: 'Claude Code builds a YouTube channel', c: 'TARS / YouTube longform', f: 'youtube', o: 'land', yt: '6gx4nWOU0qg', role: 'Edit, motion, AI b-roll pipeline', tools: 'Premiere / After Effects / Claude Code', d: 'Founder-led longform for an AI SaaS company. Animated UI breakdowns, terminal walkthroughs and hooks built for retention.' },
+  'tokens': { t: 'What are tokens in AI?', c: 'TARS / AI FOMO series', f: 'youtube', o: 'land', yt: 'hZrXS1sTxyE', role: 'Edit, motion graphics, series look', tools: 'Premiere / After Effects', d: 'The lead episode of AI FOMO, an explainer series I edit for TARS. Words split into tokens on screen, a live cost counter, context-window diagrams and chalkboard tips turn an abstract idea into something you can watch.', more: [['System prompts', 'YL0h_X3Sjfg'], ['Prompt engineering', 'g0uWbivAZsc'], ['AI hallucinations', 'vg22qbdl2MQ']] },
+  'test-edit': { t: 'Why AI products fail', c: 'Creator edit / YouTube', f: 'youtube', o: 'land', full: 1, d: 'Talking-head longform with animated book pages, graph overlays and UI inserts that keep the argument visual.' },
+  'anna': { t: 'When AI support gets it right, but still wrong', c: 'TARS / YouTube longform', f: 'youtube', o: 'land', yt: '40sibixDd_I', d: 'An explainer on AI customer support with illustrated scenes, chatbot UI recreations and animated checklists.' },
+  'podcast-trailer': { t: 'Podcast trailer', c: 'TARS / Trailer', f: 'youtube', o: 'land', full: 1, d: 'A 30-second trailer cut like a film teaser: cold open, kinetic text and icon animation.' },
+  'habaripay': { t: 'HabariPay breakdown', c: 'Saamu Eleja / YouTube', f: 'youtube', o: 'land', d: 'A 15-minute fintech longform with website callouts, product inserts and clean talking-head pacing.' },
+  'altschool': { t: 'sTaRt made impact', c: 'HYPE Empire / AltSchool', f: 'motion', o: 'land', role: 'Kinetic type, edit, sound', tools: 'After Effects / Premiere', d: 'An event case-study film made for HYPE Empire. Bold kinetic type and real community footage turn one event into the pitch for the next edition.' },
+  'builders': { t: 'Cool kids work in fintech', c: 'Borderless × AfriChange', f: 'motion', o: 'land', role: 'Motion graphics lead, edit', d: 'Giant kinetic headlines layered with the speaker. Part of a 20+ video campaign for a Lagos fintech event.' },
+  'edge-cases': { t: "Edge cases aren't edge cases", c: 'TARS / Short', f: 'motion', o: 'port', yt: 'R-Nks71zI1Q', short: 1, d: 'A vertical explainer with a holographic HUD language: face scans, neon UI panels and data callouts.' },
+  'metrics': { t: 'The Metrics identity', c: 'The Metrics / Brand motion', f: 'motion', o: 'port', d: 'A brand identity reveal: 3D logo build, phone mockups and editorial type.' },
+  'move9ja': { t: 'Travel lite insurance', c: 'Move9ja / Product promo', f: 'motion', o: 'port', d: 'From a two-year partnership with a Nigerian travel app: brand system, UI motion and character animation.' },
+  'chaos': { t: 'Press 1 for Chaos', c: 'TARS / AI-anchored news show', f: 'ai', o: 'land', yt: 'IWKu6zyaBVs', role: 'Direction, AI generation, edit', tools: 'Veo / ElevenLabs / Premiere', d: 'An AI-generated narrative short: robot desk scenes, an angry candle and illustrated crowds, cut to a news-broadcast frame.' },
+  'spark': { t: 'SPARK collage promo', c: 'Spec / AI-assisted pipeline', f: 'ai', o: 'port', full: 1, d: 'A viral collage-style promo rebuilt with an AI image pipeline, 3D-composited paper layers and generated music.' },
+  'maven': { t: 'Indulge in radiance', c: 'Spec / Beauty ad', f: 'ai', o: 'land', full: 1, d: 'A premium skincare spot with elegant serif typography and soft, warm grading.' },
+  'lakowe': { t: 'Lakowe residence', c: 'Private client / Walkthrough', f: 'archviz', o: 'land', role: 'Interior viz, camera, edit', tools: 'Twinmotion / D5 / Premiere', d: 'A full interior walkthrough: double-height living room, walk-in closet and a marble-and-gold bath.' },
+  'building': { t: 'Terrace house showcase', c: 'Archviz / Exterior', f: 'archviz', o: 'land', full: 1, d: 'Exterior visualization of a contemporary terrace development with street context.' },
+  'northgate': { t: 'FUTA North Gate', c: 'Archviz / Campus', f: 'archviz', o: 'land', full: 1, d: 'A campus gateway and landscape proposal, rendered in 4K with aerial and ground-level sequences.' },
+};
+const TAGS = { youtube: 'Story / YouTube', motion: 'Rhythm / Motion', ai: 'Scale / AI', archviz: 'Space / Archviz' };
+
+// The building: rooms run along -Z and every door sits on the centre line (x = 0).
+const ROOMS = [
+  { key: 'lobby', no: '00', theme: 'Lobby', name: 'Film & Space', z0: 0, z1: -14 },
+  { key: 'youtube', no: '01', theme: 'Story', name: 'YouTube & creators', z0: -14, z1: -32, main: 'tars-longform', frames: ['tokens', 'anna', 'podcast-trailer', 'habaripay'], line: 'Every edit starts with a reason to keep watching.' },
+  { key: 'motion', no: '02', theme: 'Rhythm', name: 'Motion & brand', z0: -32, z1: -50, main: 'altschool', frames: ['builders', 'edge-cases', 'metrics', 'move9ja'], line: 'Motion gives the story a pulse.' },
+  { key: 'ai', no: '03', theme: 'Scale', name: 'AI video', z0: -50, z1: -68, main: 'chaos', frames: ['spark', 'maven'], line: 'AI lets one editor direct a whole crew.' },
+  { key: 'archviz', no: '04', theme: 'Space', name: 'Architectural viz', z0: -68, z1: -86, main: 'lakowe', frames: ['building', 'northgate'], line: 'Where the architect in me shows up.' },
+  { key: 'about', no: '05', theme: 'The person', name: 'Off the clock', z0: -86, z1: -100, line: 'The habits behind the work.' },
+];
+
+/* =====================================================================
+   WORK GRID + MODAL (the quick view below the building)
+   ===================================================================== */
+const grid = document.getElementById('grid');
+grid.innerHTML = Object.entries(WORKS).map(([id, w]) => `
+  <article class="work ${w.o} reveal" data-f="${w.f}" data-id="${id}">
+    <div class="media"><img src="media/${id}.jpg" alt="" loading="lazy"><video src="media/${id}.mp4" muted loop playsinline preload="none"></video></div>
+    <div class="meta"><div><h3>${w.t}</h3><div class="client">${w.c}</div></div><span class="tag mono">${TAGS[w.f]}</span></div>
+  </article>`).join('');
+
+const canHover = matchMedia('(hover: hover)').matches;
+if (!canHover) document.getElementById('worklede').textContent = 'The quick view, if you skipped the tour. Previews play as you scroll; tap for the story.';
+grid.querySelectorAll('.work').forEach(card => {
+  const v = card.querySelector('video');
+  const play = () => v.play().then(() => card.classList.add('playing')).catch(() => {});
+  const stop = () => { v.pause(); card.classList.remove('playing'); };
+  if (canHover) { card.addEventListener('mouseenter', play); card.addEventListener('mouseleave', stop); }
+  else new IntersectionObserver(([e]) => e.isIntersecting ? play() : stop(), { threshold: .6 }).observe(card);
+  card.addEventListener('click', () => openModal(card.dataset.id));
+});
+function setFilter(f) {
+  document.querySelectorAll('#filters button').forEach(b => b.classList.toggle('on', b.dataset.f === f));
+  grid.querySelectorAll('.work').forEach(c => c.classList.toggle('hide', f !== 'all' && c.dataset.f !== f));
+}
+document.querySelectorAll('#filters button').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.f)));
+
+const modal = document.getElementById('modal'), mv = document.getElementById('mvideo'), minner = document.getElementById('minner');
+const el = id => document.getElementById(id);
+// generic pop-up: video (optional), title block, credit rows, description, actions
+function openPopup(o, ev) {
+  minner.classList.toggle('solo', !o.video); mv.style.display = o.video ? '' : 'none';
+  if (o.video) { mv.muted = !o.sound; mv.loop = !o.sound; mv.src = o.video; mv.play().catch(() => { mv.muted = true; mv.play().catch(() => {}); }); } else { mv.pause(); mv.removeAttribute('src'); }
+  el('mtag').textContent = o.tag || ''; el('mtitle').textContent = o.title || ''; el('msub').textContent = o.sub || '';
+  el('mrows').innerHTML = (o.rows || []).filter(r => r[1]).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+  el('mdesc').textContent = o.desc || ''; el('mnote').textContent = o.note || '';
+  const acts = el('macts'); acts.innerHTML = '';
+  (o.actions || []).forEach(a => { const b = document.createElement('button'); b.innerHTML = a.label; b.addEventListener('click', a.fn); acts.appendChild(b); });
+  modal.classList.add('on');
+  if (ev) { const r = minner.getBoundingClientRect(); minner.style.transformOrigin = `${ev.clientX - r.left}px ${ev.clientY - r.top}px`; } else minner.style.transformOrigin = '';
+  lenis.stop();
+}
+function openModal(id, ev) {
+  if (!id) return openPopup({ video: 'media/reel.mp4', tag: 'Sizzle 2026', title: 'Every room in 30 seconds', desc: 'A quick cut across YouTube, motion, AI video and archviz. Click any piece in the building or the grid for the full video.' }, ev);
+  const w = WORKS[id], yt = v => `https://www.youtube.com/${w.short && v === w.yt ? 'shorts/' : 'watch?v='}${v}`;
+  const actions = [];
+  if (w.yt) actions.push({ label: 'Watch the full video on YouTube &nearr;', fn: () => open(yt(w.yt), '_blank', 'noopener') });
+  (w.more || []).forEach(([t, v]) => actions.push({ label: `<span class="mono" style="color:var(--blue)">Series</span>&nbsp;&nbsp;${t} &nearr;`, fn: () => open(yt(v), '_blank', 'noopener') }));
+  openPopup({ video: w.full ? `media/full/${id}.mp4` : `media/${id}.mp4`, sound: !!w.full, tag: TAGS[w.f], title: w.t, sub: w.c, rows: [['Role', w.role], ['Tools', w.tools]], desc: w.d, actions, note: w.full ? 'Full video. Sound on.' : w.yt ? 'Preview clip. Full video on YouTube.' : 'Preview clip. Full video available on request.' }, ev);
+}
+function closeModal() { if (!modal.classList.contains('on')) return; modal.classList.remove('on'); mv.pause(); lenis.start(); }
+document.getElementById('close').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (!minner.contains(e.target)) closeModal(); });
+addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.querySelectorAll('[data-reel]').forEach(b => b.addEventListener('click', () => openModal(null)));
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+const lenis = new Lenis({ lerp: .08 });
+document.querySelectorAll('.nav a[href^="#"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(a.getAttribute('href'), { offset: -10 }); }));
+document.getElementById('skip').addEventListener('click', () => lenis.scrollTo('#work', { offset: -10 }));
+(function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+
+/* =====================================================================
+   THE BUILDING
+   ===================================================================== */
+await Promise.all([document.fonts.load('700 60px Archivo'), document.fonts.load('italic 400 30px Archivo'), document.fonts.load('500 24px "IBM Plex Mono"')]);
+
+const canvas = document.getElementById('gl');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+RectAreaLightUniformsLib.init();
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0a0b);
+scene.fog = new THREE.Fog(0x0a0a0b, 14, 50);
+const camera = new THREE.PerspectiveCamera(52, 1, .1, 400);
+
+const BLUE = 0x5aa9ff, RED = '#ff4d4d';
+const HALF = 8, WH = 5, T = .3, DOOR = 2.6, EYE = 1.68, WALL = HALF - .17;
+const v3 = (x, y, z) => new THREE.Vector3(x, y, z);
+const loader = new THREE.TextureLoader();
+
+const blueprint = new THREE.GridHelper(220, 110, 0x1c2f45, 0x121c28);
+blueprint.position.set(0, 0, -50); blueprint.material.transparent = true; scene.add(blueprint);
+
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(HALF * 2, 104), new THREE.MeshStandardMaterial({ color: 0x0f1012, roughness: .42, metalness: .25, transparent: true, opacity: 0 }));
+floor.rotation.x = -Math.PI / 2; floor.position.set(0, .005, -52); scene.add(floor);
+
+/* ---- walls, lintels and the 2D plan ---- */
+const BOUNDS = [0, -14, -32, -50, -68, -86, -100];
+const walls = [[-HALF, 0, -HALF, -100], [HALF, 0, HALF, -100]];
+BOUNDS.forEach(z => { walls.push([-HALF, z, -DOOR / 2, z]); walls.push([DOOR / 2, z, HALF, z]); });
+
+const building = new THREE.Group(); scene.add(building);
+const wallMat = new THREE.MeshStandardMaterial({ color: 0x41454c, roughness: .9, transparent: true, opacity: 0 });
+const edgeMat = new THREE.LineBasicMaterial({ color: BLUE, transparent: true, opacity: .9, fog: false });
+function solid(geo, x, y, z) {
+  const m = new THREE.Mesh(geo, wallMat); m.position.set(x, y, z); building.add(m);
+  const e = new THREE.LineSegments(new THREE.EdgesGeometry(geo), edgeMat); e.position.copy(m.position); building.add(e);
+}
+walls.forEach(([x1, z1, x2, z2]) => {
+  const vertical = x1 === x2, len = Math.hypot(x2 - x1, z2 - z1) + T;
+  solid(new THREE.BoxGeometry(vertical ? T : len, WH, vertical ? len : T), (x1 + x2) / 2, WH / 2, (z1 + z2) / 2);
+});
+BOUNDS.forEach(z => solid(new THREE.BoxGeometry(DOOR, WH - 3.2, T), 0, (WH + 3.2) / 2, z));
+building.scale.y = .001;
+
+const pts = [];
+const seg = (a, b, c, d) => pts.push(a, .02, b, c, .02, d);
+walls.forEach(([x1, z1, x2, z2]) => {
+  const h = T / 2;
+  if (x1 === x2) { seg(x1 - h, z1, x1 - h, z2); seg(x1 + h, z1, x1 + h, z2); }
+  else { seg(x1, z1 - h, x2, z1 - h); seg(x1, z1 + h, x2, z1 + h); }
+});
+BOUNDS.forEach(z => {  // door swings
+  const cx = -DOOR / 2, n = 14;
+  for (let i = 0; i < n; i++) { const a0 = -Math.PI / 2 * i / n, a1 = -Math.PI / 2 * (i + 1) / n; seg(cx + DOOR * Math.cos(a0), z + DOOR * Math.sin(a0), cx + DOOR * Math.cos(a1), z + DOOR * Math.sin(a1)); }
+  seg(cx, z, cx, z - DOOR);
+});
+seg(-10.5, 0, -10.5, -100); BOUNDS.forEach(z => seg(-11, z, -10, z));
+ROOMS.forEach(r => { const zc = (r.z0 + r.z1) / 2; seg(-.5, zc, .5, zc); seg(0, zc - .5, 0, zc + .5); });
+const planGeo = new THREE.BufferGeometry();
+planGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+const planMat = new THREE.LineBasicMaterial({ color: BLUE, transparent: true, fog: false });
+scene.add(new THREE.LineSegments(planGeo, planMat));
+const planCount = pts.length / 3; planGeo.setDrawRange(0, 0);
+
+/* ---- holographic panels, drawn to canvas ---- */
+const MONO = '"IBM Plex Mono", monospace', SANS = 'Archivo, sans-serif';
+function holo(w, h, draw) {
+  const c = document.createElement('canvas'), s = 1024 / Math.max(w, h);
+  c.width = Math.round(w * s); c.height = Math.round(h * s);
+  const g = c.getContext('2d'), W = c.width, H = c.height;
+  g.fillStyle = 'rgba(90,169,255,.06)'; g.fillRect(0, 0, W, H);
+  g.fillStyle = 'rgba(90,169,255,.05)'; for (let y = 0; y < H; y += 4) g.fillRect(0, y, W, 1);
+  g.strokeStyle = 'rgba(90,169,255,.55)'; g.lineWidth = 2; g.strokeRect(1, 1, W - 2, H - 2);
+  g.strokeStyle = '#9fd0ff'; g.lineWidth = 5; const k = Math.min(34, H / 4);
+  [[0, 0, 1, 1], [W, 0, -1, 1], [0, H, 1, -1], [W, H, -1, -1]].forEach(([x, y, sx, sy]) => { g.beginPath(); g.moveTo(x + sx * 3, y + sy * k); g.lineTo(x + sx * 3, y + sy * 3); g.lineTo(x + sx * k, y + sy * 3); g.stroke(); });
+  draw(g, W, H);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
+  return new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+}
+function wrap(g, text, x, y, maxW, lh) {
+  let line = '';
+  for (const w of text.split(' ')) { const t = line ? line + ' ' + w : w; if (g.measureText(t).width > maxW && line) { g.fillText(line, x, y); y += lh; line = w; } else line = t; }
+  if (line) g.fillText(line, x, y); return y + lh;
+}
+function fit(g, text, weight, size, family, maxW) { while (size > 10) { g.font = `${weight} ${size}px ${family}`; if (g.measureText(text).width <= maxW) break; size -= 2; } }
+function infoPanel(room, w) {
+  return holo(3.4, 2.5, (g, W, H) => {
+    const pad = 52; let y = 86;
+    g.fillStyle = '#5aa9ff'; g.font = `500 24px ${MONO}`; g.fillText(`${room.no} / ${room.theme.toUpperCase()} / ${room.name.toUpperCase()}`, pad, y);
+    g.fillStyle = RED; g.beginPath(); g.arc(W - pad - 168, y - 8, 7, 0, 7); g.fill(); g.font = `500 20px ${MONO}`; g.fillText('NOW SHOWING', W - pad - 152, y);
+    y += 74; g.fillStyle = '#eef6ff'; g.font = `700 64px ${SANS}`; y = wrap(g, w.t, pad, y, W - pad * 2, 68);
+    g.fillStyle = '#b8d6f5'; g.font = `400 30px ${SANS}`; g.fillText(w.c, pad, y + 2); y += 56;
+    g.fillStyle = 'rgba(90,169,255,.4)'; g.fillRect(pad, y, W - pad * 2, 2); y += 52;
+    [['ROLE', w.role], ['TOOLS', w.tools]].forEach(([k, v]) => { g.fillStyle = '#5aa9ff'; g.font = `500 22px ${MONO}`; g.fillText(k, pad, y); g.fillStyle = '#e1eefc'; g.font = `500 28px ${SANS}`; g.fillText(v, pad + 130, y); y += 46; });
+    y += 14; g.fillStyle = '#c9dcf0'; g.font = `400 29px ${SANS}`; wrap(g, w.d, pad, y, W - pad * 2, 40);
+    g.fillStyle = '#5aa9ff'; g.font = `italic 400 27px ${SANS}`; g.fillText('"' + room.line + '"', pad, H - 46);
+  });
+}
+function label(w, title, sub) {
+  return holo(w, w * .24, (g, W, H) => {
+    g.fillStyle = '#eef6ff'; fit(g, title, 700, Math.round(H * .3), SANS, W - 56); g.fillText(title, 28, H * .47);
+    g.fillStyle = '#8fbfee'; fit(g, sub.toUpperCase(), 500, Math.round(H * .15), MONO, W - 56); g.fillText(sub.toUpperCase(), 28, H * .78);
+  });
+}
+function sign(text, sub) {
+  return holo(4.6, .78, (g, W, H) => {
+    g.textAlign = 'center';
+    g.fillStyle = '#5aa9ff'; g.font = `500 ${Math.round(H * .19)}px ${MONO}`; g.fillText(sub, W / 2, H * .38);
+    g.fillStyle = '#eef6ff'; g.font = `700 ${Math.round(H * .3)}px ${SANS}`; g.fillText(text, W / 2, H * .77);
+  });
+}
+
+/* ---- projector beam under each panel ---- */
+const beamTex = (() => { const c = document.createElement('canvas'); c.width = 4; c.height = 128; const g = c.getContext('2d'); const gr = g.createLinearGradient(0, 0, 0, 128); gr.addColorStop(0, 'rgba(90,169,255,0)'); gr.addColorStop(1, 'rgba(90,169,255,.9)'); g.fillStyle = gr; g.fillRect(0, 0, 4, 128); return new THREE.CanvasTexture(c); })();
+const beam = (w, h) => new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: beamTex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+
+/* ---- screens: poster until the visitor's room is active, then live video ---- */
+const screens = [], holos = [], picks = [];
+const pick = (mesh, open) => { mesh.userData.pick = picks.length; picks.push({ mesh, open }); };
+const frameMat = new THREE.LineBasicMaterial({ color: 0xd9dde3, transparent: true, opacity: 0 });
+function addScreen(id, roomIdx, x, y, z, rotY, w, isMain) {
+  const h = WORKS[id]?.o === 'port' ? w * 16 / 9 : w * 9 / 16;
+  const poster = loader.load(`media/${id}.jpg`); poster.colorSpace = THREE.SRGBColorSpace;
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: poster, transparent: true, opacity: 0, toneMapped: false }));
+  mesh.position.set(x, y, z); mesh.rotation.y = rotY; scene.add(mesh);
+  const fr = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(w + .14, h + .14)), frameMat);
+  fr.position.copy(mesh.position); fr.rotation.y = rotY; scene.add(fr);
+  const s = { id, roomIdx, mesh, poster, video: null, vtex: null, isMain };
+  if (isMain) Object.assign(s, { normal: v3(Math.sin(rotY), 0, Math.cos(rotY)), w, h });
+  screens.push(s); return s;
+}
+function placeHolo(mesh, roomIdx, x, y, z, rotY, withBeam = true) {
+  mesh.position.set(x, y, z); mesh.rotation.y = rotY; scene.add(mesh);
+  const entry = { mesh, roomIdx, flick: 0, seen: false };
+  if (withBeam) {
+    const bh = y - mesh.geometry.parameters.height / 2;
+    const b = beam(mesh.geometry.parameters.width * .9, bh); b.position.set(x, bh / 2, z); b.rotation.y = rotY; scene.add(b); entry.beam = b;
+  }
+  holos.push(entry); return entry;
+}
+function placeholderTex(title) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 288; const g = c.getContext('2d');
+  g.fillStyle = '#121316'; g.fillRect(0, 0, 512, 288);
+  g.fillStyle = 'rgba(255,255,255,.03)'; for (let y = 0; y < 288; y += 4) g.fillRect(0, y, 512, 2);
+  g.strokeStyle = 'rgba(255,255,255,.22)'; g.setLineDash([10, 8]); g.lineWidth = 2; g.strokeRect(10, 10, 492, 268);
+  g.fillStyle = RED; g.beginPath(); g.arc(36, 40, 7, 0, 7); g.fill();
+  g.fillStyle = '#8b8f96'; g.font = `500 18px ${MONO}`; g.fillText('REC / YOUR CLIP HERE', 52, 46);
+  g.fillStyle = '#ededed'; g.font = `700 34px ${SANS}`; g.fillText(title, 30, 240);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+function addPlaceholder(roomIdx, x, y, z, rotY, w, title, portrait = false) {
+  const h = portrait ? w * 16 / 9 : w * 9 / 16;
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: placeholderTex(title), transparent: true, opacity: 0, toneMapped: false }));
+  mesh.position.set(x, y, z); mesh.rotation.y = rotY; scene.add(mesh);
+  screens.push({ id: null, roomIdx, mesh }); return mesh;
+}
+
+const L_FACE = Math.PI / 2, R_FACE = -Math.PI / 2;   // left wall faces +x, right wall faces -x
+ROOMS.forEach((r, i) => {
+  const zc = r.z0 - 6.5;
+  if (r.main) {
+    pick(addScreen(r.main, i, -WALL, 2.55, zc, L_FACE, 6.4, true).mesh, ev => openModal(r.main, ev));
+    pick(placeHolo(infoPanel(r, WORKS[r.main]), i, -HALF + .55, 2.4, zc - 5.3, L_FACE).mesh, ev => openModal(r.main, ev));
+    const step = 13 / r.frames.length;
+    r.frames.forEach((id, k) => {
+      const z = zc + 3.5 - step * (k + .5);
+      if (id === '@ugc') {
+        const ugc = ev => openPopup({ tag: 'Scale / AI', title: 'ORÍ & Co. UGC ad', sub: 'Spec ad / in production', rows: [['Tools', 'Google Flow / Veo / Premiere']], desc: 'A UGC-style product ad with one consistent AI character, lip-synced dialogue and three hook variants for performance testing.' }, ev);
+        pick(addPlaceholder(i, WALL, 2.75, z, R_FACE, 1.45, 'UGC ad', true), ugc); pick(placeHolo(label(2.5, 'ORÍ & Co. UGC ad', 'In production / Flow + Veo'), i, WALL - .05, .9, z, R_FACE, false).mesh, ugc); return;
+      }
+      const port = WORKS[id].o === 'port', fw = port ? 1.45 : 2.5;
+      pick(addScreen(id, i, WALL, port ? 2.75 : 2.6, z, R_FACE, fw, false).mesh, ev => openModal(id, ev));
+      pick(placeHolo(label(2.5, WORKS[id].t, WORKS[id].c), i, WALL - .05, port ? .9 : 1.25, z, R_FACE, false).mesh, ev => openModal(id, ev));
+    });
+  }
+  // door sign facing the visitor, announcing the next room
+  const next = ROOMS[i + 1];
+  const sg = placeHolo(next ? sign(`${next.no} / ${next.name}`, `NEXT ROOM / ${next.theme.toUpperCase()}`) : sign('Contact', 'EXIT / NEXT PROJECT'), i, 0, 4.15, r.z1 + .25, 0, false);
+  pick(sg.mesh, ev => next
+    ? openPopup({ tag: `Next room / ${next.no}`, title: next.name, sub: next.theme, desc: next.line || '', actions: [{ label: `Walk to room ${next.no} &rarr;`, fn: () => { closeModal(); goRoom(i + 1); } }] }, ev)
+    : openPopup({ tag: 'Exit', title: "Let's build something.", desc: 'Through this door: email, WhatsApp and socials.', actions: [{ label: 'Go to contact &rarr;', fn: () => { closeModal(); lenis.scrollTo('#contact'); } }] }, ev));
+});
+placeHolo(sign('David Olaniyan', 'FILM & SPACE / ENTER'), 0, 0, 4.15, .3, 0, false);
+
+// lobby: showreel screen + directory hologram
+pick(addScreen('reel', 0, -WALL, 2.55, -7, L_FACE, 6.4, true).mesh, ev => openModal(null, ev));
+placeHolo(label(3.2, 'Sizzle 2026', 'Every room in 30 seconds / click to play'), 0, -HALF + .4, .62, -7, L_FACE, false);
+placeHolo(holo(4.2, 3, (g, W, H) => {
+  const pad = 56; let y = 96;
+  g.fillStyle = '#5aa9ff'; g.font = `500 26px ${MONO}`; g.fillText('DIRECTORY / ONE PRACTICE', pad, y); y += 92;
+  g.fillStyle = '#eef6ff'; g.font = `700 76px ${SANS}`; g.fillText('Five rooms.', pad, y); y += 80; g.fillText('One craft.', pad, y); y += 62;
+  g.fillStyle = 'rgba(90,169,255,.4)'; g.fillRect(pad, y, W - pad * 2, 2); y += 60;
+  ROOMS.slice(1).forEach(r => { g.fillStyle = '#5aa9ff'; g.font = `500 26px ${MONO}`; g.fillText(`${r.no}  ${r.theme.toUpperCase()}`, pad, y); g.fillStyle = '#e1eefc'; g.font = `500 32px ${SANS}`; g.fillText(r.name, pad + 310, y); y += 54; });
+  y += 18; g.fillStyle = '#b8d6f5'; g.font = `400 28px ${SANS}`; wrap(g, 'Every room is a different lens on the same work: the story, its rhythm, how it scales and where it lives.', pad, y, W - pad * 2, 38);
+}), 0, HALF - .55, 2.5, -8, R_FACE);
+pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: 'Directory / one practice', title: 'Five rooms. One craft.', desc: 'Every room is a different lens on the same work: the story, its rhythm, how it scales and where it lives.', actions: ROOMS.slice(1).map((r, k) => ({ label: `<span class="mono" style="color:var(--blue)">${r.no} ${r.theme}</span>&nbsp;&nbsp;${r.name}`, fn: () => { closeModal(); goRoom(k + 1); } })) }, ev));
+
+// about room: life in clips
+const AZ = ROOMS[5].z0;
+const HOBBY = { 'Sketching': 'Pen, paper, no undo. Where most of my framing ideas start.', 'Studio nights': 'Architecture school at FUTA: models, juries and very long nights.', 'Reading': 'Books are where I steal structure: setups, payoffs, pacing.', 'Basketball': 'Rhythm, timing and reading the room, just faster.', 'Long walks': 'How I study spaces: light, thresholds and how people move through them.', 'Say hi': 'Easiest way to reach me is email or WhatsApp. Both are in the contact section.' };
+const clipPop = t => ev => openPopup({ tag: 'Off the clock', title: t, desc: HOBBY[t], actions: [{ label: 'See the About section &darr;', fn: () => { closeModal(); lenis.scrollTo('#about'); } }] }, ev);
+[['Sketching', -4.2], ['Studio nights', -8.2], ['Reading', -12]].forEach(([t, dz]) => pick(addPlaceholder(5, -WALL, 2.5, AZ + dz, L_FACE, 3, t), clipPop(t)));
+[['Basketball', -3.6], ['Long walks', -7.6], ['Say hi', -11.4]].forEach(([t, dz], k) => pick(addPlaceholder(5, WALL, 2.6, AZ + dz, R_FACE, k === 2 ? 1.45 : 3, t, k === 2), clipPop(t)));
+placeHolo(holo(3.2, 1.7, (g, W, H) => {
+  const pad = 52;
+  g.fillStyle = '#5aa9ff'; g.font = `500 24px ${MONO}`; g.fillText('05 / THE PERSON / OFF THE CLOCK', pad, 84);
+  g.fillStyle = '#eef6ff'; g.font = `700 64px ${SANS}`; g.fillText('Less résumé.', pad, 178); g.fillText('More rushes.', pad, 248);
+  g.fillStyle = '#b8d6f5'; g.font = `400 28px ${SANS}`; wrap(g, 'Sketching, basketball, books and long walks. Architecture student, editor, human.', pad, 316, W - pad * 2, 38);
+}), 5, -3.2, 2.5, AZ - 2.2, 0.55);
+pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: '05 / The person', title: 'Less résumé. More rushes.', desc: "I'm David Oluwabukunmi Olaniyan, a video editor and motion designer finishing a master's in architecture at FUTA, Nigeria. Architecture taught me composition, light and how people move through space. Editing taught me how they move through time.", actions: [{ label: 'See the About section &darr;', fn: () => { closeModal(); lenis.scrollTo('#about'); } }] }, ev));
+
+// exit light
+const exitGlow = new THREE.Mesh(new THREE.PlaneGeometry(DOOR, 3.2), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, toneMapped: false }));
+exitGlow.position.set(0, 1.6, -100.4); scene.add(exitGlow);
+const exitBack = new THREE.Mesh(new THREE.PlaneGeometry(60, 40), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, toneMapped: false, fog: false }));
+exitBack.position.set(0, 5, -110); scene.add(exitBack);
+
+/* ---- benches ---- */
+const furniture = new THREE.Group(); scene.add(furniture);
+const benchMat = new THREE.MeshStandardMaterial({ color: 0x1b1c1f, roughness: .6 });
+ROOMS.forEach(r => {
+  const zc = r.z0 - 6.5;
+  if (r.main) [-4.6, -2.7].forEach(x => { const b = new THREE.Mesh(new THREE.BoxGeometry(.5, .44, 3.2), benchMat); b.position.set(x, .22, zc); furniture.add(b); });
+});
+furniture.visible = false;
+
+/* ---- gallery guests: low-detail people in evening wear ---- */
+const Mat = c => new THREE.MeshStandardMaterial({ color: c, roughness: .72 });
+const SKIN = [0x4a2f20, 0x6f4630, 0x5e3b27, 0x9a6947, 0x83563a, 0xb98563].map(Mat);
+const HAIR = Mat(0x141110), SHIRT = Mat(0xeceef0), SHOE = Mat(0x0d0d0e);
+const SUIT = [0x1f2125, 0x15161a, 0x1c2638, 0x5d6168, 0x2d3036].map(Mat);
+const DRESS = [0x111214, 0xdedfe2, 0x1c2638, 0x6e1d22, 0x8a8e95, 0x111214].map(Mat);
+const TIE = [0x111214, 0x6e1d22, 0x2b3f5c].map(Mat);
+const GLASS = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .05, transparent: true, opacity: .35 }), WINE = Mat(0x6e1d22);
+const GEO = {
+  head: new THREE.SphereGeometry(.098, 18, 14), neck: new THREE.CylinderGeometry(.042, .046, .1, 10),
+  hairCap: new THREE.SphereGeometry(.104, 18, 10, 0, Math.PI * 2, 0, Math.PI * .5),
+  bun: new THREE.SphereGeometry(.06, 12, 10), puff: new THREE.SphereGeometry(.13, 16, 12), longHair: new THREE.CapsuleGeometry(.085, .16, 4, 10),
+  torsoM: new THREE.CapsuleGeometry(.165, .3, 4, 12), torsoW: new THREE.CapsuleGeometry(.13, .27, 4, 12),
+  shoulder: new THREE.SphereGeometry(.072, 10, 8), shirt: new THREE.BoxGeometry(.1, .18, .01), tie: new THREE.BoxGeometry(.034, .2, .012),
+  upper: new THREE.CapsuleGeometry(.047, .22, 3, 8), fore: new THREE.CapsuleGeometry(.04, .21, 3, 8), hand: new THREE.SphereGeometry(.04, 8, 6),
+  thigh: new THREE.CapsuleGeometry(.07, .3, 3, 8), shin: new THREE.CapsuleGeometry(.055, .3, 3, 8),
+  shoe: new THREE.BoxGeometry(.095, .07, .26), heel: new THREE.BoxGeometry(.07, .05, .2), clutch: new THREE.BoxGeometry(.16, .09, .03),
+  skirt: new THREE.CylinderGeometry(.155, .27, .62, 20),
+  bowl: new THREE.CylinderGeometry(.035, .012, .07, 12, 1, true), wine: new THREE.CylinderGeometry(.027, .012, .03, 12), stem: new THREE.CylinderGeometry(.004, .004, .08, 6), base: new THREE.CylinderGeometry(.028, .028, .004, 12),
+};
+const shadowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
+const shadowGeo = new THREE.PlaneGeometry(1, 1), shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false });
+const people = [];
+function part(parent, geo, mat, y) { const m = new THREE.Mesh(geo, mat); m.position.y = y; parent.add(m); return m; }
+function wineGlass(hand, counter) {
+  const g = new THREE.Group(); g.position.set(0, -.3, .03); g.rotation.x = counter; hand.add(g);
+  part(g, GEO.bowl, GLASS, .075); part(g, GEO.wine, WINE, .058); part(g, GEO.stem, GLASS, .0); part(g, GEO.base, GLASS, -.04);
+}
+let guestN = 0;
+function guest({ x, z, face, pose = 'stand', sex = 'm', look = 0, room = 0 }) {
+  const n = guestN++, pickOf = (a, k) => a[(n * 5 + k * 3) % a.length];
+  const skin = pickOf(SKIN, 1), cloth = sex === 'm' ? pickOf(SUIT, 0) : pickOf(DRESS, 2);
+  const root = new THREE.Group(); root.position.set(x, 0, z); root.rotation.y = face;
+  const pelvis = new THREE.Group(); pelvis.position.y = pose === 'sit' ? .5 : .93; root.add(pelvis);
+  const spine = new THREE.Group(); pelvis.add(spine);
+  part(spine, sex === 'm' ? GEO.torsoM : GEO.torsoW, cloth, .3).scale.set(sex === 'm' ? 1.12 : 1, 1, .7);
+  if (sex === 'm') {
+    part(spine, GEO.shirt, SHIRT, .45).position.z = .112;
+    part(spine, GEO.tie, pickOf(TIE, 2), .42).position.z = .121;
+    [-1, 1].forEach(sd => part(spine, GEO.shoulder, cloth, .5).position.x = .2 * sd);
+  } else part(pelvis, GEO.skirt, cloth, -.26);
+  part(spine, GEO.neck, skin, .6);
+  const neck = new THREE.Group(); neck.position.y = .64; spine.add(neck);
+  part(neck, GEO.head, skin, .1).scale.set(.93, 1.06, 1);
+  const hs = n % 3;
+  if (sex === 'm') { if (hs !== 2) part(neck, GEO.hairCap, HAIR, .115).scale.set(.95, .9, 1.02); }
+  else if (hs === 0) part(neck, GEO.puff, HAIR, .2).position.z = -.03;
+  else { part(neck, GEO.hairCap, HAIR, .115).scale.set(.98, .95, 1.04); if (hs === 1) part(neck, GEO.bun, HAIR, .2).position.z = -.08; else { const lh = part(neck, GEO.longHair, HAIR, .0); lh.position.z = -.07; lh.scale.set(1.15, 1, .6); } }
+  const sleeve = sex === 'm' ? cloth : skin, legMat = sex === 'm' ? cloth : skin;
+  const arm = sd => { const sh = new THREE.Group(); sh.position.set(.2 * sd, .5, 0); spine.add(sh); part(sh, GEO.upper, sleeve, -.14); const elb = new THREE.Group(); elb.position.y = -.3; sh.add(elb); part(elb, GEO.fore, sleeve, -.13); part(elb, GEO.hand, skin, -.28); return { sh, el: elb }; };
+  const leg = sd => { const hp = new THREE.Group(); hp.position.set(.085 * sd, -.02, 0); pelvis.add(hp); part(hp, GEO.thigh, legMat, -.21); const kn = new THREE.Group(); kn.position.y = -.43; hp.add(kn); part(kn, GEO.shin, legMat, -.19); part(kn, sex === 'm' ? GEO.shoe : GEO.heel, SHOE, -.43).position.z = .05; return { hp, kn }; };
+  const L = arm(1), R = arm(-1), LL = leg(1), RL = leg(-1);
+  L.sh.rotation.z = .06; R.sh.rotation.z = -.06;
+  if (pose === 'sit') { [LL, RL].forEach(l => { l.hp.rotation.x = -Math.PI / 2; l.kn.rotation.x = Math.PI / 2; }); [L, R].forEach(a => { a.sh.rotation.x = -.45; a.el.rotation.x = -.9; }); spine.rotation.x = -.05; }
+  if (pose === 'drink') { R.sh.rotation.x = -.25; R.el.rotation.x = -1.75; wineGlass(R.el, 2.0); }
+  if (pose === 'talk') { L.sh.rotation.x = -.25; L.el.rotation.x = -1.6; wineGlass(L.el, 1.85); }
+  if (pose === 'point') { R.sh.rotation.x = -1.3; R.sh.rotation.z = -.12; R.el.rotation.x = -.1; }
+  if (pose === 'behind') [L, R].forEach(a => { a.sh.rotation.x = .28; a.el.rotation.x = -.5; });
+  if (pose === 'clutch') { L.sh.rotation.x = -.1; L.el.rotation.x = -1.25; part(L.el, GEO.clutch, SHOE, -.27).position.z = .05; }
+  if (pose === 'phone') { R.sh.rotation.x = -.4; R.el.rotation.x = -1.6; neck.rotation.x = .35; }
+  if (sex === 'w') { LL.hp.rotation.z = -.04; RL.hp.rotation.z = .04; }
+  const sh = new THREE.Mesh(shadowGeo, shadowMat); sh.rotation.x = -Math.PI / 2; sh.scale.set(.7, .7, 1); sh.position.y = .012; root.add(sh);
+  root.scale.setScalar(.001); scene.add(root);
+  people.push({ root, pose, neck, spine, L, R, look, room, phase: n * 1.37 });
+}
+const PI = Math.PI;
+ROOMS.forEach((r, i) => {
+  if (!r.main) return;
+  const zc = r.z0 - 6.5;
+  guest({ x: -4.6, z: zc + .8, face: -PI / 2, pose: 'sit', room: i });                                   // the screening
+  guest({ x: -4.6, z: zc - .7, face: -PI / 2, pose: 'sit', look: .5, room: i });
+  guest({ x: -2.7, z: zc + .2, face: -PI / 2, pose: 'sit', look: -.4, room: i });
+  guest({ x: -5.7, z: zc - 5.6, face: -PI / 2, pose: 'behind', sex: 'w', room: i });                     // reading the hologram
+  guest({ x: 5.0, z: zc + 3.6, face: PI * .8, pose: 'drink', look: .3, room: i });                       // two talking over drinks
+  guest({ x: 4.3, z: zc + 2.7, face: -PI * .2, pose: 'talk', sex: 'w', look: -.3, room: i });
+  guest({ x: 6.1, z: zc - 6.8, face: PI / 2, pose: i % 2 ? 'clutch' : 'drink', sex: 'w', room: i });     // looking at the other work
+  guest({ x: 5.6, z: zc - 8.6, face: PI / 2, pose: 'point', room: i });
+});
+guest({ x: -4.2, z: -3.2, face: PI * .3, pose: 'talk', room: 0 }); guest({ x: -3.4, z: -3.9, face: -PI * .7, pose: 'drink', sex: 'w', room: 0 }); guest({ x: -4.5, z: -4.4, face: PI * .9, pose: 'clutch', sex: 'w', room: 0 });
+guest({ x: 6.0, z: -8.6, face: PI / 2, pose: 'behind', room: 0 });
+guest({ x: -5.8, z: -96.5, face: -PI / 2, pose: 'drink', sex: 'w', room: 5 }); guest({ x: 5.9, z: -94, face: PI / 2, pose: 'point', room: 5 });
+
+/* ---- lights ---- */
+const ambient = new THREE.AmbientLight(0xffffff, 0); scene.add(ambient);
+const hemi = new THREE.HemisphereLight(0xdfe8f5, 0x0a0a0b, 0); scene.add(hemi);
+// a fixed, small set of lights that follow the visitor: one screen spill + two ceiling lights
+const screenLight = new THREE.RectAreaLight(0xbfd6ff, 0, 6.4, 3.6); scene.add(screenLight);
+const roomLights = [.3, .7].map(() => { const l = new THREE.PointLight(0xf3f6fb, 0, 16, 1.4); scene.add(l); return l; });
+function lightRoom(i) {
+  const r = ROOMS[Math.max(0, i)]; [.3, .7].forEach((f, k) => roomLights[k].position.set(0, 4.6, r.z0 + (r.z1 - r.z0) * f));
+  const m = screens.find(sc => sc.isMain && sc.roomIdx === Math.max(0, i));
+  if (m) { screenLight.width = m.w; screenLight.height = m.h; screenLight.position.copy(m.mesh.position).addScaledVector(m.normal, .05); screenLight.lookAt(screenLight.position.clone().add(m.normal)); }
+  screenLight.userData.on = !!m;
+}
+lightRoom(0);
+
+/* =====================================================================
+   CAMERA PATH: weighted keys, Hermite interpolation, holds at exhibits.
+   Every door is crossed by two keys on x = 0, so the camera walks through it.
+   ===================================================================== */
+const K = [], roomStartKey = [];
+const key = (px, pz, tx, ty, tz, w = 1, hold = false) => K.push({ p: v3(px, EYE, pz), t: v3(tx, ty, tz), w, hold });
+const doorPass = z => { key(0, z + 2.3, 0, 1.85, z - 12); key(0, z - 2.3, 0, 1.85, z - 14); };
+key(0, 13, 0, 1.9, -6);                                // outside the entrance
+roomStartKey[0] = K.length; doorPass(0);
+key(3.4, -6.2, -HALF, 2.55, -7, 1.3, true);            // lobby: showreel
+key(-3.2, -7.6, HALF, 2.5, -8, 1.4, true);             // lobby: directory
+key(0, -10.6, 0, 1.85, -24);
+ROOMS.slice(1).forEach((r, k) => {
+  const zc = r.z0 - 6.5;
+  roomStartKey[k + 1] = K.length; doorPass(r.z0);
+  if (r.main) {
+    key(3.2, zc - .6, -HALF, 2.55, zc, 1.3, true);         // the screening
+    key(3.0, zc - 3.2, -HALF, 2.35, zc - 5.3, 1.2, true);  // the hologram
+    key(-2.3, zc - 3.6, HALF, 2.35, zc - 3.4, 1.3, true);  // the wall of related work
+    key(-2.3, zc - 8.2, HALF, 2.35, zc - 8.6, 1.1);
+    key(0, r.z1 + 3.4, 0, 1.85, r.z1 - 10);
+  } else {
+    key(3, zc + .6, -HALF, 2.5, zc - 1.5, 1.3, true);
+    key(-3, zc - 1.8, HALF, 2.5, zc - 2.2, 1.3, true);
+    key(0, r.z1 + 3, 0, 1.85, r.z1 - 10);
+  }
+});
+key(0, -102.4, 0, 1.85, -112); key(0, -104.5, 0, 1.85, -114, .8);
+// each key also gets a heading (yaw) and pitch, so turning from one wall to the other rotates the head
+// smoothly through "looking down the hall" instead of swinging a target point past the camera
+K.forEach((k, i) => {
+  const d = v3().subVectors(k.t, k.p);
+  k.yaw = Math.atan2(d.x, -d.z); k.pitch = Math.atan2(d.y, Math.hypot(d.x, d.z));
+  if (i) { while (k.yaw - K[i - 1].yaw > Math.PI) k.yaw -= Math.PI * 2; while (k.yaw - K[i - 1].yaw < -Math.PI) k.yaw += Math.PI * 2; }
+});
+const cum = [0]; for (let i = 1; i < K.length; i++) cum.push(cum[i - 1] + K[i].w);
+const TOTAL = cum[cum.length - 1];
+const SOFT = .35;   // exhibits slow the walk down without a dead stop
+const prevK = i => K[Math.max(0, i - 1)], nextK = i => K[Math.min(K.length - 1, i + 1)];
+const tanV = (i, out) => out.subVectors(nextK(i).p, prevK(i).p).multiplyScalar(.5 * (K[i].hold ? SOFT : 1));
+const tanS = (i, f) => (nextK(i)[f] - prevK(i)[f]) * .5 * (K[i].hold ? SOFT : 1);
+const m0 = v3(), m1 = v3(), look = { yaw: 0, pitch: 0 };
+function sample(s, outP) {
+  const d = s * TOTAL; let i = 0; while (i < K.length - 2 && cum[i + 1] < d) i++;
+  const f = THREE.MathUtils.clamp((d - cum[i]) / (cum[i + 1] - cum[i]), 0, 1);
+  const f2 = f * f, f3 = f2 * f, h00 = 2 * f3 - 3 * f2 + 1, h10 = f3 - 2 * f2 + f, h01 = -2 * f3 + 3 * f2, h11 = f3 - f2;
+  tanV(i, m0); tanV(i + 1, m1);
+  outP.copy(K[i].p).multiplyScalar(h00).addScaledVector(m0, h10).addScaledVector(K[i + 1].p, h01).addScaledVector(m1, h11);
+  for (const fld of ['yaw', 'pitch']) look[fld] = K[i][fld] * h00 + tanS(i, fld) * h10 + K[i + 1][fld] * h01 + tanS(i + 1, fld) * h11;
+  return i + (f > .5 ? 1 : 0);
+}
+
+const PH = { extrude: [.012, .05], fly: [.045, .085], walk: .085 };
+const clamp = THREE.MathUtils.clamp, range = (x, a, b) => clamp((x - a) / (b - a), 0, 1);
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+/* =====================================================================
+   NAVIGATION GUIDE: progress bar, room pill, clickable minimap, idle hints
+   ===================================================================== */
+const build = document.querySelector('.build'), nav = document.querySelector('.nav');
+const $ = id => document.getElementById(id);
+const ui = { intro: $('intro'), tb: $('titleblock'), hud: $('hud'), hudRoom: $('hudRoom'), mm: $('minimap'), mmCount: $('mmCount'), hint: $('hint'), hintText: $('hintText'), bar: $('bar'), mcard: $('mcard') };
+const svg = $('mm'), NS = 'http://www.w3.org/2000/svg';
+const mx = z => 8 + (-z / 100) * 284, my = x => 30 + (x / HALF) * 18;
+const mmRooms = ROOMS.map((r, i) => {
+  const rect = document.createElementNS(NS, 'rect');
+  Object.entries({ x: mx(r.z0), y: 12, width: mx(r.z1) - mx(r.z0), height: 36, class: 'room' }).forEach(([k, v]) => rect.setAttribute(k, v));
+  rect.addEventListener('click', () => goRoom(i)); svg.appendChild(rect);
+  const t = document.createElementNS(NS, 'text'); t.setAttribute('x', mx(r.z0) + 4); t.setAttribute('y', 60); t.textContent = r.no; svg.appendChild(t);
+  return { rect, t };
+});
+const cone = document.createElementNS(NS, 'path'); cone.setAttribute('fill', 'rgba(90,169,255,.35)'); svg.appendChild(cone);
+const dot = document.createElementNS(NS, 'circle'); dot.setAttribute('r', 3.2); dot.setAttribute('fill', '#ff4d4d'); svg.appendChild(dot);
+const pForKey = k => PH.walk + (cum[k] / TOTAL) * (1 - PH.walk);
+function goRoom(i) { lenis.scrollTo(build.offsetTop + pForKey(roomStartKey[i] + 1) * (build.offsetHeight - innerHeight), { duration: 2.2 }); }
+let lastScroll = performance.now(); addEventListener('scroll', () => lastScroll = performance.now(), { passive: true });
+
+/* =====================================================================
+   RENDER LOOP
+   ===================================================================== */
+const OVER = { pos: v3(), tgt: v3(), up: v3() };
+function overhead() {
+  if (camera.aspect >= 1) { OVER.pos.set(12, 70, -50); OVER.tgt.set(12, 0, -50); OVER.up.set(-1, 0, 0); } // plan runs left to right
+  else { OVER.pos.set(0, 92, -42); OVER.tgt.set(0, 0, -42); OVER.up.set(0, 0, -1); }                     // portrait: bottom to top
+}
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w < 700 ? 70 : 52; camera.updateProjectionMatrix(); overhead();
+}
+addEventListener('resize', resize); resize();
+
+function setLive(s, on) {
+  if (!s.id) return;
+  if (on && !s.video) {
+    const v = document.createElement('video');
+    Object.assign(v, { muted: true, loop: true, playsInline: true, preload: 'auto', src: `media/${s.id}.mp4` });
+    v.play().catch(() => {});
+    s.video = v; s.vtex = new THREE.VideoTexture(v); s.vtex.colorSpace = THREE.SRGBColorSpace;
+    v.addEventListener('playing', () => { if (s.video === v) { s.mesh.material.map = s.vtex; s.mesh.material.needsUpdate = true; } }, { once: true });
+  } else if (!on && s.video) {
+    s.video.pause(); s.video.removeAttribute('src'); s.video.load(); s.vtex.dispose();
+    s.video = null; s.vtex = null; s.mesh.material.map = s.poster; s.mesh.material.needsUpdate = true;
+  }
+}
+
+const cp = v3(), ct = v3(), UP = v3(0, 1, 0), mouse = { x: 0, y: 0, sx: 0, sy: 0 };
+addEventListener('pointermove', e => { mouse.x = e.clientX / innerWidth - .5; mouse.y = e.clientY / innerHeight - .5; });
+const t0 = performance.now(); let litRoom = 0, curRoom = -2, lastNow = performance.now();
+const smooth = { p: v3(), t: v3(), ready: false };
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tip = document.getElementById('tip');
+let hover = null, pointerIn = false;
+const rayTargets = [...picks.map(pk => pk.mesh), ...building.children.filter(o => o.isMesh)];
+canvas.addEventListener('pointermove', e => { const r = canvas.getBoundingClientRect(); ndc.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); pointerIn = true; tip.style.transform = `translate(${e.clientX + 16}px, ${e.clientY + 16}px)`; });
+canvas.addEventListener('pointerleave', () => { pointerIn = false; });
+// clicks (and taps, which have no hover) raycast at the exact point
+function pickAt(x, y) {
+  const r = canvas.getBoundingClientRect(); ndc.set((x - r.left) / r.width * 2 - 1, -(y - r.top) / r.height * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  const hit = ray.intersectObjects(rayTargets, false)[0];
+  return hit && hit.object.userData.pick !== undefined && hit.distance < 18 ? picks[hit.object.userData.pick] : null;
+}
+canvas.addEventListener('click', e => { const target = hover || pickAt(e.clientX, e.clientY); if (target) target.open(e); });
+
+function frame(now) {
+  requestAnimationFrame(frame);
+  const r = build.getBoundingClientRect();
+  if (r.bottom < 0) { nav.classList.add('solid'); screens.forEach(s => setLive(s, false)); return; }
+  const p = clamp(-r.top / (r.height - innerHeight), 0, 1), t = (now - t0) / 1000;
+
+  // 1. the plan draws itself, 2. walls rise, 3. the room fills
+  planGeo.setDrawRange(0, Math.floor(ease(clamp((now - t0) / 2600, 0, 1)) * planCount / 2) * 2);
+  const ex = ease(range(p, ...PH.extrude));
+  building.scale.y = Math.max(.001, ex); wallMat.opacity = ex; edgeMat.opacity = .9 - ex * .72;
+  floor.material.opacity = ex; planMat.opacity = 1 - ex * .75; blueprint.material.opacity = .6 - ex * .45;
+  ambient.intensity = ex * .5; hemi.intensity = ex * .7; roomLights.forEach(l => l.intensity = ex * 14);
+  furniture.visible = ex > .6;
+  const pop = ease(range(p, .04, .07));
+  people.forEach(f => f.root.scale.setScalar(Math.max(.001, pop)));
+  const on = ease(range(p, .045, .075));
+  frameMat.opacity = on * .7;
+
+  // 4. camera: overhead plan -> landing outside the entrance -> the walk
+  const fly = ease(range(p, ...PH.fly)), walk = range(p, PH.walk, 1);
+  const ki = sample(walk, cp);
+  ct.set(Math.sin(look.yaw) * Math.cos(look.pitch), Math.sin(look.pitch), -Math.cos(look.yaw) * Math.cos(look.pitch)).multiplyScalar(10).add(cp);
+  scene.fog.near = 14 + (1 - fly) * 220; scene.fog.far = 50 + (1 - fly) * 320;
+  if (fly < 1) { cp.lerpVectors(OVER.pos, K[0].p, fly); ct.lerpVectors(OVER.tgt, K[0].t, fly); camera.up.lerpVectors(OVER.up, UP, fly).normalize(); }
+  else camera.up.copy(UP);
+  // damping irons out the steps of a mouse wheel
+  const dt = Math.min(.25, (now - lastNow) / 1000); lastNow = now;
+  const a = 1 - Math.exp(-dt * 6);
+  if (!smooth.ready) { smooth.p.copy(cp); smooth.t.copy(ct); smooth.ready = true; } else { smooth.p.lerp(cp, a); smooth.t.lerp(ct, a); }
+  mouse.sx += (mouse.x - mouse.sx) * .05; mouse.sy += (mouse.y - mouse.sy) * .05;
+  camera.position.set(smooth.p.x + mouse.sx * .2 * fly, smooth.p.y - mouse.sy * .12 * fly, smooth.p.z);
+  camera.lookAt(smooth.t.x + mouse.sx * 1.0 * fly, smooth.t.y - mouse.sy * .6 * fly, smooth.t.z);
+
+  // hover: what is under the cursor? (walls block the ray, so nothing is clickable through them)
+  hover = null;
+  if (pointerIn && fly >= 1 && !modal.classList.contains('on')) {
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(rayTargets, false)[0];
+    if (hit && hit.object.userData.pick !== undefined && hit.distance < 18) hover = picks[hit.object.userData.pick];
+  }
+  canvas.style.cursor = hover ? 'pointer' : '';
+  tip.classList.toggle('on', !!hover);
+  picks.forEach(pk => { const s = pk === hover ? 1.04 : 1; pk.mesh.scale.lerp(v3(s, s, s), .2); });
+
+  const z = camera.position.z;
+  const room = fly < 1 || z > 0 ? -1 : ROOMS.findIndex(rm => z <= rm.z0 && z > rm.z1);
+  if (room !== litRoom) { litRoom = room; lightRoom(room); }
+  screenLight.intensity = screenLight.userData.on ? on * 4 : 0;
+  // only draw guests near the visitor (all of them in the overhead view, where they are tiny)
+  people.forEach(f => { f.root.visible = room < 0 || Math.abs(f.room - room) <= 1; });
+
+  // screens play only in the visitor's room (and the next one when near its door)
+  screens.forEach(s => {
+    const near = room >= 0 && (s.roomIdx === room || (s.roomIdx === room + 1 && z < ROOMS[room].z1 + 4));
+    s.mesh.material.opacity = on;
+    setLive(s, near && on > .5);
+  });
+  holos.forEach(h => {
+    const d = camera.position.distanceTo(h.mesh.position);
+    const want = fly < 1 ? on * .5 : clamp(1.5 - d / 14, .28, 1);
+    if (want > .6 && !h.seen) { h.seen = true; h.flick = .45; }
+    h.flick = Math.max(0, h.flick - 1 / 60);
+    const flicker = h.flick > 0 ? (Math.random() > .5 ? .3 : 1) : .94 + Math.sin(t * 9 + d) * .04;
+    h.mesh.material.opacity = (hover && hover.mesh === h.mesh) ? 1 : want * flicker;
+    if (h.beam) h.beam.material.opacity = want * .22;
+  });
+  const exitOn = range(z, -96, -101);
+  exitGlow.material.opacity = on * (.5 + exitOn * .5); exitBack.material.opacity = exitOn;
+
+  // the audience idles: breathing, glancing around, talking with their hands
+  people.forEach(f => {
+    f.spine.scale.y = 1 + Math.sin(t * 1.6 + f.phase) * .012;
+    f.neck.rotation.y = f.look * .6 + Math.sin(t * .35 + f.phase) * .35;
+    if (f.pose === 'talk') { f.R.sh.rotation.x = -.35 + Math.sin(t * 1.3 + f.phase) * .2; f.R.el.rotation.x = -.9 + Math.sin(t * 2.1 + f.phase) * .35; }
+    if (f.pose === 'drink') f.R.sh.rotation.x = -.25 + Math.max(0, Math.sin(t * .4 + f.phase)) * -.25;   // the occasional sip
+  });
+
+  // overlay UI
+  const introOut = range(p, .004, .03);
+  ui.intro.style.opacity = 1 - introOut; ui.intro.style.transform = `translateY(${-introOut * 30}px)`;
+  ui.tb.style.opacity = 1 - range(p, .02, .045);
+  ui.bar.style.transform = `scaleX(${p})`;
+  const inside = fly >= 1 && p < .995;
+  ui.hud.classList.toggle('on', inside); ui.mm.classList.toggle('on', inside);
+  nav.classList.toggle('solid', p > .995);
+  if (room !== curRoom) {
+    curRoom = room;
+    if (room >= 0) {
+      const rm = ROOMS[room], w = rm.main && WORKS[rm.main];
+      ui.hudRoom.innerHTML = room === 0 ? 'Lobby / <b>start here</b>' : `Room ${rm.no} of 05 / <b>${rm.theme}</b> / ${rm.name}`;
+      ui.mmCount.textContent = `${rm.no} / 05`; $('mmName').textContent = room ? `${rm.theme} / click to jump` : 'Floor plan / click to jump';
+      mmRooms.forEach((m, i) => { m.rect.classList.toggle('cur', i === room); m.t.classList.toggle('cur', i === room); });
+      if (w) { $('mcTag').textContent = `${rm.no} / ${rm.theme} / ${rm.name}`; $('mcTitle').textContent = w.t; $('mcDesc').textContent = w.d; }
+    }
+  }
+  ui.mcard.classList.toggle('on', room > 0 && !!ROOMS[room].main && ki >= roomStartKey[room] + 2 && ki <= roomStartKey[room] + 3);
+  const cx = mx(z), cy = my(camera.position.x);
+  dot.setAttribute('cx', cx); dot.setAttribute('cy', cy);
+  const a1 = Math.atan2(ct.x - camera.position.x, -(ct.z - z));   // map x runs down the building, map y is world x
+  cone.setAttribute('d', `M${cx},${cy} L${cx + 16 * Math.cos(a1 - .45)},${cy + 16 * Math.sin(a1 - .45)} L${cx + 16 * Math.cos(a1 + .45)},${cy + 16 * Math.sin(a1 + .45)} Z`);
+
+  // hints: how to start, then a nudge whenever the visitor stops
+  const idle = now - lastScroll > 2200;
+  let hint = '';
+  if (p < .004 && now - t0 > 2400) hint = 'Scroll to walk in';
+  else if (inside && idle && room >= 0) { const nx = ROOMS[Math.min(5, room + 1)]; hint = room >= 5 ? 'Keep scrolling to <b>exit</b> and say hello' : `Keep scrolling / next: <b>${nx.theme}</b>, ${nx.name}`; }
+  if (hint) ui.hintText.innerHTML = hint;
+  ui.hint.classList.toggle('on', !!hint);
+
+  renderer.render(scene, camera);
+}
+requestAnimationFrame(frame);
+requestAnimationFrame(() => document.getElementById('loader').classList.add('done'));
+</script>
+</body>
+</html>
