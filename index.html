@@ -13,7 +13,7 @@
 <meta name="description" content="Video editor, motion designer, AI video creator and architectural visualizer based in Nigeria. Walk through the work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,100,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Jost:ital,wght@0,300..600;1,400&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0a0b;
@@ -25,15 +25,17 @@
     --blue-dim: rgba(90, 169, 255, .28);
     --red: #ff4d4d;
     --radius: 6px;
-    --mono: "IBM Plex Mono", ui-monospace, monospace;
-    --sans: "Archivo", system-ui, sans-serif;
+    --mono: "Syncopate", "Jost", sans-serif;
+    --sans: "Jost", system-ui, sans-serif;
+    --display: "Big Shoulders Display", "Jost", sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { background: var(--bg); }
   body { background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
   button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-  .mono { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+  .mono { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+  .mono button, button.mono { text-transform: uppercase; letter-spacing: inherit; }
 
   /* ---------- nav ---------- */
   .nav { position: fixed; inset: 0 0 auto 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; pointer-events: none; }
@@ -59,7 +61,7 @@
   .bar { position: absolute; top: 0; left: 0; height: 2px; width: 100%; background: var(--blue); transform-origin: left; transform: scaleX(0); z-index: 5; }
 
   .intro { position: absolute; left: 28px; bottom: 96px; max-width: 760px; pointer-events: none; transition: opacity .5s, transform .5s; text-shadow: 0 2px 24px var(--bg), 0 0 8px var(--bg); }
-  .intro h1 { font-size: clamp(40px, 5vw, 76px); line-height: .95; font-weight: 750; font-stretch: 112%; letter-spacing: -.025em; }
+  .intro h1 { font-family: var(--display); font-size: clamp(46px, 5.8vw, 92px); line-height: .9; font-weight: 800; letter-spacing: .005em; text-transform: uppercase; }
   .intro h1 em { font-style: normal; color: var(--blue); }
   @media (max-aspect-ratio: 1/1) { .intro { isolation: isolate; } .intro::before { content: ""; position: absolute; inset: -60px -28px -96px; z-index: -1; background: linear-gradient(to top, var(--bg) 55%, rgba(10,10,11,.85) 75%, transparent); } }
   .intro p { margin-top: 18px; color: var(--muted); font-size: 17px; max-width: 470px; line-height: 1.5; }
@@ -104,7 +106,7 @@
   section.block { position: relative; padding: 140px 28px 60px; max-width: 1320px; margin: 0 auto; }
   .eyebrow { color: var(--blue); display: flex; align-items: center; gap: 12px; }
   .eyebrow::after { content: ""; flex: 0 0 60px; height: 1px; background: var(--blue-dim); }
-  .block h2.big { font-size: clamp(36px, 5.4vw, 72px); font-weight: 720; font-stretch: 112%; letter-spacing: -.02em; line-height: .98; margin: 18px 0 14px; max-width: 900px; }
+  .block h2.big { font-family: var(--display); text-transform: uppercase; font-size: clamp(42px, 6vw, 88px); font-weight: 800; letter-spacing: .005em; line-height: .98; margin: 18px 0 14px; max-width: 900px; }
   .lede { color: var(--muted); font-size: 18px; max-width: 640px; line-height: 1.55; }
 
   .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 40px 0 26px; }
@@ -130,18 +132,18 @@
   .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; margin-top: 44px; }
   .case { border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; background: linear-gradient(180deg, rgba(90, 169, 255, .05), transparent); display: flex; flex-direction: column; gap: 14px; }
   .case .num { color: var(--blue); }
-  .case h3 { font-size: 24px; font-stretch: 108%; line-height: 1.08; }
+  .case h3 { font-family: var(--display); font-weight: 800; letter-spacing: .01em; font-size: 24px; line-height: 1.08; }
   .case dl { display: grid; grid-template-columns: 70px 1fr; gap: 8px 12px; font-size: 14.5px; line-height: 1.45; }
   .case dt { color: var(--blue); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding-top: 3px; }
   .case dd { color: var(--muted); }
   .case .stats { display: flex; gap: 22px; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); }
-  .case .stats b { display: block; font-size: 26px; font-stretch: 110%; }
+  .case .stats b { font-family: var(--display); font-weight: 800; letter-spacing: .01em; display: block; font-size: 26px; }
   .case .stats small { color: var(--muted); font-size: 12px; }
   .todo { color: var(--red); }
 
   .process { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 44px; }
   .process div { background: var(--bg); padding: 26px; }
-  .process b { display: block; font-size: 34px; font-stretch: 110%; margin: 10px 0 6px; }
+  .process b { font-family: var(--display); font-weight: 800; letter-spacing: .01em; display: block; font-size: 34px; margin: 10px 0 6px; }
   .process p { color: var(--muted); font-size: 14.5px; line-height: 1.5; }
 
   /* about: life in clips */
@@ -158,13 +160,13 @@
   .clip .rec { position: absolute; top: 14px; left: 16px; display: flex; align-items: center; gap: 7px; color: var(--muted); }
   .clip .rec::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: blink 1.4s infinite; }
   @keyframes blink { 50% { opacity: .25; } }
-  .clip h4 { font-size: 19px; font-stretch: 108%; }
+  .clip h4 { font-size: 19px; }
   .clip p { color: var(--muted); font-size: 13px; margin-top: 4px; }
   .tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
   .tools span { border: 1px solid var(--line); padding: 7px 11px; border-radius: 999px; font-size: 13px; }
 
   .contact { text-align: center; padding: 160px 28px 120px; border-top: 1px solid var(--line); }
-  .contact h2 { font-size: clamp(44px, 9vw, 140px); font-weight: 760; font-stretch: 115%; letter-spacing: -.03em; line-height: .9; }
+  .contact h2 { font-family: var(--display); text-transform: uppercase; font-size: clamp(52px, 10vw, 168px); font-weight: 900; letter-spacing: .005em; line-height: .9; }
   .contact h2 em { font-style: normal; color: var(--blue); }
   .contact .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
   .socials { display: flex; justify-content: center; gap: 28px; margin-top: 34px; }
@@ -198,7 +200,7 @@
   .tip b { color: var(--blue); font-weight: 500; }
   .modal.on .modal-inner { transform: none; }
   .modal video { width: 100%; max-height: 78vh; border-radius: var(--radius); background: #000; }
-  .modal h3 { font-size: 32px; font-stretch: 110%; line-height: 1.02; margin: 10px 0 12px; }
+  .modal h3 { font-family: var(--display); font-weight: 800; letter-spacing: .01em; font-size: 32px; line-height: 1.02; margin: 10px 0 12px; }
   .modal p { color: var(--muted); line-height: 1.6; }
   .modal .note { margin-top: 18px; color: var(--blue); }
   .close { position: absolute; top: 20px; right: 24px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); font-size: 20px; }
@@ -208,6 +210,7 @@
     .nav-links a { display: none; }
     .brand span:last-child { display: none; }
     .intro { left: 16px; right: 16px; bottom: 120px; }
+    .hud .pill { font-size: 8px; letter-spacing: .08em; }
     .titleblock, .minimap { display: none; }
     .hud { top: 72px; }
     .hint { white-space: normal; width: max-content; max-width: calc(100vw - 32px); bottom: 20px; }
@@ -216,7 +219,7 @@
     .m-card { display: block; position: absolute; left: 16px; right: 16px; bottom: 84px; padding: 18px; background: rgba(10, 10, 11, .8); backdrop-filter: blur(14px); border: 1px solid var(--blue-dim); border-radius: var(--radius); opacity: 0; transform: translateY(16px); transition: opacity .4s, transform .4s; pointer-events: none; }
     .m-card.on { opacity: 1; transform: none; }
     .m-card .mono { color: var(--blue); }
-    .m-card h3 { font-size: 22px; margin: 6px 0; font-stretch: 108%; }
+    .m-card h3 { font-family: var(--display); font-weight: 800; letter-spacing: .01em; font-size: 22px; margin: 6px 0; }
     .m-card p { color: var(--muted); font-size: 14px; line-height: 1.5; }
     section.block { padding: 110px 16px 40px; }
     .about-top { grid-template-columns: 1fr; gap: 10px; }
@@ -499,7 +502,7 @@ document.getElementById('skip').addEventListener('click', () => lenis.scrollTo('
 /* =====================================================================
    THE BUILDING
    ===================================================================== */
-await Promise.all([document.fonts.load('700 60px Archivo'), document.fonts.load('italic 400 30px Archivo'), document.fonts.load('500 24px "IBM Plex Mono"')]);
+await Promise.all([document.fonts.load('800 60px "Big Shoulders Display"'), document.fonts.load('400 30px Jost'), document.fonts.load('italic 400 30px Jost'), document.fonts.load('400 24px Syncopate')]);
 
 const canvas = document.getElementById('gl');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
@@ -564,7 +567,7 @@ scene.add(new THREE.LineSegments(planGeo, planMat));
 const planCount = pts.length / 3; planGeo.setDrawRange(0, 0);
 
 /* ---- holographic panels, drawn to canvas ---- */
-const MONO = '"IBM Plex Mono", monospace', SANS = 'Archivo, sans-serif';
+const MONO = 'Syncopate, sans-serif', SANS = 'Jost, sans-serif', DISPLAY = '"Big Shoulders Display", sans-serif';
 function holo(w, h, draw) {
   const c = document.createElement('canvas'), s = 1024 / Math.max(w, h);
   c.width = Math.round(w * s); c.height = Math.round(h * s);
@@ -588,27 +591,27 @@ function fit(g, text, weight, size, family, maxW) { while (size > 10) { g.font =
 function infoPanel(room, w) {
   return holo(3.4, 2.5, (g, W, H) => {
     const pad = 52; let y = 86;
-    g.fillStyle = '#5aa9ff'; g.font = `500 24px ${MONO}`; g.fillText(`${room.no} / ${room.theme.toUpperCase()} / ${room.name.toUpperCase()}`, pad, y);
-    g.fillStyle = RED; g.beginPath(); g.arc(W - pad - 168, y - 8, 7, 0, 7); g.fill(); g.font = `500 20px ${MONO}`; g.fillText('NOW SHOWING', W - pad - 152, y);
-    y += 74; g.fillStyle = '#eef6ff'; g.font = `700 64px ${SANS}`; y = wrap(g, w.t, pad, y, W - pad * 2, 68);
+    g.fillStyle = '#5aa9ff'; g.font = `400 19px ${MONO}`; g.fillText(`${room.no} / ${room.theme.toUpperCase()} / ${room.name.toUpperCase()}`, pad, y);
+    g.fillStyle = RED; g.beginPath(); g.arc(W - pad - 168, y - 8, 7, 0, 7); g.fill(); g.font = `400 16px ${MONO}`; g.fillText('NOW SHOWING', W - pad - 152, y);
+    y += 74; g.fillStyle = '#eef6ff'; g.font = `800 64px ${DISPLAY}`; y = wrap(g, w.t, pad, y, W - pad * 2, 68);
     g.fillStyle = '#b8d6f5'; g.font = `400 30px ${SANS}`; g.fillText(w.c, pad, y + 2); y += 56;
     g.fillStyle = 'rgba(90,169,255,.4)'; g.fillRect(pad, y, W - pad * 2, 2); y += 52;
-    [['ROLE', w.role], ['TOOLS', w.tools]].forEach(([k, v]) => { g.fillStyle = '#5aa9ff'; g.font = `500 22px ${MONO}`; g.fillText(k, pad, y); g.fillStyle = '#e1eefc'; g.font = `500 28px ${SANS}`; g.fillText(v, pad + 130, y); y += 46; });
+    [['ROLE', w.role], ['TOOLS', w.tools]].forEach(([k, v]) => { g.fillStyle = '#5aa9ff'; g.font = `400 22px ${MONO}`; g.fillText(k, pad, y); g.fillStyle = '#e1eefc'; g.font = `500 28px ${SANS}`; g.fillText(v, pad + 130, y); y += 46; });
     y += 14; g.fillStyle = '#c9dcf0'; g.font = `400 29px ${SANS}`; wrap(g, w.d, pad, y, W - pad * 2, 40);
     g.fillStyle = '#5aa9ff'; g.font = `italic 400 27px ${SANS}`; g.fillText('"' + room.line + '"', pad, H - 46);
   });
 }
 function label(w, title, sub) {
   return holo(w, w * .24, (g, W, H) => {
-    g.fillStyle = '#eef6ff'; fit(g, title, 700, Math.round(H * .3), SANS, W - 56); g.fillText(title, 28, H * .47);
-    g.fillStyle = '#8fbfee'; fit(g, sub.toUpperCase(), 500, Math.round(H * .15), MONO, W - 56); g.fillText(sub.toUpperCase(), 28, H * .78);
+    g.fillStyle = '#eef6ff'; fit(g, title, 800, Math.round(H * .3), DISPLAY, W - 56); g.fillText(title, 28, H * .47);
+    g.fillStyle = '#8fbfee'; fit(g, sub.toUpperCase(), 400, Math.round(H * .15), MONO, W - 56); g.fillText(sub.toUpperCase(), 28, H * .78);
   });
 }
 function sign(text, sub) {
   return holo(4.6, .78, (g, W, H) => {
     g.textAlign = 'center';
-    g.fillStyle = '#5aa9ff'; g.font = `500 ${Math.round(H * .19)}px ${MONO}`; g.fillText(sub, W / 2, H * .38);
-    g.fillStyle = '#eef6ff'; g.font = `700 ${Math.round(H * .3)}px ${SANS}`; g.fillText(text, W / 2, H * .77);
+    g.fillStyle = '#5aa9ff'; g.font = `400 ${Math.round(H * .19)}px ${MONO}`; g.fillText(sub, W / 2, H * .38);
+    g.fillStyle = '#eef6ff'; g.font = `800 ${Math.round(H * .3)}px ${DISPLAY}`; g.fillText(text, W / 2, H * .77);
   });
 }
 
@@ -646,8 +649,8 @@ function placeholderTex(title) {
   g.fillStyle = 'rgba(255,255,255,.03)'; for (let y = 0; y < 288; y += 4) g.fillRect(0, y, 512, 2);
   g.strokeStyle = 'rgba(255,255,255,.22)'; g.setLineDash([10, 8]); g.lineWidth = 2; g.strokeRect(10, 10, 492, 268);
   g.fillStyle = RED; g.beginPath(); g.arc(36, 40, 7, 0, 7); g.fill();
-  g.fillStyle = '#8b8f96'; g.font = `500 18px ${MONO}`; g.fillText('REC / YOUR CLIP HERE', 52, 46);
-  g.fillStyle = '#ededed'; g.font = `700 34px ${SANS}`; g.fillText(title, 30, 240);
+  g.fillStyle = '#8b8f96'; g.font = `400 18px ${MONO}`; g.fillText('REC / YOUR CLIP HERE', 52, 46);
+  g.fillStyle = '#ededed'; g.font = `800 34px ${DISPLAY}`; g.fillText(title, 30, 240);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
 }
 function addPlaceholder(roomIdx, x, y, z, rotY, w, title, portrait = false) {
@@ -689,10 +692,10 @@ pick(addScreen('reel', 0, -WALL, 2.75, -7, L_FACE, 5.6, true).mesh, ev => openMo
 placeHolo(label(3.2, 'Sizzle 2026', 'Every room in 30 seconds / click to play'), 0, -WALL + .04, .62, -7, L_FACE, false);
 placeHolo(holo(4.2, 3, (g, W, H) => {
   const pad = 56; let y = 96;
-  g.fillStyle = '#5aa9ff'; g.font = `500 26px ${MONO}`; g.fillText('DIRECTORY / ONE PRACTICE', pad, y); y += 92;
-  g.fillStyle = '#eef6ff'; g.font = `700 76px ${SANS}`; g.fillText('Five rooms.', pad, y); y += 80; g.fillText('One craft.', pad, y); y += 62;
+  g.fillStyle = '#5aa9ff'; g.font = `400 26px ${MONO}`; g.fillText('DIRECTORY / ONE PRACTICE', pad, y); y += 92;
+  g.fillStyle = '#eef6ff'; g.font = `800 76px ${DISPLAY}`; g.fillText('Five rooms.', pad, y); y += 80; g.fillText('One craft.', pad, y); y += 62;
   g.fillStyle = 'rgba(90,169,255,.4)'; g.fillRect(pad, y, W - pad * 2, 2); y += 60;
-  ROOMS.slice(1).forEach(r => { g.fillStyle = '#5aa9ff'; g.font = `500 26px ${MONO}`; g.fillText(`${r.no}  ${r.theme.toUpperCase()}`, pad, y); g.fillStyle = '#e1eefc'; g.font = `500 32px ${SANS}`; g.fillText(r.name, pad + 310, y); y += 54; });
+  ROOMS.slice(1).forEach(r => { g.fillStyle = '#5aa9ff'; g.font = `400 26px ${MONO}`; g.fillText(`${r.no}  ${r.theme.toUpperCase()}`, pad, y); g.fillStyle = '#e1eefc'; g.font = `500 32px ${SANS}`; g.fillText(r.name, pad + 310, y); y += 54; });
   y += 18; g.fillStyle = '#b8d6f5'; g.font = `400 28px ${SANS}`; wrap(g, 'Every room is a different lens on the same work: the story, its rhythm, how it scales and where it lives.', pad, y, W - pad * 2, 38);
 }), 0, HALF - .55, 2.5, -8, R_FACE);
 pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: 'Directory / one practice', title: 'Five rooms. One craft.', desc: 'Every room is a different lens on the same work: the story, its rhythm, how it scales and where it lives.', actions: ROOMS.slice(1).map((r, k) => ({ label: `<span class="mono" style="color:var(--blue)">${r.no} ${r.theme}</span>&nbsp;&nbsp;${r.name}`, fn: () => { closeModal(); goRoom(k + 1); } })) }, ev));
@@ -701,8 +704,8 @@ pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: 'Directory / one pract
 const AZ = ROOMS[5].z0;
 placeHolo(holo(3.2, 1.7, (g, W, H) => {
   const pad = 52;
-  g.fillStyle = '#5aa9ff'; g.font = `500 24px ${MONO}`; g.fillText('05 / EXIT / NEXT PROJECT', pad, 84);
-  g.fillStyle = '#eef6ff'; g.font = `700 64px ${SANS}`; g.fillText("Let's build", pad, 178); g.fillText('something.', pad, 248);
+  g.fillStyle = '#5aa9ff'; g.font = `400 24px ${MONO}`; g.fillText('05 / EXIT / NEXT PROJECT', pad, 84);
+  g.fillStyle = '#eef6ff'; g.font = `800 64px ${DISPLAY}`; g.fillText("Let's build", pad, 178); g.fillText('something.', pad, 248);
   g.fillStyle = '#b8d6f5'; g.font = `400 28px ${SANS}`; wrap(g, 'davielaniyanb@gmail.com / WhatsApp +234 809 349 3835', pad, 316, W - pad * 2, 38);
 }), 5, -3.2, 2.5, AZ - 2.2, 0.55);
 pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: '05 / Exit', title: "Let's build something.", desc: 'Full-time, contract or freelance. Email or WhatsApp is the fastest way to reach me.', actions: [{ label: 'Go to contact &darr;', fn: () => { closeModal(); lenis.scrollTo('#contact'); } }] }, ev));
