@@ -416,7 +416,7 @@ const WORKS = {
   'edge-cases': { t: "Edge cases aren't edge cases", c: 'TARS / Short', f: 'motion', o: 'port', yt: 'R-Nks71zI1Q', short: 1, d: 'A vertical explainer with a holographic HUD language: face scans, neon UI panels and data callouts.' },
   'metrics': { t: 'The Metrics identity', c: 'The Metrics / Brand motion', f: 'motion', o: 'port', d: 'A brand identity reveal: 3D logo build, phone mockups and editorial type.' },
   'chaos': { t: 'Press 1 for Chaos', c: 'TARS / AI-anchored news show', f: 'ai', o: 'land', yt: 'IWKu6zyaBVs', role: 'Direction, AI generation, edit', tools: 'Veo / ElevenLabs / Premiere', d: 'An AI-generated narrative short: robot desk scenes, an angry candle and illustrated crowds, cut to a news-broadcast frame.' },
-  'spark': { t: 'SPARK collage promo', c: 'Spec / AI-assisted pipeline', f: 'ai', o: 'port', full: 1, d: 'A viral collage-style promo rebuilt with an AI image pipeline, 3D-composited paper layers and generated music.' },
+  'libations': { t: 'Libations', c: 'Spec / Retro collage promo', f: 'ai', o: 'port', full: 1, role: 'Concept, design, motion, edit', d: 'A retro collage promo for Show Dem Camp\'s "Libations", starring me: cut-out photography, VHS timecode, a spinning record and halftone type, all cut to the beat.' },
   'maven': { t: 'Indulge in radiance', c: 'Spec / Beauty ad', f: 'ai', o: 'land', full: 1, d: 'A premium skincare spot with elegant serif typography and soft, warm grading.' },
   'lakowe': { t: 'Lakowe residence', c: 'Private client / Walkthrough', f: 'archviz', o: 'land', role: 'Interior viz, camera, edit', tools: 'Twinmotion / D5 / Premiere', d: 'A full interior walkthrough: double-height living room, walk-in closet and a marble-and-gold bath.' },
   'building': { t: 'Terrace house showcase', c: 'Archviz / Exterior', f: 'archviz', o: 'land', full: 1, d: 'Exterior visualization of a contemporary terrace development with street context.' },
@@ -429,7 +429,7 @@ const ROOMS = [
   { key: 'lobby', no: '00', theme: 'Lobby', name: 'Film & Space', z0: 0, z1: -14 },
   { key: 'youtube', no: '01', theme: 'Story', name: 'YouTube & creators', z0: -14, z1: -32, main: 'tars-longform', frames: ['tokens', 'anna', 'podcast-short', 'habaripay'], line: 'Every edit starts with a reason to keep watching.' },
   { key: 'motion', no: '02', theme: 'Rhythm', name: 'Motion & brand', z0: -32, z1: -50, main: 'altschool', frames: ['tbe-review', 'anniversary', 'edge-cases', 'builders'], line: 'Motion gives the story a pulse.' },
-  { key: 'ai', no: '03', theme: 'Scale', name: 'AI video', z0: -50, z1: -68, main: 'chaos', frames: ['spark', 'maven'], line: 'AI lets one editor direct a whole crew.' },
+  { key: 'ai', no: '03', theme: 'Scale', name: 'AI video', z0: -50, z1: -68, main: 'chaos', frames: ['libations', 'maven'], line: 'AI lets one editor direct a whole crew.' },
   { key: 'archviz', no: '04', theme: 'Space', name: 'Architectural viz', z0: -68, z1: -86, main: 'lakowe', frames: ['building', 'northgate'], line: 'Where the architect in me shows up.' },
   { key: 'exit', no: '05', theme: 'Exit', name: 'Next project', z0: -86, z1: -100, line: "Let's build something." },
 ];
@@ -661,8 +661,8 @@ const L_FACE = Math.PI / 2, R_FACE = -Math.PI / 2;   // left wall faces +x, righ
 ROOMS.forEach((r, i) => {
   const zc = r.z0 - 6.5;
   if (r.main) {
-    pick(addScreen(r.main, i, -WALL, 2.55, zc, L_FACE, 6.4, true).mesh, ev => openModal(r.main, ev));
-    pick(placeHolo(infoPanel(r, WORKS[r.main]), i, -HALF + .55, 2.4, zc - 5.3, L_FACE).mesh, ev => openModal(r.main, ev));
+    pick(addScreen(r.main, i, -WALL, 2.75, zc, L_FACE, 5.6, true).mesh, ev => openModal(r.main, ev));
+    pick(placeHolo(infoPanel(r, WORKS[r.main]), i, -WALL + .12, 2.4, zc - 6.1, L_FACE).mesh, ev => openModal(r.main, ev));
     const step = 13 / r.frames.length;
     r.frames.forEach((id, k) => {
       const z = zc + 3.5 - step * (k + .5);
@@ -672,7 +672,7 @@ ROOMS.forEach((r, i) => {
       }
       const port = WORKS[id].o === 'port', fw = port ? 1.45 : 2.5;
       pick(addScreen(id, i, WALL, port ? 2.75 : 2.6, z, R_FACE, fw, false).mesh, ev => openModal(id, ev));
-      pick(placeHolo(label(2.5, WORKS[id].t, WORKS[id].c), i, WALL - .05, port ? .9 : 1.25, z, R_FACE, false).mesh, ev => openModal(id, ev));
+      pick(placeHolo(label(2.3, WORKS[id].t, WORKS[id].c), i, WALL - .02, port ? .92 : 1.3, z, R_FACE, false).mesh, ev => openModal(id, ev));
     });
   }
   // door sign facing the visitor, announcing the next room
@@ -685,8 +685,8 @@ ROOMS.forEach((r, i) => {
 placeHolo(sign('David Olaniyan', 'FILM & SPACE / ENTER'), 0, 0, 4.15, .3, 0, false);
 
 // lobby: showreel screen + directory hologram
-pick(addScreen('reel', 0, -WALL, 2.55, -7, L_FACE, 6.4, true).mesh, ev => openModal(null, ev));
-placeHolo(label(3.2, 'Sizzle 2026', 'Every room in 30 seconds / click to play'), 0, -HALF + .4, .62, -7, L_FACE, false);
+pick(addScreen('reel', 0, -WALL, 2.75, -7, L_FACE, 5.6, true).mesh, ev => openModal(null, ev));
+placeHolo(label(3.2, 'Sizzle 2026', 'Every room in 30 seconds / click to play'), 0, -WALL + .04, .62, -7, L_FACE, false);
 placeHolo(holo(4.2, 3, (g, W, H) => {
   const pad = 56; let y = 96;
   g.fillStyle = '#5aa9ff'; g.font = `500 26px ${MONO}`; g.fillText('DIRECTORY / ONE PRACTICE', pad, y); y += 92;
@@ -796,7 +796,7 @@ ROOMS.forEach((r, i) => {
   guest({ x: -4.6, z: zc + .8, face: -PI / 2, pose: 'sit', room: i });                                   // the screening
   guest({ x: -4.6, z: zc - .7, face: -PI / 2, pose: 'sit', look: .5, room: i });
   guest({ x: -2.7, z: zc + .2, face: -PI / 2, pose: 'sit', look: -.4, room: i });
-  guest({ x: -5.7, z: zc - 5.6, face: -PI / 2, pose: 'behind', sex: 'w', room: i });                     // reading the hologram
+  guest({ x: -5.7, z: zc - 6.1, face: -PI / 2, pose: 'behind', sex: 'w', room: i });                     // reading the hologram
   guest({ x: 5.0, z: zc + 3.6, face: PI * .8, pose: 'drink', look: .3, room: i });                       // two talking over drinks
   guest({ x: 4.3, z: zc + 2.7, face: -PI * .2, pose: 'talk', sex: 'w', look: -.3, room: i });
   guest({ x: 6.1, z: zc - 6.8, face: PI / 2, pose: i % 2 ? 'clutch' : 'drink', sex: 'w', room: i });     // looking at the other work
