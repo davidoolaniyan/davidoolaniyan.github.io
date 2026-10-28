@@ -345,12 +345,11 @@
 <section class="block" id="about">
   <div class="about-top">
     <div>
-      <div class="eyebrow mono reveal">About / Off the clock</div>
-      <h2 class="big reveal">Less résumé.<br>More rushes.</h2>
+      <div class="eyebrow mono reveal">About</div>
+      <h2 class="big reveal">Architect by training.<br>Editor by trade.</h2>
     </div>
     <div class="reveal">
       <p>I'm David Oluwabukunmi Olaniyan, a video editor and motion designer finishing a master's in architecture at FUTA, Nigeria. Architecture taught me composition, light and how people move through space. Editing taught me how they move through time.</p>
-      <p>Off the clock you'll find me sketching, on a basketball court, buried in a book or out on a long walk. All four feed the work.</p>
     </div>
   </div>
   <div class="tools reveal">
@@ -394,6 +393,8 @@
 <script type="module">
 import * as THREE from 'three';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 
 /* =====================================================================
    CONTENT
@@ -430,7 +431,7 @@ const ROOMS = [
   { key: 'motion', no: '02', theme: 'Rhythm', name: 'Motion & brand', z0: -32, z1: -50, main: 'altschool', frames: ['tbe-review', 'anniversary', 'edge-cases', 'builders'], line: 'Motion gives the story a pulse.' },
   { key: 'ai', no: '03', theme: 'Scale', name: 'AI video', z0: -50, z1: -68, main: 'chaos', frames: ['spark', 'maven'], line: 'AI lets one editor direct a whole crew.' },
   { key: 'archviz', no: '04', theme: 'Space', name: 'Architectural viz', z0: -68, z1: -86, main: 'lakowe', frames: ['building', 'northgate'], line: 'Where the architect in me shows up.' },
-  { key: 'about', no: '05', theme: 'The person', name: 'Off the clock', z0: -86, z1: -100, line: 'The habits behind the work.' },
+  { key: 'exit', no: '05', theme: 'Exit', name: 'Next project', z0: -86, z1: -100, line: "Let's build something." },
 ];
 
 /* =====================================================================
@@ -575,7 +576,7 @@ function holo(w, h, draw) {
   [[0, 0, 1, 1], [W, 0, -1, 1], [0, H, 1, -1], [W, H, -1, -1]].forEach(([x, y, sx, sy]) => { g.beginPath(); g.moveTo(x + sx * 3, y + sy * k); g.lineTo(x + sx * 3, y + sy * 3); g.lineTo(x + sx * k, y + sy * 3); g.stroke(); });
   draw(g, W, H);
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
-  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, fog: false });
   return new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
 }
 function wrap(g, text, x, y, maxW, lh) {
@@ -696,19 +697,15 @@ placeHolo(holo(4.2, 3, (g, W, H) => {
 }), 0, HALF - .55, 2.5, -8, R_FACE);
 pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: 'Directory / one practice', title: 'Five rooms. One craft.', desc: 'Every room is a different lens on the same work: the story, its rhythm, how it scales and where it lives.', actions: ROOMS.slice(1).map((r, k) => ({ label: `<span class="mono" style="color:var(--blue)">${r.no} ${r.theme}</span>&nbsp;&nbsp;${r.name}`, fn: () => { closeModal(); goRoom(k + 1); } })) }, ev));
 
-// about room: life in clips
+// exit hall: one contact panel before the door
 const AZ = ROOMS[5].z0;
-const HOBBY = { 'Sketching': 'Pen, paper, no undo. Where most of my framing ideas start.', 'Studio nights': 'Architecture school at FUTA: models, juries and very long nights.', 'Reading': 'Books are where I steal structure: setups, payoffs, pacing.', 'Basketball': 'Rhythm, timing and reading the room, just faster.', 'Long walks': 'How I study spaces: light, thresholds and how people move through them.', 'Say hi': 'Easiest way to reach me is email or WhatsApp. Both are in the contact section.' };
-const clipPop = t => ev => openPopup({ tag: 'Off the clock', title: t, desc: HOBBY[t], actions: [{ label: 'See the About section &darr;', fn: () => { closeModal(); lenis.scrollTo('#about'); } }] }, ev);
-[['Sketching', -4.2], ['Studio nights', -8.2], ['Reading', -12]].forEach(([t, dz]) => pick(addPlaceholder(5, -WALL, 2.5, AZ + dz, L_FACE, 3, t), clipPop(t)));
-[['Basketball', -3.6], ['Long walks', -7.6], ['Say hi', -11.4]].forEach(([t, dz], k) => pick(addPlaceholder(5, WALL, 2.6, AZ + dz, R_FACE, k === 2 ? 1.45 : 3, t, k === 2), clipPop(t)));
 placeHolo(holo(3.2, 1.7, (g, W, H) => {
   const pad = 52;
-  g.fillStyle = '#5aa9ff'; g.font = `500 24px ${MONO}`; g.fillText('05 / THE PERSON / OFF THE CLOCK', pad, 84);
-  g.fillStyle = '#eef6ff'; g.font = `700 64px ${SANS}`; g.fillText('Less résumé.', pad, 178); g.fillText('More rushes.', pad, 248);
-  g.fillStyle = '#b8d6f5'; g.font = `400 28px ${SANS}`; wrap(g, 'Sketching, basketball, books and long walks. Architecture student, editor, human.', pad, 316, W - pad * 2, 38);
+  g.fillStyle = '#5aa9ff'; g.font = `500 24px ${MONO}`; g.fillText('05 / EXIT / NEXT PROJECT', pad, 84);
+  g.fillStyle = '#eef6ff'; g.font = `700 64px ${SANS}`; g.fillText("Let's build", pad, 178); g.fillText('something.', pad, 248);
+  g.fillStyle = '#b8d6f5'; g.font = `400 28px ${SANS}`; wrap(g, 'davielaniyanb@gmail.com / WhatsApp +234 809 349 3835', pad, 316, W - pad * 2, 38);
 }), 5, -3.2, 2.5, AZ - 2.2, 0.55);
-pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: '05 / The person', title: 'Less résumé. More rushes.', desc: "I'm David Oluwabukunmi Olaniyan, a video editor and motion designer finishing a master's in architecture at FUTA, Nigeria. Architecture taught me composition, light and how people move through space. Editing taught me how they move through time.", actions: [{ label: 'See the About section &darr;', fn: () => { closeModal(); lenis.scrollTo('#about'); } }] }, ev));
+pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: '05 / Exit', title: "Let's build something.", desc: 'Full-time, contract or freelance. Email or WhatsApp is the fastest way to reach me.', actions: [{ label: 'Go to contact &darr;', fn: () => { closeModal(); lenis.scrollTo('#contact'); } }] }, ev));
 
 // exit light
 const exitGlow = new THREE.Mesh(new THREE.PlaneGeometry(DOOR, 3.2), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, toneMapped: false }));
@@ -725,71 +722,73 @@ ROOMS.forEach(r => {
 });
 furniture.visible = false;
 
-/* ---- gallery guests: low-detail people in evening wear ---- */
-const Mat = c => new THREE.MeshStandardMaterial({ color: c, roughness: .72 });
-const SKIN = [0x4a2f20, 0x6f4630, 0x5e3b27, 0x9a6947, 0x83563a, 0xb98563].map(Mat);
-const HAIR = Mat(0x141110), SHIRT = Mat(0xeceef0), SHOE = Mat(0x0d0d0e);
-const SUIT = [0x1f2125, 0x15161a, 0x1c2638, 0x5d6168, 0x2d3036].map(Mat);
-const DRESS = [0x111214, 0xdedfe2, 0x1c2638, 0x6e1d22, 0x8a8e95, 0x111214].map(Mat);
-const TIE = [0x111214, 0x6e1d22, 0x2b3f5c].map(Mat);
-const GLASS = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .05, transparent: true, opacity: .35 }), WINE = Mat(0x6e1d22);
-const GEO = {
-  head: new THREE.SphereGeometry(.098, 18, 14), neck: new THREE.CylinderGeometry(.042, .046, .1, 10),
-  hairCap: new THREE.SphereGeometry(.104, 18, 10, 0, Math.PI * 2, 0, Math.PI * .5),
-  bun: new THREE.SphereGeometry(.06, 12, 10), puff: new THREE.SphereGeometry(.13, 16, 12), longHair: new THREE.CapsuleGeometry(.085, .16, 4, 10),
-  torsoM: new THREE.CapsuleGeometry(.165, .3, 4, 12), torsoW: new THREE.CapsuleGeometry(.13, .27, 4, 12),
-  shoulder: new THREE.SphereGeometry(.072, 10, 8), shirt: new THREE.BoxGeometry(.1, .18, .01), tie: new THREE.BoxGeometry(.034, .2, .012),
-  upper: new THREE.CapsuleGeometry(.047, .22, 3, 8), fore: new THREE.CapsuleGeometry(.04, .21, 3, 8), hand: new THREE.SphereGeometry(.04, 8, 6),
-  thigh: new THREE.CapsuleGeometry(.07, .3, 3, 8), shin: new THREE.CapsuleGeometry(.055, .3, 3, 8),
-  shoe: new THREE.BoxGeometry(.095, .07, .26), heel: new THREE.BoxGeometry(.07, .05, .2), clutch: new THREE.BoxGeometry(.16, .09, .03),
-  skirt: new THREE.CylinderGeometry(.155, .27, .62, 20),
-  bowl: new THREE.CylinderGeometry(.035, .012, .07, 12, 1, true), wine: new THREE.CylinderGeometry(.027, .012, .03, 12), stem: new THREE.CylinderGeometry(.004, .004, .08, 6), base: new THREE.CylinderGeometry(.028, .028, .004, 12),
-};
+/* ---- gallery guests: rigged human models, posed bone by bone ---- */
 const shadowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
 const shadowGeo = new THREE.PlaneGeometry(1, 1), shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false });
-const people = [];
-function part(parent, geo, mat, y) { const m = new THREE.Mesh(geo, mat); m.position.y = y; parent.add(m); return m; }
-function wineGlass(hand, counter) {
-  const g = new THREE.Group(); g.position.set(0, -.3, .03); g.rotation.x = counter; hand.add(g);
-  part(g, GEO.bowl, GLASS, .075); part(g, GEO.wine, WINE, .058); part(g, GEO.stem, GLASS, .0); part(g, GEO.base, GLASS, -.04);
+const people = [], GUESTS = [];
+const guest = cfg => GUESTS.push(cfg);
+const bone = (o, n) => { let r = null; o.traverse(c => { if (!r && c.isBone && c.name.replace(/^mixamorig:?/, '') === n) r = c; }); return r; };
+const _a = new THREE.Vector3(), _b = new THREE.Vector3(), _q = new THREE.Quaternion(), _pq = new THREE.Quaternion();
+// turn `b` so the segment from it to `child` points along `dir` (model space, figure facing +z)
+function aim(b, child, dir) {
+  if (!b || !child) return;
+  b.updateWorldMatrix(true, true);
+  b.getWorldPosition(_a); child.getWorldPosition(_b);
+  _q.setFromUnitVectors(_b.sub(_a).normalize(), dir.clone().normalize());
+  b.parent.getWorldQuaternion(_pq);
+  b.quaternion.premultiply(_pq).premultiply(_q).premultiply(_pq.invert());
 }
-let guestN = 0;
-function guest({ x, z, face, pose = 'stand', sex = 'm', look = 0, room = 0 }) {
-  const n = guestN++, pickOf = (a, k) => a[(n * 5 + k * 3) % a.length];
-  const skin = pickOf(SKIN, 1), cloth = sex === 'm' ? pickOf(SUIT, 0) : pickOf(DRESS, 2);
-  const root = new THREE.Group(); root.position.set(x, 0, z); root.rotation.y = face;
-  const pelvis = new THREE.Group(); pelvis.position.y = pose === 'sit' ? .5 : .93; root.add(pelvis);
-  const spine = new THREE.Group(); pelvis.add(spine);
-  part(spine, sex === 'm' ? GEO.torsoM : GEO.torsoW, cloth, .3).scale.set(sex === 'm' ? 1.12 : 1, 1, .7);
-  if (sex === 'm') {
-    part(spine, GEO.shirt, SHIRT, .45).position.z = .112;
-    part(spine, GEO.tie, pickOf(TIE, 2), .42).position.z = .121;
-    [-1, 1].forEach(sd => part(spine, GEO.shoulder, cloth, .5).position.x = .2 * sd);
-  } else part(pelvis, GEO.skirt, cloth, -.26);
-  part(spine, GEO.neck, skin, .6);
-  const neck = new THREE.Group(); neck.position.y = .64; spine.add(neck);
-  part(neck, GEO.head, skin, .1).scale.set(.93, 1.06, 1);
-  const hs = n % 3;
-  if (sex === 'm') { if (hs !== 2) part(neck, GEO.hairCap, HAIR, .115).scale.set(.95, .9, 1.02); }
-  else if (hs === 0) part(neck, GEO.puff, HAIR, .2).position.z = -.03;
-  else { part(neck, GEO.hairCap, HAIR, .115).scale.set(.98, .95, 1.04); if (hs === 1) part(neck, GEO.bun, HAIR, .2).position.z = -.08; else { const lh = part(neck, GEO.longHair, HAIR, .0); lh.position.z = -.07; lh.scale.set(1.15, 1, .6); } }
-  const sleeve = sex === 'm' ? cloth : skin, legMat = sex === 'm' ? cloth : skin;
-  const arm = sd => { const sh = new THREE.Group(); sh.position.set(.2 * sd, .5, 0); spine.add(sh); part(sh, GEO.upper, sleeve, -.14); const elb = new THREE.Group(); elb.position.y = -.3; sh.add(elb); part(elb, GEO.fore, sleeve, -.13); part(elb, GEO.hand, skin, -.28); return { sh, el: elb }; };
-  const leg = sd => { const hp = new THREE.Group(); hp.position.set(.085 * sd, -.02, 0); pelvis.add(hp); part(hp, GEO.thigh, legMat, -.21); const kn = new THREE.Group(); kn.position.y = -.43; hp.add(kn); part(kn, GEO.shin, legMat, -.19); part(kn, sex === 'm' ? GEO.shoe : GEO.heel, SHOE, -.43).position.z = .05; return { hp, kn }; };
-  const L = arm(1), R = arm(-1), LL = leg(1), RL = leg(-1);
-  L.sh.rotation.z = .06; R.sh.rotation.z = -.06;
-  if (pose === 'sit') { [LL, RL].forEach(l => { l.hp.rotation.x = -Math.PI / 2; l.kn.rotation.x = Math.PI / 2; }); [L, R].forEach(a => { a.sh.rotation.x = -.45; a.el.rotation.x = -.9; }); spine.rotation.x = -.05; }
-  if (pose === 'drink') { R.sh.rotation.x = -.25; R.el.rotation.x = -1.75; wineGlass(R.el, 2.0); }
-  if (pose === 'talk') { L.sh.rotation.x = -.25; L.el.rotation.x = -1.6; wineGlass(L.el, 1.85); }
-  if (pose === 'point') { R.sh.rotation.x = -1.3; R.sh.rotation.z = -.12; R.el.rotation.x = -.1; }
-  if (pose === 'behind') [L, R].forEach(a => { a.sh.rotation.x = .28; a.el.rotation.x = -.5; });
-  if (pose === 'clutch') { L.sh.rotation.x = -.1; L.el.rotation.x = -1.25; part(L.el, GEO.clutch, SHOE, -.27).position.z = .05; }
-  if (pose === 'phone') { R.sh.rotation.x = -.4; R.el.rotation.x = -1.6; neck.rotation.x = .35; }
-  if (sex === 'w') { LL.hp.rotation.z = -.04; RL.hp.rotation.z = .04; }
-  const sh = new THREE.Mesh(shadowGeo, shadowMat); sh.rotation.x = -Math.PI / 2; sh.scale.set(.7, .7, 1); sh.position.y = .012; root.add(sh);
-  root.scale.setScalar(.001); scene.add(root);
-  people.push({ root, pose, neck, spine, L, R, look, room, phase: n * 1.37 });
-}
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+// arm targets per pose: [upper arm, forearm] for the left arm; the right arm mirrors x unless given
+const POSES = {
+  stand:  { L: [V(.16, -1, -.02), V(.1, -1, .14)] },
+  behind: { L: [V(.12, -1, -.38), V(-.7, -.25, -.5)] },
+  drink:  { R: [V(-.12, -1, .2), V(-.1, .45, 1)] },
+  talk:   { L: [V(.14, -1, .16), V(.15, .1, 1)], R: [V(-.12, -1, .2), V(-.1, .45, 1)] },
+  point:  { R: [V(-.12, -.18, 1), V(-.1, -.12, 1)] },
+  clutch: { L: [V(.1, -1, .05), V(-.35, -.15, .9)] },
+  phone:  { R: [V(-.1, -1, .2), V(.2, .55, 1)], head: .35 },
+  sit:    { L: [V(.12, -1, .22), V(.05, -.35, 1)] },
+};
+const TOPS = [0x1b1c20, 0xd9dbdf, 0x23324c, 0x5c1d24, 0x3b3e44, 0x2e4a3a], BOTTOMS = [0x17181b, 0x2a2c31, 0x1f2a3c, 0x4a4d53];
+const SKINS = [0xffffff, 0xd6a688, 0xa77457, 0x7d5240, 0x5e3b2c];
+const loadGLB = url => new Promise(res => new GLTFLoader().load(url, g => res(g.scene), undefined, () => res(null)));
+Promise.all([loadGLB('media/people/readyplayer.me.glb'), loadGLB('media/people/Michelle.glb')]).then(([man, woman]) => {
+  GUESTS.forEach((cfg, n) => {
+    const src = cfg.sex === 'w' ? woman : man; if (!src) return;
+    const body = SkeletonUtils.clone(src), pose = POSES[cfg.pose] || POSES.stand;
+    body.traverse(c => {
+      if (!c.isMesh) return;
+      c.frustumCulled = false; c.material = c.material.clone();
+      const m = c.material.name || '';
+      if (cfg.sex === 'w') c.material.color.setHex(SKINS[(n * 2) % 3]);                       // one atlas: tint the whole figure
+      else if (/Skin|Body|Head/.test(m)) c.material.color.setHex(SKINS[(n * 3 + 1) % SKINS.length]);
+      else if (/Top/.test(m)) c.material.color.setHex(TOPS[(n * 5) % TOPS.length]);
+      else if (/Bottom/.test(m)) c.material.color.setHex(BOTTOMS[(n * 3) % BOTTOMS.length]);
+    });
+    // normalise height from the rest pose, then pose with the figure at the origin facing +z
+    const B = k => bone(body, k), wy = o => { const v = new THREE.Vector3(); o.getWorldPosition(v); return v.y; };
+    const toes = () => Math.min(wy(B('LeftToe_End') || B('LeftFoot')), wy(B('RightToe_End') || B('RightFoot')));
+    body.updateWorldMatrix(true, true);   // skinned bounding boxes ignore the rig scale, so measure from the bones
+    body.scale.multiplyScalar((cfg.sex === 'w' ? 1.66 : 1.78) / (wy(B('HeadTop_End')) - toes()));
+    body.updateWorldMatrix(true, true);
+    const side = (k, d) => (k === 'L' ? d : V(-d.x, d.y, d.z));
+    ['L', 'R'].forEach(k => {
+      const arm = pose[k] || (k === 'R' && pose.L ? pose.L.map(d => side('R', d)) : POSES.stand.L.map(d => side(k, d)));
+      const nm = k === 'L' ? 'Left' : 'Right';
+      aim(B(nm + 'Arm'), B(nm + 'ForeArm'), arm[0]); aim(B(nm + 'ForeArm'), B(nm + 'Hand'), arm[1]);
+    });
+    if (cfg.pose === 'sit') ['Left', 'Right'].forEach((nm, k) => { aim(B(nm + 'UpLeg'), B(nm + 'Leg'), V(k ? -.08 : .08, -.05, 1)); aim(B(nm + 'Leg'), B(nm + 'Foot'), V(0, -1, .08)); });
+    const head = B('Head'), chest = B('Spine2');
+    if (pose.head && head) head.rotateX(pose.head);
+    body.updateWorldMatrix(true, true);
+    body.position.y = cfg.pose === 'sit' ? .52 - wy(B('Hips')) : -toes();
+    const root = new THREE.Group(); root.position.set(cfg.x, 0, cfg.z); root.rotation.y = cfg.face; root.add(body);
+    const sh = new THREE.Mesh(shadowGeo, shadowMat); sh.rotation.x = -Math.PI / 2; sh.scale.set(.7, .7, 1); sh.position.y = .012; root.add(sh);
+    root.scale.setScalar(.001); scene.add(root);
+    people.push({ root, head, chest, headQ: head && head.quaternion.clone(), chestQ: chest && chest.quaternion.clone(), look: cfg.look || 0, room: cfg.room || 0, phase: n * 1.37 });
+  });
+});
 const PI = Math.PI;
 ROOMS.forEach((r, i) => {
   if (!r.main) return;
@@ -805,7 +804,6 @@ ROOMS.forEach((r, i) => {
 });
 guest({ x: -4.2, z: -3.2, face: PI * .3, pose: 'talk', room: 0 }); guest({ x: -3.4, z: -3.9, face: -PI * .7, pose: 'drink', sex: 'w', room: 0 }); guest({ x: -4.5, z: -4.4, face: PI * .9, pose: 'clutch', sex: 'w', room: 0 });
 guest({ x: 6.0, z: -8.6, face: PI / 2, pose: 'behind', room: 0 });
-guest({ x: -5.8, z: -96.5, face: -PI / 2, pose: 'drink', sex: 'w', room: 5 }); guest({ x: 5.9, z: -94, face: PI / 2, pose: 'point', room: 5 });
 
 /* ---- lights ---- */
 const ambient = new THREE.AmbientLight(0xffffff, 0); scene.add(ambient);
@@ -1002,12 +1000,8 @@ function frame(now) {
     setLive(s, near && on > .5);
   });
   holos.forEach(h => {
-    const d = camera.position.distanceTo(h.mesh.position);
-    const want = fly < 1 ? on * .5 : clamp(1.5 - d / 14, .28, 1);
-    if (want > .6 && !h.seen) { h.seen = true; h.flick = .45; }
-    h.flick = Math.max(0, h.flick - 1 / 60);
-    const flicker = h.flick > 0 ? (Math.random() > .5 ? .3 : 1) : .94 + Math.sin(t * 9 + d) * .04;
-    h.mesh.material.opacity = (hover && hover.mesh === h.mesh) ? 1 : want * flicker;
+    const want = fly < 1 ? on * .5 : on;   // labels stay solid: no distance fade, no flicker
+    h.mesh.material.opacity = want;
     if (h.beam) h.beam.material.opacity = want * .22;
   });
   const exitOn = range(z, -96, -101);
@@ -1015,10 +1009,9 @@ function frame(now) {
 
   // the audience idles: breathing, glancing around, talking with their hands
   people.forEach(f => {
-    f.spine.scale.y = 1 + Math.sin(t * 1.6 + f.phase) * .012;
-    f.neck.rotation.y = f.look * .6 + Math.sin(t * .35 + f.phase) * .35;
-    if (f.pose === 'talk') { f.R.sh.rotation.x = -.35 + Math.sin(t * 1.3 + f.phase) * .2; f.R.el.rotation.x = -.9 + Math.sin(t * 2.1 + f.phase) * .35; }
-    if (f.pose === 'drink') f.R.sh.rotation.x = -.25 + Math.max(0, Math.sin(t * .4 + f.phase)) * -.25;   // the occasional sip
+    if (!f.root.visible) return;
+    if (f.head) { f.head.quaternion.copy(f.headQ); f.head.rotateY(f.look * .5 + Math.sin(t * .35 + f.phase) * .3); }
+    if (f.chest) { f.chest.quaternion.copy(f.chestQ); f.chest.rotateX(Math.sin(t * 1.6 + f.phase) * .015); }
   });
 
   // overlay UI
