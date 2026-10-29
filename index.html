@@ -703,7 +703,7 @@ function openPopup(o, ev) {
   lenis.stop();
 }
 function openModal(id, ev) {
-  if (!id) return openPopup({ video: 'media/reel.mp4', tag: 'Sizzle 2026', title: 'Every room in 30 seconds', desc: 'A quick cut across YouTube, motion, AI video and archviz. Click any piece in the building or the grid for the full video.' }, ev);
+  if (!id) return openPopup({ video: 'media/sizzle.mp4', tag: 'Sizzle 2026', title: 'Every room in 30 seconds', desc: 'A quick cut across YouTube, motion, AI video and archviz. Click any piece in the building or the grid for the full video.' }, ev);
   const w = WORKS[id], yt = v => `https://www.youtube.com/${w.short && v === w.yt ? 'shorts/' : 'watch?v='}${v}`;
   const actions = [];
   if (w.yt) actions.push({ label: 'Watch on YouTube <span>&nearr;</span>', fn: () => open(yt(w.yt), '_blank', 'noopener') });
@@ -943,7 +943,7 @@ ROOMS.forEach((r, i) => {
 placeHolo(sign('David Olaniyan', 'EDIT & MOTION / ENTER'), 0, 0, 4.15, .3, 0, false);
 
 // lobby: showreel screen + directory hologram
-pick(addScreen('reel', 0, -WALL, 2.75, -7, L_FACE, 5.6, true).mesh, ev => openModal(null, ev));
+pick(addScreen('sizzle', 0, -WALL, 2.75, -7, L_FACE, 5.6, true).mesh, ev => openModal(null, ev));
 placeHolo(label(3.2, 'Sizzle 2026', 'Every room in 30 seconds / click to play'), 0, -WALL + .04, .62, -7, L_FACE, false);
 placeHolo(holo(4.2, 3, (g, W, H) => {
   const pad = 56; let y = 96;
