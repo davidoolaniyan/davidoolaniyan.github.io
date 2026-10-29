@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>David Olaniyan | Film & Space</title>
-<meta name="description" content="David Olaniyan: video editor, motion designer, AI video and archviz. Architect by training, editor by trade. Available for full-time, contract and freelance.">
-<meta property="og:title" content="David Olaniyan | Film & Space">
-<meta property="og:description" content="I design spaces. Then I walk you through them. YouTube, motion, AI video and architectural visualization.">
+<title>David Olaniyan | Edit & Motion</title>
+<meta name="description" content="David Olaniyan: video editor and motion designer for YouTube, brands and AI video, with an architect's eye for pacing, composition and flow. Available for full-time, contract and freelance.">
+<meta property="og:title" content="David Olaniyan | Edit & Motion">
+<meta property="og:description" content="Every frame has a structure. Video editing, motion graphics and AI video.">
 <meta property="og:image" content="https://davidoolaniyan.github.io/media/reel.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230a0a0b%27/%3E%3Cpath d=%27M7 25V7h18v18M7 16h8m4 0h6m-10 0a4 4 0 0 1 4-4%27 stroke=%27%235aa9ff%27 stroke-width=%272%27 fill=%27none%27/%3E%3C/svg%3E">
@@ -292,7 +292,7 @@
 <body>
 
 <nav class="nav">
-  <a href="#top" class="brand mono"><span>David Olaniyan</span><span>Film &amp; Space</span></a>
+  <a href="#top" class="brand mono"><span>David Olaniyan</span><span>Edit &amp; Motion</span></a>
   <div class="nav-links mono">
     <a href="#work">All work</a><a href="#cases">Case studies</a><a href="#about">About</a><a href="#contact">Contact</a>
     <button class="reel-btn" data-reel><i></i>Reel</button>
@@ -308,9 +308,9 @@
     <div class="bar" id="bar"></div>
 
     <div class="intro" id="intro">
-      <div class="mono" style="color:var(--blue)">Video editor / Motion designer / AI video / Archviz</div>
-      <h1>I design spaces.<br><em>Then I walk you through them.</em></h1>
-      <p>Architect by training, editor by trade. Every project here is a walk-through: a space, a story, a reason to keep watching. Scroll to step inside.</p>
+      <div class="mono" style="color:var(--blue)">Video editor / Motion designer / AI video</div>
+      <h1>Every frame<br><em>has a structure.</em></h1>
+      <p>Video editor and motion designer with an architect's eye for pacing, composition and flow. Scroll to walk through the work.</p>
     </div>
 
     <div class="titleblock mono" id="titleblock">
@@ -400,7 +400,7 @@
   <div class="about-top">
     <div>
       <div class="eyebrow mono reveal">About</div>
-      <h2 class="big reveal">Architect by training.<br>Editor by trade.</h2>
+      <h2 class="big reveal">Editor by trade.<br>Architect by training.</h2>
     </div>
     <div class="reveal">
       <p>I'm David Oluwabukunmi Olaniyan, a video editor and motion designer finishing a master's in architecture at FUTA, Nigeria. Architecture taught me composition, light and how people move through space. Editing taught me how they move through time.</p>
@@ -480,7 +480,7 @@ const TAGS = { youtube: 'Story / YouTube', motion: 'Rhythm / Motion', ai: 'Scale
 
 // The building: rooms run along -Z and every door sits on the centre line (x = 0).
 const ROOMS = [
-  { key: 'lobby', no: '00', theme: 'Lobby', name: 'Film & Space', z0: 0, z1: -14 },
+  { key: 'lobby', no: '00', theme: 'Lobby', name: 'Edit & Motion', z0: 0, z1: -14 },
   { key: 'youtube', no: '01', theme: 'Story', name: 'YouTube & creators', z0: -14, z1: -32, main: 'tars-longform', frames: ['tokens', 'anna', 'podcast-short', 'habaripay'], line: 'Every edit starts with a reason to keep watching.' },
   { key: 'motion', no: '02', theme: 'Rhythm', name: 'Motion & brand', z0: -32, z1: -50, main: 'altschool', frames: ['tbe-review', 'anniversary', 'edge-cases', 'builders'], line: 'Motion gives the story a pulse.' },
   { key: 'ai', no: '03', theme: 'Scale', name: 'AI video', z0: -50, z1: -68, main: 'chaos', frames: ['libations', 'maven'], line: 'AI lets one editor direct a whole crew.' },
@@ -598,7 +598,7 @@ walls.forEach(([x1, z1, x2, z2]) => {
 });
 BOUNDS.forEach(z => solid(new THREE.BoxGeometry(DOOR, WH - 3.2, T), 0, (WH + 3.2) / 2, z));
 // art deco detailing in platinum line: stepped portals, fluting, a chevron frieze, an inlaid runner and medallions
-const decoMat = new THREE.LineBasicMaterial({ color: 0xdfe3e9, transparent: true, opacity: 0 });
+const decoMat = new THREE.LineBasicMaterial({ color: 0xdfe3e9, transparent: true, opacity: 0, fog: false });
 const dp = [];
 const dl = (x1, y1, z1, x2, y2, z2) => dp.push(x1, y1, z1, x2, y2, z2);
 const IN = HALF - T / 2 - .01;
@@ -765,7 +765,7 @@ ROOMS.forEach((r, i) => {
     ? openPopup({ tag: `Next room / ${next.no}`, title: next.name, sub: next.theme, desc: next.line || '', actions: [{ label: `Walk to room ${next.no} &rarr;`, fn: () => { closeModal(); goRoom(i + 1); } }] }, ev)
     : openPopup({ tag: 'Exit', title: "Let's build something.", desc: 'Through this door: email, WhatsApp and socials.', actions: [{ label: 'Go to contact &rarr;', fn: () => { closeModal(); lenis.scrollTo('#contact'); } }] }, ev));
 });
-placeHolo(sign('David Olaniyan', 'FILM & SPACE / ENTER'), 0, 0, 4.15, .3, 0, false);
+placeHolo(sign('David Olaniyan', 'EDIT & MOTION / ENTER'), 0, 0, 4.15, .3, 0, false);
 
 // lobby: showreel screen + directory hologram
 pick(addScreen('reel', 0, -WALL, 2.75, -7, L_FACE, 5.6, true).mesh, ev => openModal(null, ev));
@@ -1034,7 +1034,7 @@ function frame(now) {
   // 1. the plan draws itself, 2. walls rise, 3. the room fills
   planGeo.setDrawRange(0, Math.floor(ease(clamp((now - t0) / 2600, 0, 1)) * planCount / 2) * 2);
   const ex = ease(range(p, ...PH.extrude));
-  building.scale.y = Math.max(.001, ex); wallMat.opacity = ex; decoMat.opacity = ex * .5; edgeMat.opacity = .9 - ex * .72;
+  building.scale.y = Math.max(.001, ex); wallMat.opacity = ex; decoMat.opacity = ex * .8; edgeMat.opacity = .9 - ex * .4;   // outlines and deco stay readable once built
   floor.material.opacity = ex; planMat.opacity = 1 - ex * .75; blueprint.material.opacity = .6 - ex * .45;
   ambient.intensity = ex * .5; hemi.intensity = ex * .7; roomLights.forEach(l => l.intensity = ex * 14);
   furniture.visible = ex > .6;
@@ -1047,7 +1047,7 @@ function frame(now) {
   const fly = ease(range(p, ...PH.fly)), walk = range(p, PH.walk, 1);
   const ki = sample(walk, cp);
   ct.set(Math.sin(look.yaw) * Math.cos(look.pitch), Math.sin(look.pitch), -Math.cos(look.yaw) * Math.cos(look.pitch)).multiplyScalar(10).add(cp);
-  scene.fog.near = 14 + (1 - fly) * 220; scene.fog.far = 50 + (1 - fly) * 320;
+  scene.fog.near = 26 + (1 - fly) * 220; scene.fog.far = 80 + (1 - fly) * 320;
   if (fly < 1) { cp.lerpVectors(OVER.pos, K[0].p, fly); ct.lerpVectors(OVER.tgt, K[0].t, fly); camera.up.lerpVectors(OVER.up, UP, fly).normalize(); }
   else camera.up.copy(UP);
   // damping irons out the steps of a mouse wheel
