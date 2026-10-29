@@ -289,7 +289,10 @@
   .brandbar.on { display: flex; }
   .brandbar b { color: var(--c, var(--chrome)); font-weight: 400; }
   .brandbar button { padding: 9px 14px; border: 1px solid var(--rule); color: var(--muted); }
-  .brandbar button:hover { color: var(--text); border-color: var(--chrome); }
+  .brandbar button:hover, .brandbar a:hover { color: var(--text); border-color: var(--c, var(--chrome)); }
+  #brandlinks { display: flex; gap: 10px; flex-wrap: wrap; }
+  .brandbar a { padding: 9px 14px; border: 1px solid var(--rule); color: var(--c, var(--chrome)); text-decoration: none; }
+  .brandbar { flex-wrap: wrap; }
   .intro .role { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-bottom: 16px; font-family: var(--mono); font-weight: 700; font-size: clamp(11px, 1.05vw, 15px); letter-spacing: .18em; text-transform: uppercase; color: #8cc4ff; text-shadow: 0 1px 12px rgba(0, 0, 0, .9); }
   .intro .role i { width: 7px; height: 7px; background: var(--chrome); transform: rotate(45deg); opacity: .7; }
   .about-grid { display: grid; grid-template-columns: minmax(260px, 420px) 1fr; gap: 64px; align-items: center; }
@@ -397,7 +400,7 @@
     <button data-f="ai">Scale / AI video</button>
     <button data-f="archviz">Space / Archviz</button>
   </div>
-  <div class="brandbar mono" id="brandbar"><span>Showing work for <b id="brandname"></b></span><button id="brandclear">Show all &times;</button></div>
+  <div class="brandbar mono" id="brandbar"><span>Showing work for <b id="brandname"></b></span><span id="brandlinks"></span><button id="brandclear">Show all &times;</button></div>
   <div class="grid" id="grid"></div>
 </section>
 
@@ -406,7 +409,7 @@
   <div class="eyebrow mono reveal">Case studies</div>
   <h2 class="big reveal">The long game.</h2>
   <p class="lede reveal">What happened when a client stayed.</p>
-  <div class="clients reveal"><button class="client" data-brand="tars" style="--c:#8a4dff;--ar:3.044;--logo:url(media/clients/tars.png)" aria-label="TARS: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="move9ja" style="--c:#33b06c;--ar:3.494;--logo:url(media/clients/move9ja.png)" aria-label="Move9ja: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="wiamove" style="--c:#2ec27e;--ar:1.106;--logo:url(media/clients/wiamove.png)" aria-label="WiaMove: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="borderless" style="--c:#5ed3b8;--ar:3.744;--logo:url(media/clients/borderless.png)" aria-label="Borderless by Condia: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="africhange" style="--c:#f4f6f8;--ar:5.575;--logo:url(media/clients/africhange.png)" aria-label="AfriChange: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client tall" data-brand="hype" style="--c:#ffb100;--ar:1.120;--logo:url(media/clients/hype.png)" aria-label="HYPE Empire: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="metrics" style="--c:#7fd3e0;--ar:1.506;--logo:url(media/clients/metrics.png)" aria-label="The Metrics: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
+  <div class="clients reveal"><button class="client" data-brand="tars" style="--c:#8a4dff;--ar:3.044;--logo:url(media/clients/tars.png)" aria-label="TARS: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="move9ja" style="--c:#33b06c;--ar:3.494;--logo:url(media/clients/move9ja.png)" aria-label="Move9ja: view work"><b><i></i></b><span class="mono">Instagram &nearr;</span></button><button class="client" data-brand="wiamove" style="--c:#2ec27e;--ar:1.106;--logo:url(media/clients/wiamove.png)" aria-label="WiaMove: view work"><b><i></i></b><span class="mono">Instagram &nearr;</span></button><button class="client" data-brand="borderless" style="--c:#5ed3b8;--ar:3.744;--logo:url(media/clients/borderless.png)" aria-label="Borderless by Condia: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="africhange" style="--c:#f4f6f8;--ar:5.575;--logo:url(media/clients/africhange.png)" aria-label="AfriChange: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client tall" data-brand="hype" style="--c:#ffb100;--ar:1.120;--logo:url(media/clients/hype.png)" aria-label="HYPE Empire: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="metrics" style="--c:#7fd3e0;--ar:1.506;--logo:url(media/clients/metrics.png)" aria-label="The Metrics: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
   <div class="cases">
     <article class="case reveal">
       <div class="case-logos"><button class="client sm" data-brand="tars" style="--c:#8a4dff;--ar:3.044;--logo:url(media/clients/tars.png)" aria-label="TARS: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
@@ -416,7 +419,7 @@
       <div class="stats"><div><b>11+</b><small>longforms</small></div><div><b>6+</b><small>creators</small></div><div><b>2</b><small>channels</small></div></div>
     </article>
     <article class="case reveal">
-      <div class="case-logos"><button class="client sm" data-brand="move9ja" style="--c:#33b06c;--ar:3.494;--logo:url(media/clients/move9ja.png)" aria-label="Move9ja: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><em>&rarr;</em><button class="client sm" data-brand="wiamove" style="--c:#2ec27e;--ar:1.106;--logo:url(media/clients/wiamove.png)" aria-label="WiaMove: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
+      <div class="case-logos"><button class="client sm" data-brand="move9ja" style="--c:#33b06c;--ar:3.494;--logo:url(media/clients/move9ja.png)" aria-label="Move9ja: view work"><b><i></i></b><span class="mono">Instagram &nearr;</span></button><em>&rarr;</em><button class="client sm" data-brand="wiamove" style="--c:#2ec27e;--ar:1.106;--logo:url(media/clients/wiamove.png)" aria-label="WiaMove: view work"><b><i></i></b><span class="mono">Instagram &nearr;</span></button></div>
       <div class="num mono">02 / Move9ja &rarr; WiaMove</div>
       <h3>Two years and a rebrand</h3>
       <dl><dt>Goal</dt><dd>Launch and grow a Nigerian flight and travel booking app.</dd><dt>Role</dt><dd>Launch films, app UI motion, mascot animation, UGC edits, and the rebrand film start to finish.</dd><dt>Result</dt><dd>One consistent visual voice across 60+ videos through a full rebrand.</dd></dl>
@@ -524,6 +527,7 @@ const WORKS = {
   'altschool': { t: 'sTaRt made impact', c: 'HYPE Empire / AltSchool', f: 'motion', full: 1, o: 'land', role: 'Kinetic type, edit, sound', tools: 'After Effects / Premiere', d: 'An event case-study film made for HYPE Empire. Bold kinetic type and real community footage turn one event into the pitch for the next edition.' },
   'tbe-review': { t: '#TBE2026 trended', c: 'Borderless × AfriChange / Event recap', f: 'motion', full: 1, o: 'port', role: 'Motion graphics lead, edit', d: 'The post-event recap: a terminal boot sequence, trending X posts and LinkedIn reviews flown through 3D space to prove the event landed.' },
   'anniversary': { t: '3 years of HYPE', c: 'HYPE Empire / Anniversary film', f: 'motion', full: 1, o: 'port', d: 'A three-year anniversary film: kinetic type, a glowing wireframe city and real event footage, from a WhatsApp promo to credible events.' },
+  'baraza': { t: 'Baraza Lagos', c: 'HYPE Empire / Summit promo', f: 'motion', full: 1, o: 'port', d: 'A launch promo for the Baraza Lagos tech and legal summit, partnered with the Nigerian Bar Association: kinetic headlines over editorial event footage.' },
   'builders': { t: 'Cool kids work in fintech', c: 'Borderless × AfriChange', f: 'motion', full: 1, o: 'land', role: 'Motion graphics lead, edit', d: 'Giant kinetic headlines layered with the speaker. Part of a 20+ video campaign for a Lagos fintech event.' },
   'edge-cases': { t: "Edge cases aren't edge cases", c: 'TARS / Short', f: 'motion', o: 'port', yt: 'R-Nks71zI1Q', short: 1, d: 'A vertical explainer with a holographic HUD language: face scans, neon UI panels and data callouts.' },
   'metrics': { t: 'The Metrics identity', c: 'The Metrics / Brand motion', f: 'motion', full: 1, o: 'port', d: 'A brand identity reveal: 3D logo build, phone mockups and editorial type.' },
@@ -550,7 +554,11 @@ const ROOMS = [
    WORK GRID + MODAL (the quick view below the building)
    ===================================================================== */
 const grid = document.getElementById('grid');
-const BRAND_WORK = {'tars': ['tars-longform', 'tokens', 'anna', 'podcast-trailer', 'edge-cases', 'chaos'], 'borderless': ['tbe-review', 'builders', 'peace', 'vee'], 'africhange': ['tbe-review', 'builders', 'peace', 'vee'], 'hype': ['altschool', 'anniversary'], 'metrics': ['metrics']};
+const BRAND_WORK = {'tars': ['tars-longform', 'tokens', 'anna', 'podcast-trailer', 'edge-cases', 'chaos'], 'borderless': ['tbe-review', 'builders', 'peace', 'vee'], 'africhange': ['tbe-review', 'builders', 'peace', 'vee'], 'hype': ['altschool', 'anniversary', 'baraza'], 'metrics': ['metrics']};
+const BRAND_LINKS = {
+  tars: [['TARS on YouTube', 'https://www.youtube.com/@hellotars'], ['Bani on YouTube', 'https://www.youtube.com/@Bani-with-ai']],
+};
+const BRAND_IG = { move9ja: 'https://www.instagram.com/officialmove9ja/', wiamove: 'https://www.instagram.com/officialmove9ja/' };
 const BRAND_COL = { tars: '#8a4dff', borderless: '#5ed3b8', hype: '#ffb100', metrics: '#7fd3e0' };
 const workCol = id => { if (id === 'habaripay') return '#ff5a36'; for (const [k, ids] of Object.entries(BRAND_WORK)) if (ids.includes(id) && BRAND_COL[k]) return BRAND_COL[k]; return ''; };
 grid.innerHTML = Object.entries(WORKS).map(([id, w]) => `
@@ -577,6 +585,7 @@ function setFilter(f) {
 document.querySelectorAll('#filters button').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.f)));
 const BRAND_NAME = { tars: 'TARS', move9ja: 'Move9ja', wiamove: 'WiaMove', borderless: 'Borderless × AfriChange', africhange: 'Borderless × AfriChange', hype: 'HYPE Empire', metrics: 'The Metrics' };
 function showBrand(key, color) {
+  if (BRAND_IG[key]) return void open(BRAND_IG[key], '_blank', 'noopener');
   const ids = BRAND_WORK[key];
   if (!ids) return openPopup({ tag: 'Client', title: BRAND_NAME[key], desc: 'Two years, 60+ videos and a full rebrand from Move9ja to WiaMove. A selection is available on request.', actions: [{ label: 'Ask for the reel &rarr;', fn: () => { closeModal(); lenis.scrollTo('#contact'); } }] });
   setFilter('all');
@@ -584,6 +593,7 @@ function showBrand(key, color) {
   document.querySelectorAll('#filters button').forEach(b => b.classList.remove('on'));
   const bar = document.getElementById('brandbar'); bar.classList.add('on'); bar.style.setProperty('--c', color);
   document.getElementById('brandname').textContent = BRAND_NAME[key];
+  document.getElementById('brandlinks').innerHTML = (BRAND_LINKS[key] || []).map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener">${t} &nearr;</a>`).join('');
   requestAnimationFrame(() => { lenis.resize(); lenis.scrollTo('#work', { offset: -10, force: true }); });   // the grid just shrank: re-measure first
 }
 document.querySelectorAll('.client').forEach(b => b.addEventListener('click', () => showBrand(b.dataset.brand, getComputedStyle(b).getPropertyValue('--c'))));
