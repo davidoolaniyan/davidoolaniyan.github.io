@@ -565,7 +565,7 @@ import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
    CONTENT
    ===================================================================== */
 const WORKS = {
-  'tars-longform': { t: 'Claude Code builds a YouTube channel', c: 'TARS / YouTube longform', f: 'youtube', o: 'land', yt: '6gx4nWOU0qg', role: 'Edit, motion, AI b-roll pipeline', tools: 'After Effects / Claude Code', d: 'Founder-led longform for an AI SaaS company. Animated UI breakdowns, terminal walkthroughs and hooks built for retention.' },
+  'tars-longform': { t: 'Claude Code builds a YouTube channel', c: 'TARS / YouTube longform', f: 'youtube', o: 'land', views: '400+ views', yt: '6gx4nWOU0qg', role: 'Edit, motion, AI b-roll pipeline', tools: 'After Effects / Claude Code', d: 'Founder-led longform for an AI SaaS company. Animated UI breakdowns, terminal walkthroughs and hooks built for retention.' },
   'tokens': { t: 'What are tokens in AI?', c: 'TARS / AI FOMO series', f: 'youtube', o: 'land', yt: 'hZrXS1sTxyE', role: 'Edit, motion graphics, series look', tools: 'After Effects', d: 'The lead episode of AI FOMO, an explainer series I edit for TARS. Words split into tokens on screen, a live cost counter, context-window diagrams and chalkboard tips turn an abstract idea into something you can watch.', more: [['System prompts', 'YL0h_X3Sjfg'], ['Prompt engineering', 'g0uWbivAZsc'], ['AI hallucinations', 'vg22qbdl2MQ']] },
   'bani': { t: 'Bani with AI', c: 'TARS / Bani\'s channel', f: 'youtube', o: 'land', yt: 'RBxowOMMGKg', role: 'Edit, motion graphics, retention hooks', tools: 'After Effects / Claude Code', d: 'A creator channel about building with AI: fast edits, animated UI breakdowns and hover-preview hooks. Lead episode: a $1,250-style motion graphics video made with Claude in 39 minutes.', more: [['Playable ads in 25 minutes', 'uGcjJGczf3s'], ['3D portfolio websites', 'WHxho2VNpNI'], ['Claude edited this video', 'OHYY8ZSSbGM']] },
   'test-edit': { t: 'Why AI products fail', c: 'Creator edit / YouTube', f: 'youtube', o: 'land', full: 1, d: 'Talking-head longform with animated book pages, graph overlays and UI inserts that keep the argument visual.' },
@@ -637,7 +637,10 @@ const BRAND_LINKS = {
 const BRAND_IG = {};
 const BRAND_COL = { wiamove: '#2ec27e', move9ja: '#33b06c', domark: '#23b3bc', terra: '#3fe08a', lla: '#3d8bff', tars: '#8a4dff', borderless: '#5ed3b8', hype: '#ffb100', metrics: '#7fd3e0' };
 const workCol = id => { if (id === 'habaripay') return '#ff5a36'; for (const [k, ids] of Object.entries(BRAND_WORK)) if (ids.includes(id) && BRAND_COL[k]) return BRAND_COL[k]; return ''; };
-grid.innerHTML = Object.entries(WORKS).map(([id, w]) => `
+// best-performing work leads the grid, then everything else in its usual order
+const TOP = ['dmm-women', 'm9-booking', 'tars-longform', 'dmm-logos', 'wia-rebrand', 'terra-film', 'lla-promo', 'tbe-review', 'bani', 'edge-cases'];
+const ORDERED = Object.entries(WORKS).sort(([a], [b]) => (TOP.includes(a) ? TOP.indexOf(a) : 99) - (TOP.includes(b) ? TOP.indexOf(b) : 99));
+grid.innerHTML = ORDERED.map(([id, w]) => `
   <article class="work ${w.o} reveal" data-f="${w.f}" data-id="${id}"${workCol(id) ? ` style="--c:${workCol(id)}"` : ''}>
     <div class="media"><img src="media/${id}.jpg" alt="" loading="lazy"><video src="media/${id}.mp4" muted loop playsinline preload="none"></video></div>
     <div class="meta"><div><h3>${w.t}</h3><div class="client">${w.c}</div></div><span class="tag mono">${TAGS[w.f]}</span></div>
@@ -702,7 +705,7 @@ function openModal(id, ev) {
   const more = (w.more || []).map(([t, v]) => [t, yt(v)]);
   // previews first; the full cut is one click away
   if (w.full) actions.unshift({ label: 'Watch the full video <span>&rarr;</span>', fn: () => { mv.muted = false; mv.loop = false; mv.src = `media/full/${id}.mp4`; mv.play().catch(() => { mv.muted = true; mv.play().catch(() => {}); }); el('mnote').textContent = 'Full video. Sound on.'; el('macts').firstChild.remove(); } });
-  openPopup({ video: `media/${id}.mp4`, tag: TAGS[w.f], title: w.t, sub: w.c, rows: [['Role', w.role], ['Tools', w.tools], ['Attendance', w.att], ['Instagram', w.stat]], desc: w.d, actions, more, tall: w.o === 'port' ? 'port' : w.o === 'sq' ? 'sq' : '', note: w.full ? 'Preview / full video one click away' : w.yt ? 'Preview / full video on YouTube' : 'Preview' }, ev);
+  openPopup({ video: `media/${id}.mp4`, tag: TAGS[w.f], title: w.t, sub: w.c, rows: [['Role', w.role], ['Tools', w.tools], ['Attendance', w.att], ['YouTube', w.views], ['Instagram', w.stat]], desc: w.d, actions, more, tall: w.o === 'port' ? 'port' : w.o === 'sq' ? 'sq' : '', note: w.full ? 'Preview / full video one click away' : w.yt ? 'Preview / full video on YouTube' : 'Preview' }, ev);
 }
 function closeModal() { if (!modal.classList.contains('on')) return; modal.classList.remove('on'); mv.pause(); lenis.start(); }
 document.getElementById('close').addEventListener('click', closeModal);
