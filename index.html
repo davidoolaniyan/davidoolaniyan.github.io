@@ -443,7 +443,7 @@
       <div class="case-logos"><button class="client sm" data-brand="domark" style="--c:#23b3bc;--ar:2.944;--logo:url(media/clients/domark.png)" aria-label="DO Mark Media: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
       <div class="num mono">05 / DO Mark Media</div>
       <h3>A year as their motion designer</h3>
-      <dl><dt>Goal</dt><dd>Help a digital marketing and brand strategy agency show, not tell, what it does for clients.</dd><dt>Role</dt><dd>Digital Flow Designer: motion graphics, animation and edits for the agency and its clients.</dd><dt>Result</dt><dd>A steady monthly output since January 2025: agency promos, services films and client case studies.</dd></dl>
+      <dl><dt>Goal</dt><dd>Help a digital marketing and brand strategy agency show, not tell, what it does for clients.</dd><dt>Role</dt><dd>Digital Flow Designer: motion graphics, animation and edits for the agency and its clients.</dd><dt>Result</dt><dd>A steady monthly output since January 2025. The Women's History Month reel became the agency's top post, with 232 likes and 85 comments.</dd></dl>
       <div class="stats"><div><b>1 yr+</b><small>retained</small></div><div><b>7–8</b><small>videos a month</small></div><div><b>80+</b><small>videos</small></div></div>
     </article>
   </div>
@@ -541,8 +541,13 @@ const WORKS = {
   'lla-promo': { t: 'LinkedIn Local Akure 2.0', c: 'LLA 2.0 / Event promotion', f: 'motion', full: 1, o: 'sq', d: 'The event promo: a holographic interface opener that connects into the LinkedIn Local Akure 2.0 identity.' },
   'lla-rebrand': { t: 'From Local to Global', c: 'LLA 2.0 / Rebrand reveal', f: 'motion', full: 1, o: 'sq', d: 'The rebrand reveal: a globe of connections that collapses into the new "From Local to Global" lockup.' },
   'dmm-surprises': { t: 'Except surprises', c: 'DO Mark Media / Brand promo', f: 'motion', full: 1, o: 'port', d: 'An agency promo built on a hook: humans ignore most of what they see, except surprises. Kinetic type over teal brand frames.' },
-  'dmm-reset': { t: 'Reset & Rise', c: 'DO Mark Media / Case study', f: 'motion', full: 1, o: 'port', d: 'A client case study: a raw manuscript turned into a full brand identity in three weeks, told as a process film.' },
+  'dmm-reset': { t: 'Reset & Rise', c: 'DO Mark Media / Case study', f: 'motion', full: 1, o: 'port', ig: 'DSCzdJ_jbkh', d: 'A client case study: a raw manuscript turned into a full brand identity in three weeks, told as a process film.' },
   'dmm-powers': { t: 'Our super powers', c: 'DO Mark Media / Services film', f: 'motion', full: 1, o: 'port', d: 'A services film drawn as a clock dial: each hand sweeps to light up a service, from branding to PPC.' },
+  'dmm-women': { t: 'Women’s History Month', c: 'DO Mark Media / Campaign reel', f: 'motion', full: 1, o: 'port', ig: 'DG5bCTKN3PF', stat: '232 likes / 85 comments', d: 'A campaign reel announcing support for 10 female Nigerian business owners: archive-style stats, kinetic type and a call to apply. The agency’s best-performing reel.' },
+  'dmm-logos': { t: 'All 5 logos', c: 'DO Mark Media / Brand system reel', f: 'motion', full: 1, o: 'port', ig: 'DHJEzbEoru3', stat: '114 likes', d: 'One brand, five logo versions: each lockup animates in and earns its place, ending on why a flexible system stands out.' },
+  'dmm-brand': { t: 'Starting a brand?', c: 'DO Mark Media / Services reel', f: 'motion', full: 1, o: 'port', ig: 'DHTKjHhIV6r', d: 'Live action meets interface: a hand unlocks services on a glass panel that resolves into the DO Mark Media mark.' },
+  'dmm-community': { t: 'Builders Community', c: 'DO Mark Media / Client case study', f: 'motion', full: 1, o: 'port', ig: 'DRucdNdDXrq', d: 'How the agency grew a faith community online: the why, the motion logo, the content and the growth, told as a case study.' },
+  'dmm-domolola': { t: 'Omolola: script to screen', c: 'DO Mark Media / Film promo', f: 'motion', full: 1, o: 'port', ig: 'DMf5QTYNsFd', d: 'A behind-the-scenes promo for an indie film, from script read to festival premiere.' },
   'baraza': { t: 'Baraza Lagos', c: 'HYPE Empire / Summit promo', f: 'motion', full: 1, o: 'port', d: 'A launch promo for the Baraza Lagos tech and legal summit, partnered with the Nigerian Bar Association: kinetic headlines over editorial event footage.' },
   'builders': { t: 'Cool kids work in fintech', c: 'Borderless × AfriChange', f: 'motion', full: 1, o: 'land', role: 'Motion graphics lead, edit', d: 'Giant kinetic headlines layered with the speaker. Part of a 20+ video campaign for a Lagos fintech event.' },
   'edge-cases': { t: "Edge cases aren't edge cases", c: 'TARS / Short', f: 'motion', o: 'port', yt: 'R-Nks71zI1Q', short: 1, d: 'A vertical explainer with a holographic HUD language: face scans, neon UI panels and data callouts.' },
@@ -571,7 +576,7 @@ const ROOMS = [
    WORK GRID + MODAL (the quick view below the building)
    ===================================================================== */
 const grid = document.getElementById('grid');
-const BRAND_WORK = {'tars': ['bani', 'tars-longform', 'tokens', 'anna', 'podcast-trailer', 'edge-cases', 'chaos'], 'borderless': ['tbe-review', 'builders', 'peace', 'vee'], 'africhange': ['tbe-review', 'builders', 'peace', 'vee'], 'hype': ['altschool', 'anniversary', 'baraza'], 'metrics': ['metrics'], 'domark': ['dmm-surprises', 'dmm-reset', 'dmm-powers'], 'terra': ['terra-film', 'terra-partners', 'terra-haptix'], 'lla': ['lla-promo', 'lla-rebrand']};
+const BRAND_WORK = {'tars': ['bani', 'tars-longform', 'tokens', 'anna', 'podcast-trailer', 'edge-cases', 'chaos'], 'borderless': ['tbe-review', 'builders', 'peace', 'vee'], 'africhange': ['tbe-review', 'builders', 'peace', 'vee'], 'hype': ['altschool', 'anniversary', 'baraza'], 'metrics': ['metrics'], 'domark': ['dmm-women', 'dmm-logos', 'dmm-reset', 'dmm-community', 'dmm-surprises', 'dmm-brand', 'dmm-powers', 'dmm-domolola'], 'terra': ['terra-film', 'terra-partners', 'terra-haptix'], 'lla': ['lla-promo', 'lla-rebrand']};
 const BRAND_LINKS = {
   tars: [['TARS on YouTube', 'https://www.youtube.com/@hellotars'], ['Bani on YouTube', 'https://www.youtube.com/@Bani-with-ai']],
   domark: [['DO Mark Media on Instagram', 'https://www.instagram.com/domarkmedia/reels/']],
@@ -638,10 +643,11 @@ function openModal(id, ev) {
   const w = WORKS[id], yt = v => `https://www.youtube.com/${w.short && v === w.yt ? 'shorts/' : 'watch?v='}${v}`;
   const actions = [];
   if (w.yt) actions.push({ label: 'Watch the full video on YouTube &nearr;', fn: () => open(yt(w.yt), '_blank', 'noopener') });
+  if (w.ig) actions.push({ label: 'See the original reel on Instagram &nearr;', fn: () => open(`https://www.instagram.com/reel/${w.ig}/`, '_blank', 'noopener') });
   (w.more || []).forEach(([t, v]) => actions.push({ label: `<span class="mono" style="color:var(--blue)">Series</span>&nbsp;&nbsp;${t} &nearr;`, fn: () => open(yt(v), '_blank', 'noopener') }));
   // previews first; the full cut is one click away
   if (w.full) actions.unshift({ label: 'Watch the full video &rarr;', fn: () => { mv.muted = false; mv.loop = false; mv.src = `media/full/${id}.mp4`; mv.play().catch(() => { mv.muted = true; mv.play().catch(() => {}); }); el('mnote').textContent = 'Full video. Sound on.'; el('macts').firstChild.remove(); } });
-  openPopup({ video: `media/${id}.mp4`, tag: TAGS[w.f], title: w.t, sub: w.c, rows: [['Role', w.role], ['Tools', w.tools]], desc: w.d, actions, note: w.yt ? 'Preview clip. Full video on YouTube.' : 'Preview clip.' }, ev);
+  openPopup({ video: `media/${id}.mp4`, tag: TAGS[w.f], title: w.t, sub: w.c, rows: [['Role', w.role], ['Tools', w.tools], ['On Instagram', w.stat]], desc: w.d, actions, note: w.yt ? 'Preview clip. Full video on YouTube.' : 'Preview clip.' }, ev);
 }
 function closeModal() { if (!modal.classList.contains('on')) return; modal.classList.remove('on'); mv.pause(); lenis.start(); }
 document.getElementById('close').addEventListener('click', closeModal);
