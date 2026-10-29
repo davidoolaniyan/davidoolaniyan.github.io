@@ -82,7 +82,7 @@
 
   .hud { position: absolute; top: 84px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; opacity: 0; transition: opacity .4s; white-space: nowrap; }
   .hud.on { opacity: 1; }
-  .hud .pill { padding: 8px 14px; border-radius: 999px; background: rgba(10, 10, 11, .72); border: 1px solid var(--line); backdrop-filter: blur(10px); }
+  .hud .pill { transition: opacity .22s; padding: 8px 14px; border-radius: 999px; background: rgba(10, 10, 11, .72); border: 1px solid var(--line); backdrop-filter: blur(10px); }
   .hud .pill b { color: var(--blue); font-weight: 500; }
   .hud .skip { padding: 8px 14px; border-radius: 999px; color: var(--muted); border: 1px solid var(--line); background: rgba(10, 10, 11, .5); backdrop-filter: blur(10px); }
   .hud .skip:hover { color: var(--text); }
@@ -1105,11 +1105,15 @@ function frame(now) {
   const inside = fly >= 1 && p < .995;
   ui.hud.classList.toggle('on', inside); ui.mm.classList.toggle('on', inside);
   nav.classList.toggle('solid', p > .995);
-  if (room !== curRoom) {
+  // switch only once the visitor is clearly through the doorway, so the title never flickers on the threshold
+  const clear = room >= 0 && z <= ROOMS[room].z0 - .9 && z > ROOMS[room].z1 + .9;
+  if (room >= 0 && room !== curRoom && (curRoom < 0 || clear)) {
     curRoom = room;
-    if (room >= 0) {
+    {
       const rm = ROOMS[room], w = rm.main && WORKS[rm.main];
-      ui.hudRoom.innerHTML = room === 0 ? 'Lobby / <b>start here</b>' : `Room ${rm.no} of 05 / <b>${rm.theme}</b> / ${rm.name}`;
+      const html = room === 0 ? 'Lobby / <b>start here</b>' : `Room ${rm.no} of 05 / <b>${rm.theme}</b> / ${rm.name}`;
+      ui.hudRoom.style.opacity = 0;
+      clearTimeout(ui.hudSwap); ui.hudSwap = setTimeout(() => { ui.hudRoom.innerHTML = html; ui.hudRoom.style.opacity = 1; }, 220);
       ui.mmCount.textContent = `${rm.no} / 05`; $('mmName').textContent = room ? `${rm.theme} / click to jump` : 'Floor plan / click to jump';
       mmRooms.forEach((m, i) => { m.rect.classList.toggle('cur', i === room); m.t.classList.toggle('cur', i === room); });
       if (w) { $('mcTag').textContent = `${rm.no} / ${rm.theme} / ${rm.name}`; $('mcTitle').textContent = w.t; $('mcDesc').textContent = w.d; }
