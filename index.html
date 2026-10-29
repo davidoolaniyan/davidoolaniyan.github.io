@@ -1314,7 +1314,8 @@ function frame(now) {
   // 1. the plan draws itself, 2. walls rise, 3. the room fills
   planGeo.setDrawRange(0, Math.floor(ease(clamp((now - t0) / 2600, 0, 1)) * planCount / 2) * 2);
   const ex = ease(range(p, ...PH.extrude));
-  building.scale.y = Math.max(.001, ex); building.visible = ex > .015;   // a flattened building would sit on the plan lines and flicker wallMat.opacity = ex; wallMat.transparent = floor.material.transparent = ex < .999; decoMat.opacity = ex * .8; edgeMat.opacity = .9 - ex * .4;   // outlines and deco stay readable once built
+  // a flattened building would sit on the plan lines and flicker, so it stays hidden until it has height
+  building.scale.y = Math.max(.001, ex); building.visible = ex > .015; wallMat.opacity = ex; wallMat.transparent = floor.material.transparent = ex < .999; decoMat.opacity = ex * .8; edgeMat.opacity = .9 - ex * .4;   // outlines and deco stay readable once built
   floor.material.opacity = ex; planMat.opacity = 1 - ex * .75; blueprint.material.opacity = .6 - ex * .45;
   ambient.intensity = ex * .5; hemi.intensity = ex * .7; roomLights.forEach(l => l.intensity = ex * 14);
   furniture.visible = ex > .6;
