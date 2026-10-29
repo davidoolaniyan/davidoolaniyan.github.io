@@ -263,6 +263,13 @@
   .process span.mono { color: var(--chrome) !important; }
   .modal .mbody { border-color: var(--rule); box-shadow: 0 0 0 5px rgba(14, 16, 20, .9), 0 0 0 6px var(--rule-2); }
 
+  .clients { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 22px 54px; margin: 38px auto 6px; padding: 26px 0; max-width: 1100px; background: linear-gradient(var(--rule), var(--rule)) top / 100% 1px no-repeat, linear-gradient(var(--rule-2), var(--rule-2)) 0 4px / 100% 1px no-repeat, linear-gradient(var(--rule-2), var(--rule-2)) 0 calc(100% - 4px) / 100% 1px no-repeat, linear-gradient(var(--rule), var(--rule)) bottom / 100% 1px no-repeat; }
+  .clients img { height: 30px; width: auto; opacity: .62; transition: opacity .3s; }
+  .clients img:hover { opacity: 1; }
+  .case-logos { display: flex; align-items: center; gap: 10px; min-height: 40px; margin-top: 6px; }
+  .case-logos img { height: 24px; width: auto; max-width: 42%; object-fit: contain; object-position: left; opacity: .9; }
+  .case-logos img.tall, .clients img.tall { height: 46px; }
+  .case-logos span { color: var(--muted); font-size: 14px; }
   /* chamfered buttons */
   .btn { border-radius: 0; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; border-color: var(--rule); padding: 17px 26px; }
   .btn.solid, .reel-btn, .filters button.on { border-radius: 0; clip-path: var(--cut); background: linear-gradient(180deg, #ffffff, #c4c9d1); color: var(--bg); border-color: transparent; }
@@ -356,26 +363,31 @@
   <div class="eyebrow mono reveal">Case studies</div>
   <h2 class="big reveal">The long game.</h2>
   <p class="lede reveal">What happened when a client stayed.</p>
+  <div class="clients reveal"><img src="media/clients/tars.png" alt="TARS"><img src="media/clients/move9ja.png" alt="Move9ja"><img src="media/clients/wiamove.png" alt="WiaMove"><img src="media/clients/borderless.png" alt="Borderless by Condia"><img src="media/clients/africhange.png" alt="AfriChange"><img class="tall" src="media/clients/hype.png" alt="HYPE Empire"><img src="media/clients/metrics.png" alt="The Metrics"></div>
   <div class="cases">
     <article class="case reveal">
+      <div class="case-logos"><img src="media/clients/tars.png" alt="TARS"></div>
       <div class="num mono">01 / TARS</div>
       <h3>YouTube for an AI SaaS company</h3>
       <dl><dt>Goal</dt><dd>Grow a founder-led channel and creator videos for an AI agent platform.</dd><dt>Role</dt><dd>Longform + Shorts editor, motion, AI-assisted b-roll pipeline, hover-preview hooks.</dd><dt>Result</dt><dd>Edits for 6+ creators across two channels, including the AI FOMO explainer series, a monthly AI-anchored news show and AI narrative shorts.</dd></dl>
       <div class="stats"><div><b>11+</b><small>longforms</small></div><div><b>6+</b><small>creators</small></div><div><b>2</b><small>channels</small></div></div>
     </article>
     <article class="case reveal">
+      <div class="case-logos"><img src="media/clients/move9ja.png" alt="Move9ja"><span>&rarr;</span><img src="media/clients/wiamove.png" alt="WiaMove"></div>
       <div class="num mono">02 / Move9ja &rarr; WiaMove</div>
       <h3>Two years and a rebrand</h3>
       <dl><dt>Goal</dt><dd>Launch and grow a Nigerian flight and travel booking app.</dd><dt>Role</dt><dd>Launch films, app UI motion, mascot animation, UGC edits, and the rebrand film start to finish.</dd><dt>Result</dt><dd>One consistent visual voice across 60+ videos through a full rebrand.</dd></dl>
       <div class="stats"><div><b>60+</b><small>videos</small></div><div><b>2 yrs</b><small>partnership</small></div><div><b>1</b><small>rebrand</small></div></div>
     </article>
     <article class="case reveal">
+      <div class="case-logos"><img src="media/clients/borderless.png" alt="Borderless by Condia"><span>&times;</span><img src="media/clients/africhange.png" alt="AfriChange"></div>
       <div class="num mono">03 / Borderless &times; AfriChange</div>
       <h3>A fintech event, end to end</h3>
       <dl><dt>Goal</dt><dd>Build hype for The Borderless Experience 2026 in Lagos.</dd><dt>Role</dt><dd>Motion graphics lead and video editor: speaker and sponsor announcements, founder interviews, explainers, countdowns, recap.</dd><dt>Result</dt><dd>A full content campaign from first teaser to the recap, when #TBE2026 trended on X.</dd></dl>
       <div class="stats"><div><b>~20</b><small>deliverables</small></div><div><b>500+</b><small>attendees</small></div></div>
     </article>
     <article class="case reveal">
+      <div class="case-logos"><img class="tall" src="media/clients/hype.png" alt="HYPE Empire"></div>
       <div class="num mono">04 / HYPE Empire</div>
       <h3>Agency motion for edtech &amp; events</h3>
       <dl><dt>Goal</dt><dd>Turn event results into proof that sells the next event.</dd><dt>Role</dt><dd>Video editing lead: kinetic case-study films, anniversary film, campaign promos.</dd><dt>Result</dt><dd>The 3-year anniversary film, plus case-study films like AltSchool sTaRt that turn one event into the pitch for the next.</dd></dl>
