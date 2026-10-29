@@ -485,7 +485,7 @@ const ROOMS = [
   { key: 'motion', no: '02', theme: 'Rhythm', name: 'Motion & brand', z0: -32, z1: -50, main: 'altschool', frames: ['tbe-review', 'anniversary', 'edge-cases', 'builders'], line: 'Motion gives the story a pulse.' },
   { key: 'ai', no: '03', theme: 'Scale', name: 'AI video', z0: -50, z1: -68, main: 'chaos', frames: ['libations', 'maven'], line: 'AI lets one editor direct a whole crew.' },
   { key: 'archviz', no: '04', theme: 'Space', name: 'Architectural viz', z0: -68, z1: -86, main: 'lakowe', frames: ['building', 'northgate'], line: 'Where the architect in me shows up.' },
-  { key: 'exit', no: '05', theme: 'Exit', name: 'Next project', z0: -86, z1: -100, line: "Let's build something." },
+  { key: 'exit', no: '05', theme: 'Toolkit', name: 'Tools & exit', z0: -86, z1: -100, line: 'The tools behind the work, then the way out.' },
 ];
 
 /* =====================================================================
@@ -790,6 +790,52 @@ placeHolo(holo(3.2, 1.7, (g, W, H) => {
 }), 5, -3.2, 2.5, AZ - 2.2, 0.55);
 pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: '05 / Exit', title: "Let's build something.", desc: 'Full-time, contract or freelance. Email or WhatsApp is the fastest way to reach me.', actions: [{ label: 'Go to contact &darr;', fn: () => { closeModal(); lenis.scrollTo('#contact'); } }] }, ev));
 
+// toolkit: each tool's mark floats in a glass vitrine on a stepped plinth
+const TOOLS = [
+  { n: 'Premiere Pro', ic: 'adobepremierepro', c: '#ea77ff', u: 'Longform and Shorts edits, sound and finishing.' },
+  { n: 'After Effects', ic: 'adobeaftereffects', c: '#9999ff', u: 'Motion graphics, kinetic type and UI animation.' },
+  { n: 'DaVinci Resolve', ic: 'davinciresolve', c: '#e8e8ea', u: 'Colour grading and finishing.' },
+  { n: 'Photoshop', ic: 'adobephotoshop', c: '#31a8ff', u: 'Thumbnails, cut-outs and design assets.' },
+  { n: 'Veo / Flow', ic: 'google', c: '#4285f4', u: 'AI video generation for b-roll and narrative shorts.' },
+  { n: 'ElevenLabs', ic: 'elevenlabs', c: '#f2f2f2', u: 'AI voice and sound for narration and characters.' },
+  { n: 'Claude Code', ic: 'claude', c: '#d97757', u: 'Pipelines, automation and code-driven animation.' },
+  { n: 'Twinmotion', ic: 'twinmotion', c: '#f2f2f2', u: 'Real-time archviz walkthroughs.' },
+  { n: 'D5 Render', ic: null, c: '#f2f2f2', u: 'Archviz rendering and lighting.' },
+];
+const toolLogos = [];
+const stoneMat = new THREE.MeshStandardMaterial({ color: 0x16171a, roughness: .55, metalness: .3 });
+const glassMat = new THREE.MeshPhysicalMaterial({ color: 0xdfe8f5, roughness: .04, metalness: 0, transparent: true, opacity: .1, depthWrite: false, side: THREE.DoubleSide });
+const caseEdge = new THREE.LineBasicMaterial({ color: 0xdfe3e9, transparent: true, opacity: .75 });
+function logoTexture(tool) {
+  const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d');
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+  if (!tool.ic) { g.fillStyle = tool.c; g.font = `900 300px ${DISPLAY}`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('D5', 256, 272); tex.needsUpdate = true; return tex; }
+  fetch(`media/tools/${tool.ic}.svg`).then(r => r.text()).then(svg => {
+    const img = new Image();
+    img.onload = () => { g.drawImage(img, 56, 56, 400, 400); tex.needsUpdate = true; };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.replace('<svg ', `<svg fill="${tool.c}" width="400" height="400" `));
+  });
+  return tex;
+}
+const toolkit = new THREE.Group(); scene.add(toolkit);
+TOOLS.forEach((tool, i) => {
+  const left = i < 5, x = left ? -3.4 : 3.4, z = left ? -90 - i * 2 : -91 - (i - 5) * 2, face = left ? L_FACE : R_FACE;
+  const g = new THREE.Group(); g.position.set(x, 0, z); toolkit.add(g);
+  // stepped deco plinth
+  [[.78, .1, .05], [.66, .72, .46], [.74, .06, .85]].forEach(([w, h, y]) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, w), stoneMat); m.position.y = y; g.add(m); const e = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry), caseEdge); e.position.y = y; g.add(e); });
+  // vitrine
+  const glass = new THREE.Mesh(new THREE.BoxGeometry(.62, .66, .62), glassMat); glass.position.y = 1.21; g.add(glass);
+  const ge = new THREE.LineSegments(new THREE.EdgesGeometry(glass.geometry), caseEdge); ge.position.y = 1.21; g.add(ge);
+  // the mark, lit from within
+  const logo = new THREE.Mesh(new THREE.PlaneGeometry(.42, .42), new THREE.MeshBasicMaterial({ map: logoTexture(tool), transparent: true, side: THREE.DoubleSide, toneMapped: false, depthWrite: false }));
+  logo.position.y = 1.22; logo.rotation.y = face; logo.userData = { y: 1.22, face }; g.add(logo); toolLogos.push(logo);
+  // name plate on the aisle side
+  const plate = label(.66, tool.n, 'Toolkit'); plate.material.opacity = 1;
+  plate.position.set(left ? .335 : -.335, .62, 0); plate.rotation.y = face; g.add(plate);
+  const open = ev => openPopup({ tag: '05 / Toolkit', title: tool.n, desc: tool.u }, ev);
+  [glass, plate].forEach(m => pick(m, open));
+});
+
 // exit light
 const exitGlow = new THREE.Mesh(new THREE.PlaneGeometry(DOOR, 3.2), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, toneMapped: false }));
 exitGlow.position.set(0, 1.6, -100.4); scene.add(exitGlow);
@@ -929,6 +975,8 @@ ROOMS.slice(1).forEach((r, k) => {
     key(0, r.z1 + 3, 0, 1.85, r.z1 - 10);
   }
 });
+key(1.3, -91.5, -3.4, 1.25, -93.5, 1.3, true); key(-1.3, -95.5, 3.4, 1.25, -94.5, 1.3, true);   // toolkit: left row, then right
+key(0, -97.6, 0, 1.85, -110);
 key(0, -102.4, 0, 1.85, -112); key(0, -104.5, 0, 1.85, -114, .8);
 // each key also gets a heading (yaw) and pitch, so turning from one wall to the other rotates the head
 // smoothly through "looking down the hall" instead of swinging a target point past the camera
@@ -1096,6 +1144,9 @@ function frame(now) {
     if (f.head) { f.head.quaternion.copy(f.headQ); f.head.rotateY(f.look * .5 + Math.sin(t * .35 + f.phase) * .3); }
     if (f.chest) { f.chest.quaternion.copy(f.chestQ); f.chest.rotateX(Math.sin(t * 1.6 + f.phase) * .015); }
   });
+
+  toolLogos.forEach((m, i) => { m.rotation.y = m.userData.face + Math.sin(t * .6 + i) * .55; m.position.y = m.userData.y + Math.sin(t * 1.3 + i) * .025; });
+  toolkit.visible = ex > .6;
 
   // overlay UI
   const introOut = range(p, .004, .03);
