@@ -494,6 +494,9 @@
 import * as THREE from 'three';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 
 /* =====================================================================
@@ -869,16 +872,28 @@ const toolLogos = [];
 const stoneMat = new THREE.MeshStandardMaterial({ color: 0x16171a, roughness: .55, metalness: .3 });
 const glassMat = new THREE.MeshPhysicalMaterial({ color: 0xdfe8f5, roughness: .04, metalness: 0, transparent: true, opacity: .1, depthWrite: false, side: THREE.DoubleSide });
 const caseEdge = new THREE.LineBasicMaterial({ color: 0xdfe3e9, transparent: true, opacity: .75 });
-function logoTexture(tool) {
-  const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d');
-  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
-  if (!tool.ic) { g.fillStyle = tool.c; g.font = `900 300px ${DISPLAY}`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('D5', 256, 272); tex.needsUpdate = true; return tex; }
-  fetch(`media/tools/${tool.ic}.svg`).then(r => r.text()).then(svg => {
-    const img = new Image();
-    img.onload = () => { g.drawImage(img, 56, 56, 400, 400); tex.needsUpdate = true; };
-    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.replace('<svg ', `<svg fill="${tool.c}" width="400" height="400" `));
+// each mark is the real logo path, extruded into a bevelled solid: satin brand-coloured face, darker sides
+const svgLoader = new SVGLoader();
+let fontP = null;
+const EXTRUDE = { depth: 3.2, bevelEnabled: true, bevelThickness: .55, bevelSize: .38, bevelSegments: 4, curveSegments: 14 };
+function logo3D(tool) {
+  const grp = new THREE.Group(), col = new THREE.Color(tool.c);
+  const faceMat = new THREE.MeshStandardMaterial({ color: col, roughness: .3, metalness: .5, emissive: col, emissiveIntensity: .28 });
+  const sideMat = new THREE.MeshStandardMaterial({ color: col.clone().multiplyScalar(.5), roughness: .35, metalness: .7, emissive: col, emissiveIntensity: .08 });
+  const finish = (geo, flipY) => {
+    geo.computeBoundingBox(); const bb = geo.boundingBox, c = bb.getCenter(new THREE.Vector3()), sz = bb.getSize(new THREE.Vector3());
+    geo.translate(-c.x, -c.y, -c.z);
+    const k = .36 / Math.max(sz.x, sz.y), m = new THREE.Mesh(geo, [faceMat, sideMat]);
+    m.scale.set(k, flipY ? -k : k, k); grp.add(m);          // svg space is y-down
+  };
+  if (!tool.ic) {
+    fontP = fontP || new Promise(res => new FontLoader().load('media/tools/helvetiker_bold.typeface.json', res));
+    fontP.then(font => finish(new TextGeometry('D5', { font, size: 10, height: 3.2, curveSegments: 10, bevelEnabled: true, bevelThickness: .55, bevelSize: .38, bevelSegments: 4 }), false));
+  } else fetch(`media/tools/${tool.ic}.svg`).then(r => r.text()).then(txt => {
+    const shapes = svgLoader.parse(txt).paths.flatMap(pth => SVGLoader.createShapes(pth));
+    if (shapes.length) finish(new THREE.ExtrudeGeometry(shapes, EXTRUDE), true);
   });
-  return tex;
+  return grp;
 }
 const toolkit = new THREE.Group(); scene.add(toolkit);
 TOOLS.forEach((tool, i) => {
@@ -890,7 +905,7 @@ TOOLS.forEach((tool, i) => {
   const glass = new THREE.Mesh(new THREE.BoxGeometry(.62, .66, .62), glassMat); glass.position.y = 1.21; g.add(glass);
   const ge = new THREE.LineSegments(new THREE.EdgesGeometry(glass.geometry), caseEdge); ge.position.y = 1.21; g.add(ge);
   // the mark, lit from within
-  const logo = new THREE.Mesh(new THREE.PlaneGeometry(.42, .42), new THREE.MeshBasicMaterial({ map: logoTexture(tool), transparent: true, side: THREE.DoubleSide, toneMapped: false, depthWrite: false }));
+  const logo = logo3D(tool);
   logo.position.y = 1.22; logo.rotation.y = face; logo.userData = { y: 1.22, face }; g.add(logo); toolLogos.push(logo);
   // name plate on the aisle side
   const plate = label(.66, tool.n, 'Toolkit'); plate.material.opacity = 1;
@@ -1256,7 +1271,7 @@ function frame(now) {
     if (f.head) turn(f.head, Y_AX, f.look * .5 + Math.sin(t * .35 + f.phase) * .3, f.headQ);
   });
 
-  toolLogos.forEach((m, i) => { m.rotation.y = m.userData.face + Math.sin(t * .6 + i) * .55; m.position.y = m.userData.y + Math.sin(t * 1.3 + i) * .025; });
+  toolLogos.forEach((m, i) => { m.rotation.y = m.userData.face + Math.sin(t * .5 + i) * .75; m.rotation.x = Math.sin(t * .4 + i * 2) * .08; m.position.y = m.userData.y + Math.sin(t * 1.3 + i) * .025; });
   toolkit.visible = ex > .6;
 
   // overlay UI
