@@ -231,7 +231,7 @@
   }
 
   /* ---------- futuristic art deco layer: platinum lines, chrome type, stepped geometry ---------- */
-  :root { --chrome: #dfe3e9; --rule: rgba(223, 227, 233, .2); --rule-2: rgba(223, 227, 233, .08); --radius: 0px;
+  :root { --crown: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 96 12%22 fill=%22%230a0a0b%22 stroke=%22%23dfe3e9%22 stroke-opacity=%22.55%22 stroke-width=%221%22%3E%3Cpath d=%22M0 .5 H96 V1.5 H78 V5.5 H64 V9.5 H32 V5.5 H18 V1.5 H0 Z%22/%3E%3Cpath d=%22M44 9.5 L48 5.5 L52 9.5%22 fill=%22none%22/%3E%3C/svg%3E"); --chrome: #dfe3e9; --rule: rgba(223, 227, 233, .2); --rule-2: rgba(223, 227, 233, .08); --radius: 0px;
     --chrome-text: linear-gradient(180deg, #ffffff 0%, #eef0f3 34%, #9aa1ab 49%, #5f656e 51%, #c9ced6 66%, #ffffff 100%);
     --cut: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px); }
   .intro h1, .block h2.big, .contact h2 { background: var(--chrome-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -290,6 +290,18 @@
   .brandbar b { color: var(--c, var(--chrome)); font-weight: 400; }
   .brandbar button { padding: 9px 14px; border: 1px solid var(--rule); color: var(--muted); }
   .brandbar button:hover { color: var(--text); border-color: var(--chrome); }
+  .intro .role { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-bottom: 16px; font-family: var(--mono); font-weight: 700; font-size: clamp(11px, 1.05vw, 15px); letter-spacing: .18em; text-transform: uppercase; color: #8cc4ff; text-shadow: 0 1px 12px rgba(0, 0, 0, .9); }
+  .intro .role i { width: 7px; height: 7px; background: var(--chrome); transform: rotate(45deg); opacity: .7; }
+  .about-grid { display: grid; grid-template-columns: minmax(260px, 420px) 1fr; gap: 64px; align-items: center; }
+  .about-copy .eyebrow { justify-content: flex-start; }
+  .about-copy .eyebrow::before { display: none; }
+  .about-copy p { color: var(--muted); font-size: 17px; line-height: 1.65; margin-top: 14px; max-width: 560px; }
+  .portrait { position: relative; margin: 0; border: 1px solid var(--rule); box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--rule-2); background: #0d0e10; }
+  .portrait::before { content: ""; position: absolute; top: -1px; left: 50%; width: 96px; height: 12px; transform: translateX(-50%); background: var(--crown) center / contain no-repeat; z-index: 1; }
+  .portrait img { display: block; width: 100%; height: auto; }
+  .portrait figcaption { display: flex; justify-content: space-between; padding: 12px 14px; border-top: 1px solid var(--rule); color: var(--text); }
+  .portrait figcaption span { color: var(--muted); }
+  @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } .portrait { max-width: 420px; } }
   /* chamfered buttons */
   .btn { border-radius: 0; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; border-color: var(--rule); padding: 17px 26px; }
   .btn.solid, .reel-btn, .filters button.on { border-radius: 0; clip-path: var(--cut); background: linear-gradient(180deg, #ffffff, #c4c9d1); color: var(--bg); border-color: transparent; }
@@ -335,7 +347,7 @@
     <div class="bar" id="bar"></div>
 
     <div class="intro" id="intro">
-      <div class="mono" style="color:var(--blue)">Video editor / Motion designer / AI video</div>
+      <div class="role"><span>Video editor</span><i></i><span>Motion designer</span><i></i><span>AI video</span></div>
       <h1>Every frame<br><em>has a structure.</em></h1>
       <p>Video editor and motion designer with an architect's eye for pacing, composition and flow. Scroll to walk through the work.</p>
     </div>
@@ -430,17 +442,18 @@
 
 <!-- ============ ABOUT: OFF THE CLOCK ============ -->
 <section class="block" id="about">
-  <div class="about-top">
-    <div>
+  <div class="about-grid">
+    <figure class="portrait reveal"><img src="media/david.jpg" alt="David Oluwabukunmi Olaniyan" loading="lazy" width="720" height="836"><figcaption class="mono">David O. Olaniyan <span>/ Akure, NG</span></figcaption></figure>
+    <div class="about-copy">
       <div class="eyebrow mono reveal">About</div>
       <h2 class="big reveal">Editor by trade.<br>Architect by training.</h2>
-    </div>
-    <div class="reveal">
+      <div class="reveal">
       <p>I'm David Oluwabukunmi Olaniyan, a video editor and motion designer finishing a master's in architecture at FUTA, Nigeria. Architecture taught me composition, light and how people move through space. Editing taught me how they move through time.</p>
-    </div>
-  </div>
-  <div class="tools reveal">
+      </div>
+      <div class="tools reveal">
     <span>Premiere Pro</span><span>After Effects</span><span>DaVinci Resolve</span><span>Photoshop</span><span>Veo / Flow</span><span>ElevenLabs</span><span>Claude Code</span><span>Twinmotion</span><span>D5 Render</span>
+  </div>
+    </div>
   </div>
 </section>
 
