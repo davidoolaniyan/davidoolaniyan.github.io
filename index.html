@@ -663,8 +663,8 @@ function holo(w, h, draw) {
   const c = document.createElement('canvas'), s = 1024 / Math.max(w, h);
   c.width = Math.round(w * s); c.height = Math.round(h * s);
   const g = c.getContext('2d'), W = c.width, H = c.height;
-  g.fillStyle = 'rgba(90,169,255,.06)'; g.fillRect(0, 0, W, H);
-  g.fillStyle = 'rgba(90,169,255,.05)'; for (let y = 0; y < H; y += 4) g.fillRect(0, y, W, 1);
+  g.fillStyle = 'rgba(9,12,17,.82)'; g.fillRect(0, 0, W, H);                    // dark glass backing: nothing shows through the text
+  g.fillStyle = 'rgba(90,169,255,.035)'; for (let y = 0; y < H; y += 4) g.fillRect(0, y, W, 1);
   const cut = (i, c) => { g.beginPath(); g.moveTo(i + c, i); g.lineTo(W - i - c, i); g.lineTo(W - i, i + c); g.lineTo(W - i, H - i - c); g.lineTo(W - i - c, H - i); g.lineTo(i + c, H - i); g.lineTo(i, H - i - c); g.lineTo(i, i + c); g.closePath(); g.stroke(); };
   const k = Math.min(26, H / 5);
   g.strokeStyle = 'rgba(223,227,233,.75)'; g.lineWidth = 3; cut(2, k);          // outer rule, corners cut
@@ -672,8 +672,9 @@ function holo(w, h, draw) {
   g.fillStyle = '#dfe3e9'; g.beginPath(); g.moveTo(W / 2, 0); g.lineTo(W / 2 + 9, 9); g.lineTo(W / 2, 18); g.lineTo(W / 2 - 9, 9); g.fill();
   draw(g, W, H);
   const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
-  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, fog: false });
-  return new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, toneMapped: false, fog: false });
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); mesh.renderOrder = 10;   // after walls and glass
+  return mesh;
 }
 function wrap(g, text, x, y, maxW, lh) {
   let line = '';
@@ -1070,7 +1071,7 @@ function setLive(s, on) {
 
 const cp = v3(), ct = v3(), UP = v3(0, 1, 0), mouse = { x: 0, y: 0, sx: 0, sy: 0 };
 addEventListener('pointermove', e => { mouse.x = e.clientX / innerWidth - .5; mouse.y = e.clientY / innerHeight - .5; });
-const t0 = performance.now(); let litRoom = 0, curRoom = -2, lastNow = performance.now();
+const t0 = performance.now(); let litRoom = 0, curRoom = -2, pendRoom = -2, pendSince = 0, lastNow = performance.now();
 const smooth = { p: v3(), t: v3(), ready: false };
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), tip = document.getElementById('tip');
 let hover = null, pointerIn = false;
@@ -1095,7 +1096,7 @@ function frame(now) {
   // 1. the plan draws itself, 2. walls rise, 3. the room fills
   planGeo.setDrawRange(0, Math.floor(ease(clamp((now - t0) / 2600, 0, 1)) * planCount / 2) * 2);
   const ex = ease(range(p, ...PH.extrude));
-  building.scale.y = Math.max(.001, ex); wallMat.opacity = ex; decoMat.opacity = ex * .8; edgeMat.opacity = .9 - ex * .4;   // outlines and deco stay readable once built
+  building.scale.y = Math.max(.001, ex); wallMat.opacity = ex; wallMat.transparent = floor.material.transparent = ex < .999; decoMat.opacity = ex * .8; edgeMat.opacity = .9 - ex * .4;   // outlines and deco stay readable once built
   floor.material.opacity = ex; planMat.opacity = 1 - ex * .75; blueprint.material.opacity = .6 - ex * .45;
   ambient.intensity = ex * .5; hemi.intensity = ex * .7; roomLights.forEach(l => l.intensity = ex * 14);
   furniture.visible = ex > .6;
@@ -1169,9 +1170,9 @@ function frame(now) {
   const inside = fly >= 1 && p < .995;
   ui.hud.classList.toggle('on', inside); ui.mm.classList.toggle('on', inside);
   nav.classList.toggle('solid', p > .995);
-  // switch only once the visitor is clearly through the doorway, so the title never flickers on the threshold
-  const clear = room >= 0 && z <= ROOMS[room].z0 - .9 && z > ROOMS[room].z1 + .9;
-  if (room >= 0 && room !== curRoom && (curRoom < 0 || clear)) {
+  // switch only once the visitor has been in the new room for a moment, so the title never flickers on a threshold
+  if (room !== pendRoom) { pendRoom = room; pendSince = now; }
+  if (room >= 0 && room !== curRoom && (curRoom < 0 || now - pendSince > 300)) {
     curRoom = room;
     {
       const rm = ROOMS[room], w = rm.main && WORKS[rm.main];
