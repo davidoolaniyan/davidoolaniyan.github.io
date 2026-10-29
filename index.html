@@ -927,17 +927,19 @@ function aim(b, child, dir) {
   b.quaternion.premultiply(_pq).premultiply(_q).premultiply(_pq.invert());
 }
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
-// arm targets per pose: [upper arm, forearm] for the left arm; the right arm mirrors x unless given
+// arm targets per pose: [upper arm, forearm]; the right arm mirrors the left unless given.
+// palm: where the palm should face; curl: how closed the hands are; head: pitch (down is positive)
 const POSES = {
-  stand:  { L: [V(.16, -1, -.02), V(.1, -1, .14)] },
-  behind: { L: [V(.12, -1, -.38), V(-.7, -.25, -.5)] },
-  drink:  { R: [V(-.12, -1, .2), V(-.1, .45, 1)] },
-  talk:   { L: [V(.14, -1, .16), V(.15, .1, 1)], R: [V(-.12, -1, .2), V(-.1, .45, 1)] },
-  point:  { R: [V(-.12, -.18, 1), V(-.1, -.12, 1)] },
-  clutch: { L: [V(.1, -1, .05), V(-.35, -.15, .9)] },
-  phone:  { R: [V(-.1, -1, .2), V(.2, .55, 1)], head: .35 },
-  sit:    { L: [V(.12, -1, .22), V(.05, -.35, 1)] },
+  stand:   { L: [V(.07, -1, .03), V(.05, -1, .22)], palm: V(-1, 0, .15), curl: .55 },
+  behind:  { L: [V(.1, -1, -.34), V(-.75, -.35, -.45)], curl: .75 },
+  crossed: { L: [V(.12, -1, .55), V(-.95, .12, .22)], R: [V(-.12, -1, .6), V(.95, .24, .14)], palm: V(0, .2, -1), curl: .9, head: .06 },
+  chin:    { L: [V(.12, -1, .5), V(-.95, .12, .22)], R: [V(-.06, -.75, .65), V(.12, 1, .18)], palmL: V(0, .2, -1), palmR: V(-.6, 0, -.8), curl: .8, head: .14 },
+  hip:     { L: [V(.55, -.85, -.05), V(-.5, -.6, .15)], palm: V(-1, 0, 0), curl: .7 },
+  talk:    { L: [V(.1, -1, .2), V(.2, .2, 1)], palmL: V(-.3, 1, 0), curl: .4 },
+  point:   { R: [V(-.15, -.2, 1), V(-.12, -.1, 1)], palmR: V(0, -1, 0), point: true, curl: .8 },
+  sit:     { L: [V(.1, -1, .32), V(.05, -.45, 1)], palm: V(0, -1, 0), curl: .5 },
 };
+const PALM_SIGN = 1, CURL_SIGN = -1;   // Rocketbox T-pose: palms down, so flexion is negative on the left hand
 // realistic guests: Microsoft Rocketbox avatars (MIT), real-world scale in centimetres
 const RB_TEX = new Set(["f007_body_color.jpg", "f007_head_color.jpg", "f007_opacity_color.png", "f009_body_color.jpg", "f009_head_color.jpg", "f009_opacity_color.png", "f011_body_color.jpg", "f011_head_color.jpg", "f011_opacity_color.png", "f017_body_color.jpg", "f017_head_color.jpg", "f017_opacity_color.png", "m006_body_color.jpg", "m006_head_color.jpg", "m006_opacity_color.png", "m007_body_color.jpg", "m007_head_color.jpg", "m012_body_color.jpg", "m012_head_color.jpg", "m014_body_color.jpg", "m014_head_color.jpg", "m014_opacity_color.png"]);
 const RB = { w: ["Female_Adult_11", "Female_Adult_09", "Female_Adult_14", "Female_Adult_07"], m: ["Male_Adult_12", "Male_Adult_04", "Male_Adult_08", "Male_Adult_14"] };
@@ -967,14 +969,47 @@ Promise.all([...RB.w, ...RB.m].map(loadFBX)).then(models => {
     const B = k => bone(body, k), wy = o => { const v = new THREE.Vector3(); o.getWorldPosition(v); return v.y; };
     body.updateWorldMatrix(true, true);
     const side = (k, d) => (k === 'L' ? d : V(-d.x, d.y, d.z));
+    const G = (k, n) => body.getObjectByName(`Bip01_${k}_${n}`), wp = o => o.getWorldPosition(new THREE.Vector3());
+    const upd = () => body.updateWorldMatrix(true, true);
+    // legs: weight on one leg, the other knee soft; seated legs bend at hip and knee
+    const relaxed = n % 2 ? 'L' : 'R', sg = relaxed === 'L' ? 1 : -1;
+    ['L', 'R'].forEach(k => {
+      const sx = k === 'L' ? 1 : -1;
+      if (cfg.pose === 'sit') { aim(G(k, 'Thigh'), G(k, 'Calf'), V(sx * .1, -.05, 1)); aim(G(k, 'Calf'), G(k, 'Foot'), V(sx * .03, -1, .1)); }
+      else if (k === relaxed) { aim(G(k, 'Thigh'), G(k, 'Calf'), V(sx * .1, -1, .13)); aim(G(k, 'Calf'), G(k, 'Foot'), V(sx * .07, -1, -.07)); }
+      else { aim(G(k, 'Thigh'), G(k, 'Calf'), V(sx * .03, -1, 0)); aim(G(k, 'Calf'), G(k, 'Foot'), V(sx * .02, -1, -.01)); }
+      aim(G(k, 'Foot'), G(k, 'Toe0'), V(sx * .12, -.2, 1));                      // feet flat, slightly turned out
+    });
+    if (cfg.pose !== 'sit') { upd(); const sp = B('Spine2'); if (sp) turn(sp, new THREE.Vector3(0, 0, 1), sg * .035); }   // counter-lean
+    // arms
     ['L', 'R'].forEach(k => {
       const arm = pose[k] || (k === 'R' && pose.L ? pose.L.map(d => side('R', d)) : POSES.stand.L.map(d => side(k, d)));
-      const nm = k === 'L' ? 'Left' : 'Right';
-      aim(B(nm + 'Arm'), B(nm + 'ForeArm'), arm[0]); aim(B(nm + 'ForeArm'), B(nm + 'Hand'), arm[1]);
+      upd(); aim(G(k, 'UpperArm'), G(k, 'Forearm'), arm[0]); upd(); aim(G(k, 'Forearm'), G(k, 'Hand'), arm[1]);
     });
-    if (cfg.pose === 'sit') ['Left', 'Right'].forEach((nm, k) => { aim(B(nm + 'UpLeg'), B(nm + 'Leg'), V(k ? -.08 : .08, -.05, 1)); aim(B(nm + 'Leg'), B(nm + 'Foot'), V(0, -1, .08)); });
+    // palms: twist each forearm about its own axis so the palm faces the way the pose wants
+    const palmN = k => { const h = wp(G(k, 'Hand')), along = wp(G(k, 'Finger2')).sub(h).normalize(), across = wp(G(k, 'Finger1')).sub(wp(G(k, 'Finger4'))).normalize(); return new THREE.Vector3().crossVectors(along, across).normalize().multiplyScalar(PALM_SIGN * (k === 'L' ? 1 : -1)); };
+    ['L', 'R'].forEach(k => {
+      const want = (k === 'L' ? pose.palmL : pose.palmR) || (pose.palm && (k === 'L' ? pose.palm : side('R', pose.palm))) || (!pose[k] && POSES.stand.palm && side(k, POSES.stand.palm));
+      if (!want || !G(k, 'Finger4')) return;
+      upd(); const axis = wp(G(k, 'Hand')).sub(wp(G(k, 'Forearm'))).normalize();
+      const proj = v => v.clone().sub(axis.clone().multiplyScalar(v.dot(axis))).normalize();
+      const a = proj(palmN(k)), b = proj(want);
+      turn(G(k, 'Forearm'), axis, Math.atan2(axis.dot(new THREE.Vector3().crossVectors(a, b)), a.dot(b)));
+    });
+    // hands: fingers curl joint by joint, thumb tucks in; a pointing hand keeps its index straight
+    ['L', 'R'].forEach(k => {
+      if (!G(k, 'Finger4')) return;
+      const amt = (pose.curl || .55) * CURL_SIGN * (k === 'L' ? 1 : -1), pt = pose.point && (k === 'R');
+      [1, 2, 3, 4].forEach(f => ['', '1', '2'].forEach((j, q) => {
+        if (pt && f === 1) return;
+        const bn = G(k, 'Finger' + f + j); if (!bn) return;
+        upd(); const across = wp(G(k, 'Finger1')).sub(wp(G(k, 'Finger4'))).normalize();
+        turn(bn, across, amt * [.42, .62, .45][q] * (pt ? 1.4 : 1) * (1 + (f - 1) * .1));
+      }));
+      const th = G(k, 'Finger0'); if (th) { upd(); const along = wp(G(k, 'Finger2')).sub(wp(G(k, 'Hand'))).normalize(); turn(th, along, amt * .45); }
+    });
     const head = B('Head');
-    if (pose.head && head) { body.updateWorldMatrix(true, true); turn(head, X_AX, pose.head); }
+    if (pose.head && head) { upd(); turn(head, X_AX, pose.head); }
     body.updateWorldMatrix(true, true);
     body.position.y = cfg.pose === 'sit' ? .5 - wy(B('Hips')) : -Math.min(wy(B('LeftToe_End')), wy(B('RightToe_End'))) + .01;
     const root = new THREE.Group(); root.position.set(cfg.x, 0, cfg.z); root.rotation.y = cfg.face; root.add(body);
@@ -991,12 +1026,12 @@ ROOMS.forEach((r, i) => {
   guest({ x: -4.6, z: zc - .7, face: -PI / 2, pose: 'sit', look: .5, room: i });
   guest({ x: -2.7, z: zc + .2, face: -PI / 2, pose: 'sit', look: -.4, room: i });
   guest({ x: -5.7, z: zc - 6.1, face: -PI / 2, pose: 'behind', sex: 'w', room: i });                     // reading the hologram
-  guest({ x: 5.0, z: zc + 3.6, face: PI * .8, pose: 'drink', look: .3, room: i });                       // two talking over drinks
+  guest({ x: 5.0, z: zc + 3.6, face: PI * .8, pose: 'crossed', look: .3, room: i });                     // two talking
   guest({ x: 4.3, z: zc + 2.7, face: -PI * .2, pose: 'talk', sex: 'w', look: -.3, room: i });
-  guest({ x: 6.1, z: zc - 6.8, face: PI / 2, pose: i % 2 ? 'clutch' : 'drink', sex: 'w', room: i });     // looking at the other work
+  guest({ x: 6.1, z: zc - 6.8, face: PI / 2, pose: i % 2 ? 'hip' : 'chin', sex: 'w', room: i });       // looking at the other work
   guest({ x: 5.6, z: zc - 8.6, face: PI / 2, pose: 'point', room: i });
 });
-guest({ x: -4.2, z: -3.2, face: PI * .3, pose: 'talk', room: 0 }); guest({ x: -3.4, z: -3.9, face: -PI * .7, pose: 'drink', sex: 'w', room: 0 }); guest({ x: -4.5, z: -4.4, face: PI * .9, pose: 'clutch', sex: 'w', room: 0 });
+guest({ x: -4.2, z: -3.2, face: PI * .3, pose: 'talk', room: 0 }); guest({ x: -3.4, z: -3.9, face: -PI * .7, pose: 'chin', sex: 'w', room: 0 }); guest({ x: -4.5, z: -4.4, face: PI * .9, pose: 'hip', sex: 'w', room: 0 });
 guest({ x: 6.0, z: -8.6, face: PI / 2, pose: 'behind', room: 0 });
 
 /* ---- lights ---- */
