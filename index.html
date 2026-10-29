@@ -362,8 +362,10 @@
   .modal .more { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--rule-2); }
   .modal .more:not(.on) { display: none; }
   .modal .more > .mono { color: var(--muted); font-size: 9px; margin-bottom: 8px; }
-  .modal .more a { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--rule-2); color: var(--text); text-decoration: none; font-size: 14px; transition: color .2s, padding .2s; }
-  .modal .more a:hover { color: var(--blue); padding-left: 6px; }
+  .modal .more a { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--rule-2); color: var(--text); text-decoration: none; font-size: 14px; transition: color .2s; }
+  .modal .more a span:first-child { transition: transform .2s cubic-bezier(.2, .8, .2, 1); }
+  .modal .more a:hover { color: var(--blue); }
+  .modal .more a:hover span:first-child { transform: translateX(6px); }
   .modal .hint-close { margin-top: 20px; font-size: 9px; color: var(--muted); opacity: .7; }
   .close { top: 22px; right: 26px; z-index: 2; background: rgba(10, 10, 11, .8); }
   @media (max-width: 860px) {
