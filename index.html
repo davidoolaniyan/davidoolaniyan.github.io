@@ -480,7 +480,7 @@
 <script type="module">
 import * as THREE from 'three';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 
 /* =====================================================================
@@ -906,7 +906,16 @@ const shadowTex = (() => { const c = document.createElement('canvas'); c.width =
 const shadowGeo = new THREE.PlaneGeometry(1, 1), shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false });
 const people = [], GUESTS = [];
 const guest = cfg => GUESTS.push(cfg);
-const bone = (o, n) => { let r = null; o.traverse(c => { if (!r && c.isBone && c.name.replace(/^mixamorig:?/, '') === n) r = c; }); return r; };
+const BIPED = { Hips: 'Pelvis', Spine2: 'Spine2', Head: 'Head', LeftArm: 'L_UpperArm', LeftForeArm: 'L_Forearm', LeftHand: 'L_Hand', RightArm: 'R_UpperArm', RightForeArm: 'R_Forearm', RightHand: 'R_Hand',
+  LeftUpLeg: 'L_Thigh', LeftLeg: 'L_Calf', LeftFoot: 'L_Foot', LeftToe_End: 'L_Toe0', RightUpLeg: 'R_Thigh', RightLeg: 'R_Calf', RightFoot: 'R_Foot', RightToe_End: 'R_Toe0' };
+const bone = (o, n) => o.getObjectByName('Bip01_' + (BIPED[n] || n));
+// rotate a bone about an axis given in the figure's own frame (the figure only ever yaws, so world y works too)
+const _tq = new THREE.Quaternion(), _pw = new THREE.Quaternion();
+function turn(b, axis, angle, base) {
+  b.parent.getWorldQuaternion(_pw); _tq.setFromAxisAngle(axis, angle);
+  const m = _pw.clone().invert().multiply(_tq).multiply(_pw);
+  (base ? b.quaternion.copy(base) : b.quaternion).premultiply(m);
+}
 const _a = new THREE.Vector3(), _b = new THREE.Vector3(), _q = new THREE.Quaternion(), _pq = new THREE.Quaternion();
 // turn `b` so the segment from it to `child` points along `dir` (model space, figure facing +z)
 function aim(b, child, dir) {
@@ -929,27 +938,33 @@ const POSES = {
   phone:  { R: [V(-.1, -1, .2), V(.2, .55, 1)], head: .35 },
   sit:    { L: [V(.12, -1, .22), V(.05, -.35, 1)] },
 };
-const TOPS = [0x1b1c20, 0xd9dbdf, 0x23324c, 0x5c1d24, 0x3b3e44, 0x2e4a3a], BOTTOMS = [0x17181b, 0x2a2c31, 0x1f2a3c, 0x4a4d53];
-const SKINS = [0xffffff, 0xd6a688, 0xa77457, 0x7d5240, 0x5e3b2c];
-const loadGLB = url => new Promise(res => new GLTFLoader().load(url, g => res(g.scene), undefined, () => res(null)));
-Promise.all([loadGLB('media/people/readyplayer.me.glb'), loadGLB('media/people/Michelle.glb')]).then(([man, woman]) => {
+// realistic guests: Microsoft Rocketbox avatars (MIT), real-world scale in centimetres
+const RB_TEX = new Set(["f007_body_color.jpg", "f007_head_color.jpg", "f007_opacity_color.png", "f009_body_color.jpg", "f009_head_color.jpg", "f009_opacity_color.png", "f011_body_color.jpg", "f011_head_color.jpg", "f011_opacity_color.png", "f017_body_color.jpg", "f017_head_color.jpg", "f017_opacity_color.png", "m006_body_color.jpg", "m006_head_color.jpg", "m006_opacity_color.png", "m007_body_color.jpg", "m007_head_color.jpg", "m012_body_color.jpg", "m012_head_color.jpg", "m014_body_color.jpg", "m014_head_color.jpg", "m014_opacity_color.png"]);
+const RB = { w: ["Female_Adult_11", "Female_Adult_09", "Female_Adult_14", "Female_Adult_07"], m: ["Male_Adult_12", "Male_Adult_04", "Male_Adult_08", "Male_Adult_14"] };
+const texLoader = new THREE.TextureLoader(), texCache = {};
+const rbTex = name => {
+  const f = RB_TEX.has(name + '_color.jpg') ? name + '_color.jpg' : RB_TEX.has(name + '_color.png') ? name + '_color.png' : null;
+  if (!f) return null;
+  if (!texCache[f]) { const t = texLoader.load('media/people/rb/' + f); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; texCache[f] = t; }
+  return texCache[f];
+};
+const rbMat = m => {
+  const map = rbTex(m.name), cut = /opacity|hair|lash/i.test(m.name) || RB_TEX.has(m.name + '_color.png');
+  return new THREE.MeshStandardMaterial({ name: m.name, map, roughness: .78, metalness: 0, transparent: false, alphaTest: cut ? .5 : 0, side: cut ? THREE.DoubleSide : THREE.FrontSide });
+};
+const loadFBX = name => new Promise(res => new FBXLoader().load(`media/people/rb/${name}.fbx`, o => {
+  o.traverse(c => { if (c.isMesh) { c.material = Array.isArray(c.material) ? c.material.map(rbMat) : rbMat(c.material); c.castShadow = false; } });
+  res(o);
+}, undefined, () => res(null)));
+const Y_AX = new THREE.Vector3(0, 1, 0), X_AX = new THREE.Vector3(1, 0, 0);
+Promise.all([...RB.w, ...RB.m].map(loadFBX)).then(models => {
+  const pool = { w: models.slice(0, RB.w.length).filter(Boolean), m: models.slice(RB.w.length).filter(Boolean) }, used = { w: 0, m: 0 };
   GUESTS.forEach((cfg, n) => {
-    const src = cfg.sex === 'w' ? woman : man; if (!src) return;
-    const body = SkeletonUtils.clone(src), pose = POSES[cfg.pose] || POSES.stand;
-    body.traverse(c => {
-      if (!c.isMesh) return;
-      c.frustumCulled = false; c.material = c.material.clone();
-      const m = c.material.name || '';
-      if (cfg.sex === 'w') c.material.color.setHex(SKINS[(n * 2) % 3]);                       // one atlas: tint the whole figure
-      else if (/Skin|Body|Head/.test(m)) c.material.color.setHex(SKINS[(n * 3 + 1) % SKINS.length]);
-      else if (/Top/.test(m)) c.material.color.setHex(TOPS[(n * 5) % TOPS.length]);
-      else if (/Bottom/.test(m)) c.material.color.setHex(BOTTOMS[(n * 3) % BOTTOMS.length]);
-    });
-    // normalise height from the rest pose, then pose with the figure at the origin facing +z
+    const sex = cfg.sex === 'w' ? 'w' : 'm', list = pool[sex]; if (!list.length) return;
+    const body = SkeletonUtils.clone(list[used[sex]++ % list.length]), pose = POSES[cfg.pose] || POSES.stand;
+    body.traverse(c => { if (c.isMesh) c.frustumCulled = false; });
+    body.scale.setScalar(.01);
     const B = k => bone(body, k), wy = o => { const v = new THREE.Vector3(); o.getWorldPosition(v); return v.y; };
-    const toes = () => Math.min(wy(B('LeftToe_End') || B('LeftFoot')), wy(B('RightToe_End') || B('RightFoot')));
-    body.updateWorldMatrix(true, true);   // skinned bounding boxes ignore the rig scale, so measure from the bones
-    body.scale.multiplyScalar((cfg.sex === 'w' ? 1.66 : 1.78) / (wy(B('HeadTop_End')) - toes()));
     body.updateWorldMatrix(true, true);
     const side = (k, d) => (k === 'L' ? d : V(-d.x, d.y, d.z));
     ['L', 'R'].forEach(k => {
@@ -958,14 +973,14 @@ Promise.all([loadGLB('media/people/readyplayer.me.glb'), loadGLB('media/people/M
       aim(B(nm + 'Arm'), B(nm + 'ForeArm'), arm[0]); aim(B(nm + 'ForeArm'), B(nm + 'Hand'), arm[1]);
     });
     if (cfg.pose === 'sit') ['Left', 'Right'].forEach((nm, k) => { aim(B(nm + 'UpLeg'), B(nm + 'Leg'), V(k ? -.08 : .08, -.05, 1)); aim(B(nm + 'Leg'), B(nm + 'Foot'), V(0, -1, .08)); });
-    const head = B('Head'), chest = B('Spine2');
-    if (pose.head && head) head.rotateX(pose.head);
+    const head = B('Head');
+    if (pose.head && head) { body.updateWorldMatrix(true, true); turn(head, X_AX, pose.head); }
     body.updateWorldMatrix(true, true);
-    body.position.y = cfg.pose === 'sit' ? .52 - wy(B('Hips')) : -toes();
+    body.position.y = cfg.pose === 'sit' ? .5 - wy(B('Hips')) : -Math.min(wy(B('LeftToe_End')), wy(B('RightToe_End'))) + .01;
     const root = new THREE.Group(); root.position.set(cfg.x, 0, cfg.z); root.rotation.y = cfg.face; root.add(body);
     const sh = new THREE.Mesh(shadowGeo, shadowMat); sh.rotation.x = -Math.PI / 2; sh.scale.set(.7, .7, 1); sh.position.y = .012; root.add(sh);
     root.scale.setScalar(.001); scene.add(root);
-    people.push({ root, head, chest, headQ: head && head.quaternion.clone(), chestQ: chest && chest.quaternion.clone(), look: cfg.look || 0, room: cfg.room || 0, phase: n * 1.37 });
+    people.push({ root, head, headQ: head && head.quaternion.clone(), look: cfg.look || 0, room: cfg.room || 0, phase: n * 1.37 });
   });
 });
 const PI = Math.PI;
@@ -1190,8 +1205,7 @@ function frame(now) {
   // the audience idles: breathing, glancing around, talking with their hands
   people.forEach(f => {
     if (!f.root.visible) return;
-    if (f.head) { f.head.quaternion.copy(f.headQ); f.head.rotateY(f.look * .5 + Math.sin(t * .35 + f.phase) * .3); }
-    if (f.chest) { f.chest.quaternion.copy(f.chestQ); f.chest.rotateX(Math.sin(t * 1.6 + f.phase) * .015); }
+    if (f.head) turn(f.head, Y_AX, f.look * .5 + Math.sin(t * .35 + f.phase) * .3, f.headQ);
   });
 
   toolLogos.forEach((m, i) => { m.rotation.y = m.userData.face + Math.sin(t * .6 + i) * .55; m.position.y = m.userData.y + Math.sin(t * 1.3 + i) * .025; });
