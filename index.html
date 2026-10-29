@@ -680,7 +680,7 @@ document.getElementById('skip').addEventListener('click', () => lenis.scrollTo('
 await Promise.all([document.fonts.load('800 60px "Big Shoulders Display"'), document.fonts.load('400 30px Jost'), document.fonts.load('italic 400 30px Jost'), document.fonts.load('400 24px Syncopate')]);
 
 const canvas = document.getElementById('gl');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', logarithmicDepthBuffer: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -696,11 +696,11 @@ const HALF = 8, WH = 5, T = .3, DOOR = 2.6, EYE = 1.68, WALL = HALF - .17;
 const v3 = (x, y, z) => new THREE.Vector3(x, y, z);
 const loader = new THREE.TextureLoader();
 
-const blueprint = new THREE.GridHelper(220, 110, 0x1c2f45, 0x121c28);
+const blueprint = new THREE.GridHelper(220, 110, 0x1c2f45, 0x121c28); blueprint.renderOrder = -2; blueprint.material.depthWrite = false;
 blueprint.position.set(0, 0, -59); blueprint.material.transparent = true; scene.add(blueprint);
 
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(HALF * 2, 122), new THREE.MeshStandardMaterial({ color: 0x0f1012, roughness: .42, metalness: .25, transparent: true, opacity: 0 }));
-floor.rotation.x = -Math.PI / 2; floor.position.set(0, .005, -61); scene.add(floor);
+floor.rotation.x = -Math.PI / 2; floor.position.set(0, .005, -61); floor.material.polygonOffset = true; floor.material.polygonOffsetFactor = 2; floor.material.polygonOffsetUnits = 2; scene.add(floor);
 
 /* ---- walls, lintels and the 2D plan ---- */
 const BOUNDS = [0, -14, -32, -50, -68, -86, -104, -118];
@@ -747,7 +747,7 @@ building.add(new THREE.LineSegments(decoGeo, decoMat));
 building.scale.y = .001;
 
 const pts = [];
-const seg = (a, b, c, d) => pts.push(a, .02, b, c, .02, d);
+const seg = (a, b, c, d) => pts.push(a, .05, b, c, .05, d);
 walls.forEach(([x1, z1, x2, z2]) => {
   const h = T / 2;
   if (x1 === x2) { seg(x1 - h, z1, x1 - h, z2); seg(x1 + h, z1, x1 + h, z2); }
@@ -762,7 +762,7 @@ seg(-10.5, 0, -10.5, -118); BOUNDS.forEach(z => seg(-11, z, -10, z));
 ROOMS.forEach(r => { const zc = (r.z0 + r.z1) / 2; seg(-.5, zc, .5, zc); seg(0, zc - .5, 0, zc + .5); });
 const planGeo = new THREE.BufferGeometry();
 planGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
-const planMat = new THREE.LineBasicMaterial({ color: BLUE, transparent: true, fog: false });
+const planMat = new THREE.LineBasicMaterial({ color: BLUE, transparent: true, fog: false, depthWrite: false });
 scene.add(new THREE.LineSegments(planGeo, planMat));
 const planCount = pts.length / 3; planGeo.setDrawRange(0, 0);
 
@@ -1273,7 +1273,7 @@ function frame(now) {
   // 1. the plan draws itself, 2. walls rise, 3. the room fills
   planGeo.setDrawRange(0, Math.floor(ease(clamp((now - t0) / 2600, 0, 1)) * planCount / 2) * 2);
   const ex = ease(range(p, ...PH.extrude));
-  building.scale.y = Math.max(.001, ex); wallMat.opacity = ex; wallMat.transparent = floor.material.transparent = ex < .999; decoMat.opacity = ex * .8; edgeMat.opacity = .9 - ex * .4;   // outlines and deco stay readable once built
+  building.scale.y = Math.max(.001, ex); building.visible = ex > .015;   // a flattened building would sit on the plan lines and flicker wallMat.opacity = ex; wallMat.transparent = floor.material.transparent = ex < .999; decoMat.opacity = ex * .8; edgeMat.opacity = .9 - ex * .4;   // outlines and deco stay readable once built
   floor.material.opacity = ex; planMat.opacity = 1 - ex * .75; blueprint.material.opacity = .6 - ex * .45;
   ambient.intensity = ex * .5; hemi.intensity = ex * .7; roomLights.forEach(l => l.intensity = ex * 14);
   furniture.visible = ex > .6;
