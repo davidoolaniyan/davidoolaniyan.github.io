@@ -271,6 +271,25 @@
   .case-logos img.tall { height: 44px; }
   .clients img.tall { height: 50px; }
   .case-logos span { color: var(--muted); font-size: 14px; }
+  .clients { gap: 26px 52px; }
+  .client { position: relative; display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 6px 2px; }
+  .client b { display: block; transition: filter .35s; }
+  .client i { display: block; height: 30px; width: calc(30px * var(--ar)); background: var(--chrome); opacity: .62; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; transition: background-color .35s, opacity .35s; }
+  .client.tall i { height: 50px; width: calc(50px * var(--ar)); }
+  .client span { position: absolute; top: 100%; left: 50%; transform: translate(-50%, -4px); margin-top: 4px; font-size: 9px; color: var(--c); opacity: 0; white-space: nowrap; transition: opacity .3s, transform .3s; pointer-events: none; }
+  .client:hover i, .client:focus-visible i { background: var(--c); opacity: 1; }
+  .client:hover b, .client:focus-visible b { filter: drop-shadow(0 0 6px var(--c)) drop-shadow(0 0 18px var(--c)); }
+  .client:hover span, .client:focus-visible span { opacity: 1; transform: translate(-50%, 0); }
+  .client.sm i { height: 24px; width: calc(24px * var(--ar)); opacity: .9; }
+  .client.sm.tall i { height: 42px; width: calc(42px * var(--ar)); }
+  .client.sm span { left: 0; transform: translate(0, -4px); }
+  .client.sm:hover span { transform: none; }
+  .case-logos em { font-style: normal; color: var(--muted); font-size: 14px; }
+  .brandbar { display: none; align-items: center; justify-content: center; gap: 14px; margin: -8px 0 22px; }
+  .brandbar.on { display: flex; }
+  .brandbar b { color: var(--c, var(--chrome)); font-weight: 400; }
+  .brandbar button { padding: 9px 14px; border: 1px solid var(--rule); color: var(--muted); }
+  .brandbar button:hover { color: var(--text); border-color: var(--chrome); }
   /* chamfered buttons */
   .btn { border-radius: 0; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; border-color: var(--rule); padding: 17px 26px; }
   .btn.solid, .reel-btn, .filters button.on { border-radius: 0; clip-path: var(--cut); background: linear-gradient(180deg, #ffffff, #c4c9d1); color: var(--bg); border-color: transparent; }
@@ -356,6 +375,7 @@
     <button data-f="ai">Scale / AI video</button>
     <button data-f="archviz">Space / Archviz</button>
   </div>
+  <div class="brandbar mono" id="brandbar"><span>Showing work for <b id="brandname"></b></span><button id="brandclear">Show all &times;</button></div>
   <div class="grid" id="grid"></div>
 </section>
 
@@ -364,31 +384,31 @@
   <div class="eyebrow mono reveal">Case studies</div>
   <h2 class="big reveal">The long game.</h2>
   <p class="lede reveal">What happened when a client stayed.</p>
-  <div class="clients reveal"><img src="media/clients/tars.png" alt="TARS"><img src="media/clients/move9ja.png" alt="Move9ja"><img src="media/clients/wiamove.png" alt="WiaMove"><img src="media/clients/borderless.png" alt="Borderless by Condia"><img src="media/clients/africhange.png" alt="AfriChange"><img class="tall" src="media/clients/hype.png" alt="HYPE Empire"><img src="media/clients/metrics.png" alt="The Metrics"></div>
+  <div class="clients reveal"><button class="client" data-brand="tars" style="--c:#8a4dff;--ar:3.044;--logo:url(media/clients/tars.png)" aria-label="TARS: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="move9ja" style="--c:#33b06c;--ar:3.494;--logo:url(media/clients/move9ja.png)" aria-label="Move9ja: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="wiamove" style="--c:#2ec27e;--ar:1.106;--logo:url(media/clients/wiamove.png)" aria-label="WiaMove: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="borderless" style="--c:#5ed3b8;--ar:3.744;--logo:url(media/clients/borderless.png)" aria-label="Borderless by Condia: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="africhange" style="--c:#f4f6f8;--ar:5.575;--logo:url(media/clients/africhange.png)" aria-label="AfriChange: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client tall" data-brand="hype" style="--c:#ffb100;--ar:1.120;--logo:url(media/clients/hype.png)" aria-label="HYPE Empire: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><button class="client" data-brand="metrics" style="--c:#7fd3e0;--ar:1.506;--logo:url(media/clients/metrics.png)" aria-label="The Metrics: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
   <div class="cases">
     <article class="case reveal">
-      <div class="case-logos"><img src="media/clients/tars.png" alt="TARS"></div>
+      <div class="case-logos"><button class="client sm" data-brand="tars" style="--c:#8a4dff;--ar:3.044;--logo:url(media/clients/tars.png)" aria-label="TARS: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
       <div class="num mono">01 / TARS</div>
       <h3>YouTube for an AI SaaS company</h3>
       <dl><dt>Goal</dt><dd>Grow a founder-led channel and creator videos for an AI agent platform.</dd><dt>Role</dt><dd>Longform + Shorts editor, motion, AI-assisted b-roll pipeline, hover-preview hooks.</dd><dt>Result</dt><dd>Edits for 6+ creators across two channels, including the AI FOMO explainer series, a monthly AI-anchored news show and AI narrative shorts.</dd></dl>
       <div class="stats"><div><b>11+</b><small>longforms</small></div><div><b>6+</b><small>creators</small></div><div><b>2</b><small>channels</small></div></div>
     </article>
     <article class="case reveal">
-      <div class="case-logos"><img src="media/clients/move9ja.png" alt="Move9ja"><span>&rarr;</span><img src="media/clients/wiamove.png" alt="WiaMove"></div>
+      <div class="case-logos"><button class="client sm" data-brand="move9ja" style="--c:#33b06c;--ar:3.494;--logo:url(media/clients/move9ja.png)" aria-label="Move9ja: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><em>&rarr;</em><button class="client sm" data-brand="wiamove" style="--c:#2ec27e;--ar:1.106;--logo:url(media/clients/wiamove.png)" aria-label="WiaMove: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
       <div class="num mono">02 / Move9ja &rarr; WiaMove</div>
       <h3>Two years and a rebrand</h3>
       <dl><dt>Goal</dt><dd>Launch and grow a Nigerian flight and travel booking app.</dd><dt>Role</dt><dd>Launch films, app UI motion, mascot animation, UGC edits, and the rebrand film start to finish.</dd><dt>Result</dt><dd>One consistent visual voice across 60+ videos through a full rebrand.</dd></dl>
       <div class="stats"><div><b>60+</b><small>videos</small></div><div><b>2 yrs</b><small>partnership</small></div><div><b>1</b><small>rebrand</small></div></div>
     </article>
     <article class="case reveal">
-      <div class="case-logos"><img src="media/clients/borderless.png" alt="Borderless by Condia"><span>&times;</span><img src="media/clients/africhange.png" alt="AfriChange"></div>
+      <div class="case-logos"><button class="client sm" data-brand="borderless" style="--c:#5ed3b8;--ar:3.744;--logo:url(media/clients/borderless.png)" aria-label="Borderless by Condia: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button><em>&times;</em><button class="client sm" data-brand="africhange" style="--c:#f4f6f8;--ar:5.575;--logo:url(media/clients/africhange.png)" aria-label="AfriChange: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
       <div class="num mono">03 / Borderless &times; AfriChange</div>
       <h3>A fintech event, end to end</h3>
       <dl><dt>Goal</dt><dd>Build hype for The Borderless Experience 2026 in Lagos.</dd><dt>Role</dt><dd>Motion graphics lead and video editor: speaker and sponsor announcements, founder interviews, explainers, countdowns, recap.</dd><dt>Result</dt><dd>A full content campaign from first teaser to the recap, when #TBE2026 trended on X.</dd></dl>
       <div class="stats"><div><b>~20</b><small>deliverables</small></div><div><b>500+</b><small>attendees</small></div></div>
     </article>
     <article class="case reveal">
-      <div class="case-logos"><img class="tall" src="media/clients/hype.png" alt="HYPE Empire"></div>
+      <div class="case-logos"><button class="client sm tall" data-brand="hype" style="--c:#ffb100;--ar:1.120;--logo:url(media/clients/hype.png)" aria-label="HYPE Empire: view work"><b><i></i></b><span class="mono">View work &rarr;</span></button></div>
       <div class="num mono">04 / HYPE Empire</div>
       <h3>Agency motion for edtech &amp; events</h3>
       <dl><dt>Goal</dt><dd>Turn event results into proof that sells the next event.</dd><dt>Role</dt><dd>Video editing lead: kinetic case-study films, anniversary film, campaign promos.</dd><dt>Result</dt><dd>The 3-year anniversary film, plus case-study films like AltSchool sTaRt that turn one event into the pitch for the next.</dd></dl>
@@ -524,8 +544,24 @@ grid.querySelectorAll('.work').forEach(card => {
 function setFilter(f) {
   document.querySelectorAll('#filters button').forEach(b => b.classList.toggle('on', b.dataset.f === f));
   grid.querySelectorAll('.work').forEach(c => c.classList.toggle('hide', f !== 'all' && c.dataset.f !== f));
+  document.getElementById('brandbar').classList.remove('on');
 }
 document.querySelectorAll('#filters button').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.f)));
+const BRAND_WORK = {'tars': ['tars-longform', 'tokens', 'anna', 'podcast-trailer', 'edge-cases', 'chaos'], 'borderless': ['tbe-review', 'builders', 'peace', 'vee'], 'africhange': ['tbe-review', 'builders', 'peace', 'vee'], 'hype': ['altschool', 'anniversary'], 'metrics': ['metrics']};
+const BRAND_NAME = { tars: 'TARS', move9ja: 'Move9ja', wiamove: 'WiaMove', borderless: 'Borderless × AfriChange', africhange: 'Borderless × AfriChange', hype: 'HYPE Empire', metrics: 'The Metrics' };
+function showBrand(key, color) {
+  const ids = BRAND_WORK[key];
+  if (!ids) return openPopup({ tag: 'Client', title: BRAND_NAME[key], desc: 'Two years, 60+ videos and a full rebrand from Move9ja to WiaMove. A selection is available on request.', actions: [{ label: 'Ask for the reel &rarr;', fn: () => { closeModal(); lenis.scrollTo('#contact'); } }] });
+  setFilter('all');
+  grid.querySelectorAll('.work').forEach(c => c.classList.toggle('hide', !ids.includes(c.dataset.id)));
+  document.querySelectorAll('#filters button').forEach(b => b.classList.remove('on'));
+  const bar = document.getElementById('brandbar'); bar.classList.add('on'); bar.style.setProperty('--c', color);
+  document.getElementById('brandname').textContent = BRAND_NAME[key];
+  requestAnimationFrame(() => { lenis.resize(); lenis.scrollTo('#work', { offset: -10, force: true }); });   // the grid just shrank: re-measure first
+}
+document.querySelectorAll('.client').forEach(b => b.addEventListener('click', () => showBrand(b.dataset.brand, getComputedStyle(b).getPropertyValue('--c'))));
+document.getElementById('brandclear').addEventListener('click', () => setFilter('all'));
+
 
 const modal = document.getElementById('modal'), mv = document.getElementById('mvideo'), minner = document.getElementById('minner');
 const el = id => document.getElementById(id);
@@ -989,8 +1025,7 @@ ROOMS.slice(1).forEach((r, k) => {
     key(0, r.z1 + 3, 0, 1.85, r.z1 - 10);
   }
 });
-key(1.3, -91.5, -3.4, 1.25, -93.5, 1.3, true); key(-1.3, -95.5, 3.4, 1.25, -94.5, 1.3, true);   // toolkit: left row, then right
-key(0, -97.6, 0, 1.85, -110);
+key(2.6, -93.4, -HALF, 1.35, -93.8, 1.3, true); key(-2.6, -94.6, HALF, 1.35, -94.2, 1.3, true);   // toolkit: left row, then right, like the other rooms
 key(0, -102.4, 0, 1.85, -112); key(0, -104.5, 0, 1.85, -114, .8);
 // each key also gets a heading (yaw) and pitch, so turning from one wall to the other rotates the head
 // smoothly through "looking down the hall" instead of swinging a target point past the camera
