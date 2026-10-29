@@ -298,10 +298,20 @@
   .about-copy p { color: var(--muted); font-size: 17px; line-height: 1.65; margin-top: 14px; max-width: 560px; }
   .portrait { position: relative; margin: 0; border: 1px solid var(--rule); box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--rule-2); background: #0d0e10; }
   .portrait::before { content: ""; position: absolute; top: -1px; left: 50%; width: 96px; height: 12px; transform: translateX(-50%); background: var(--crown) center / contain no-repeat; z-index: 1; }
-  .portrait img { display: block; width: 100%; height: auto; }
+  .portrait .shots { position: relative; aspect-ratio: 720 / 836; overflow: hidden; }
+  .portrait .shots img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; animation: shotFade 12s ease-in-out infinite; }
+  .portrait .shots img + img { animation-delay: -6s; }
+  @keyframes shotFade { 0%, 42% { opacity: 1; } 50%, 92% { opacity: 0; } 100% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .portrait .shots img { animation: none; } .portrait .shots img + img { display: none; } }
   .portrait figcaption { display: flex; justify-content: space-between; padding: 12px 14px; border-top: 1px solid var(--rule); color: var(--text); }
   .portrait figcaption span { color: var(--muted); }
   @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } .portrait { max-width: 420px; } }
+  .tools span { transition: color .3s, border-color .3s, box-shadow .3s, text-shadow .3s; cursor: default; }
+  .tools span:hover { color: var(--c); border-color: var(--c); box-shadow: 0 0 14px -2px var(--c), inset 0 0 12px -6px var(--c); text-shadow: 0 0 10px var(--c); }
+  .work { --c: var(--chrome); }
+  .work:hover { border-color: var(--c); box-shadow: 0 0 0 1px var(--c), 0 0 28px -6px var(--c); }
+  .work:hover h3 { color: var(--c); }
+  .work h3 { transition: color .3s; }
   /* chamfered buttons */
   .btn { border-radius: 0; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; border-color: var(--rule); padding: 17px 26px; }
   .btn.solid, .reel-btn, .filters button.on { border-radius: 0; clip-path: var(--cut); background: linear-gradient(180deg, #ffffff, #c4c9d1); color: var(--bg); border-color: transparent; }
@@ -443,14 +453,14 @@
 <!-- ============ ABOUT: OFF THE CLOCK ============ -->
 <section class="block" id="about">
   <div class="about-grid">
-    <figure class="portrait reveal"><img src="media/david.jpg" alt="David Oluwabukunmi Olaniyan" loading="lazy" width="720" height="836"><figcaption class="mono">David O. Olaniyan <span>/ Akure, NG</span></figcaption></figure>
+    <figure class="portrait reveal"><div class="shots"><img src="media/david-1.jpg" alt="David Oluwabukunmi Olaniyan" loading="lazy" width="720" height="836"><img src="media/david-2.jpg" alt="" loading="lazy" width="720" height="836"></div><figcaption class="mono">David O. Olaniyan <span>/ Akure, NG</span></figcaption></figure>
     <div class="about-copy">
       <div class="eyebrow mono reveal">About</div>
       <h2 class="big reveal">Editor by trade.<br>Architect by training.</h2>
       <div class="reveal">
       <p>I'm David Oluwabukunmi Olaniyan, a video editor and motion designer finishing a master's in architecture at FUTA, Nigeria. Architecture taught me composition, light and how people move through space. Editing taught me how they move through time.</p>
       </div>
-      <div class="tools reveal"><span>Premiere Pro</span><span>After Effects</span><span>DaVinci Resolve</span><span>Blender</span><span>Veo / Flow</span><span>ElevenLabs</span><span>Claude Code</span><span>Canva</span><span>Twinmotion</span><span>D5 Render</span><span>Revit</span><span>3ds Max</span></div>
+      <div class="tools reveal"><span style="--c:#ea77ff">Premiere Pro</span><span style="--c:#9999ff">After Effects</span><span style="--c:#e8e8ea">DaVinci Resolve</span><span style="--c:#e87d0d">Blender</span><span style="--c:#4285f4">Veo / Flow</span><span style="--c:#f2f2f2">ElevenLabs</span><span style="--c:#d97757">Claude Code</span><span style="--c:#00c4cc">Canva</span><span style="--c:#f2f2f2">Twinmotion</span><span style="--c:#f2f2f2">D5 Render</span><span style="--c:#3d8bff">Revit</span><span style="--c:#37a5cc">3ds Max</span></div>
     </div>
   </div>
 </section>
@@ -540,8 +550,11 @@ const ROOMS = [
    WORK GRID + MODAL (the quick view below the building)
    ===================================================================== */
 const grid = document.getElementById('grid');
+const BRAND_WORK = {'tars': ['tars-longform', 'tokens', 'anna', 'podcast-trailer', 'edge-cases', 'chaos'], 'borderless': ['tbe-review', 'builders', 'peace', 'vee'], 'africhange': ['tbe-review', 'builders', 'peace', 'vee'], 'hype': ['altschool', 'anniversary'], 'metrics': ['metrics']};
+const BRAND_COL = { tars: '#8a4dff', borderless: '#5ed3b8', hype: '#ffb100', metrics: '#7fd3e0' };
+const workCol = id => { if (id === 'habaripay') return '#ff5a36'; for (const [k, ids] of Object.entries(BRAND_WORK)) if (ids.includes(id) && BRAND_COL[k]) return BRAND_COL[k]; return ''; };
 grid.innerHTML = Object.entries(WORKS).map(([id, w]) => `
-  <article class="work ${w.o} reveal" data-f="${w.f}" data-id="${id}">
+  <article class="work ${w.o} reveal" data-f="${w.f}" data-id="${id}"${workCol(id) ? ` style="--c:${workCol(id)}"` : ''}>
     <div class="media"><img src="media/${id}.jpg" alt="" loading="lazy"><video src="media/${id}.mp4" muted loop playsinline preload="none"></video></div>
     <div class="meta"><div><h3>${w.t}</h3><div class="client">${w.c}</div></div><span class="tag mono">${TAGS[w.f]}</span></div>
   </article>`).join('');
@@ -562,7 +575,6 @@ function setFilter(f) {
   document.getElementById('brandbar').classList.remove('on');
 }
 document.querySelectorAll('#filters button').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.f)));
-const BRAND_WORK = {'tars': ['tars-longform', 'tokens', 'anna', 'podcast-trailer', 'edge-cases', 'chaos'], 'borderless': ['tbe-review', 'builders', 'peace', 'vee'], 'africhange': ['tbe-review', 'builders', 'peace', 'vee'], 'hype': ['altschool', 'anniversary'], 'metrics': ['metrics']};
 const BRAND_NAME = { tars: 'TARS', move9ja: 'Move9ja', wiamove: 'WiaMove', borderless: 'Borderless × AfriChange', africhange: 'Borderless × AfriChange', hype: 'HYPE Empire', metrics: 'The Metrics' };
 function showBrand(key, color) {
   const ids = BRAND_WORK[key];
