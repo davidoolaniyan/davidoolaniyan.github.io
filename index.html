@@ -54,7 +54,7 @@
   .reel-btn i::after { content: ""; position: absolute; left: 10px; top: 8px; width: 0; height: 0; border-style: solid; border-width: 5px 0 5px 8px; border-color: transparent transparent transparent var(--bg); }
 
   /* ---------- walkthrough ---------- */
-  .build { position: relative; height: 1700vh; }
+  .build { position: relative; height: 2000vh; }
   .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
   #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, .6)); }
@@ -379,7 +379,7 @@
     </div>
 
     <div class="minimap" id="minimap">
-      <div class="mono"><span id="mmName">Floor plan</span><span id="mmCount">00 / 05</span></div>
+      <div class="mono"><span id="mmName">Floor plan</span><span id="mmCount">00 / 06</span></div>
       <svg id="mm" width="300" height="64" viewBox="0 0 300 64"></svg>
     </div>
 
@@ -398,6 +398,7 @@
     <button class="on" data-f="all">All</button>
     <button data-f="youtube">Story / YouTube</button>
     <button data-f="motion">Rhythm / Motion</button>
+    <button data-f="event">Stage / Events</button>
     <button data-f="ai">Scale / AI video</button>
     <button data-f="archviz">Space / Archviz</button>
   </div>
@@ -530,8 +531,8 @@ const WORKS = {
   'anna': { t: 'When AI support gets it right, but still wrong', c: 'TARS / YouTube longform', f: 'youtube', o: 'land', yt: '40sibixDd_I', d: 'An explainer on AI customer support with illustrated scenes, chatbot UI recreations and animated checklists.' },
   'podcast-trailer': { t: 'Podcast trailer', c: 'TARS / Trailer', f: 'youtube', o: 'land', full: 1, d: 'A 30-second trailer cut like a film teaser: cold open, kinetic text and icon animation.' },
   'podcast-short': { t: 'How Birkenstock won', c: 'Ecommerce on Tap / Podcast short', f: 'youtube', full: 1, o: 'port', d: 'A podcast clip rebuilt as a story: AI-generated period b-roll, archive textures and word-by-word captions carry a founder history in under a minute.' },
-  'peace': { t: 'Fintech hot takes', c: 'Borderless × AfriChange / Vox pop', f: 'youtube', full: 1, o: 'port', d: 'Event vox pop from Founders Connect Lagos: question cards, brand callouts and quick cuts that keep a live-floor interview moving.' },
-  'vee': { t: 'Not just listening', c: 'Borderless × AfriChange / Explainer', f: 'youtube', full: 1, o: 'land', d: 'A speaker-led event explainer with kinetic keywords, icon animation and branded transitions.' },
+  'peace': { t: 'Fintech hot takes', c: 'Borderless × AfriChange / Vox pop', f: 'event', full: 1, o: 'port', d: 'Event vox pop from Founders Connect Lagos: question cards, brand callouts and quick cuts that keep a live-floor interview moving.' },
+  'vee': { t: 'Not just listening', c: 'Borderless × AfriChange / Explainer', f: 'event', full: 1, o: 'land', d: 'A speaker-led event explainer with kinetic keywords, icon animation and branded transitions.' },
   'habaripay': { t: 'HabariPay breakdown', c: 'Saamu Eleja / YouTube', f: 'youtube', full: 1, o: 'land', d: 'A 15-minute fintech longform with website callouts, product inserts and clean talking-head pacing.' },
   'altschool': { t: 'sTaRt made impact', c: 'HYPE Empire / AltSchool', f: 'motion', full: 1, o: 'land', role: 'Kinetic type, edit, sound', tools: 'After Effects / Premiere', d: 'An event case-study film made for HYPE Empire. Bold kinetic type and real community footage turn one event into the pitch for the next edition.' },
   'wia-rebrand': { t: 'Move9ja becomes WiaMove', c: 'WiaMove / Rebrand film', f: 'motion', full: 1, o: 'port', ig: 'DRMgZBejHCk', stat: '64 likes', role: 'Concept, motion, edit', d: 'The rebrand film, start to finish: from “From Nigeria, we built Move9ja” to a vision with no borders, ending on the new WiaMove mark.' },
@@ -540,12 +541,12 @@ const WORKS = {
   'wia-pause': { t: 'Pause for your next adventure', c: 'WiaMove / Engagement reel', f: 'motion', full: 1, o: 'port', ig: 'DYXIULlsXkZ', stat: '12 comments', d: 'A tap-to-pause destination game: followers stop the loop and comment where they landed.' },
   'wia-better': { t: 'There’s a better way', c: 'WiaMove / Product explainer', f: 'motion', full: 1, o: 'port', ig: 'DaLRUwAs1ka', d: 'The old way versus the WiaMove way: browser tabs and screenshots replaced by one clean booking screen.' },
   'wia-affiliate': { t: 'Affiliate in 5 seconds', c: 'WiaMove / Affiliate programme', f: 'motion', full: 1, o: 'port', ig: 'DX9VWNCMrzh', d: 'Share, earn, repeat: the affiliate programme explained in one fast, looping motion graphic.' },
-  'tbe-review': { t: '#TBE2026 trended', c: 'Borderless × AfriChange / Event recap', f: 'motion', full: 1, o: 'port', role: 'Motion graphics lead, edit', d: 'The post-event recap: a terminal boot sequence, trending X posts and LinkedIn reviews flown through 3D space to prove the event landed.' },
+  'tbe-review': { t: '#TBE2026 trended', c: 'Borderless × AfriChange / Event recap', f: 'event', full: 1, o: 'port', role: 'Motion graphics lead, edit', d: 'The post-event recap: a terminal boot sequence, trending X posts and LinkedIn reviews flown through 3D space to prove the event landed.' },
   'anniversary': { t: '3 years of HYPE', c: 'HYPE Empire / Anniversary film', f: 'motion', full: 1, o: 'port', ig: 'DTf9jvvjMxJ', stat: '35 likes / 7 comments', d: 'A three-year anniversary film: kinetic type, a glowing wireframe city and real event footage, from a WhatsApp promo to credible events.' },
-  'terra-partners': { t: 'Terra Expo partners', c: 'Terra Expo 2024 / Partner reveal', f: 'motion', full: 1, o: 'land', d: 'Partner logos plugged into a circuit-board network that resolves into the Terra Expo mark.' },
-  'terra-haptix': { t: 'TerraHaptix', c: 'Terra Expo 2024 / Exhibitor film', f: 'motion', full: 1, o: 'land', d: 'A HUD-style exhibitor film for a robotics company: drone wireframes, framed field footage and interface type.' },
-  'lla-promo': { t: 'LinkedIn Local Akure 2.0', c: 'LLA 2.0 / Event promotion', f: 'motion', full: 1, o: 'sq', d: 'The event promo: a holographic interface opener that connects into the LinkedIn Local Akure 2.0 identity.' },
-  'lla-rebrand': { t: 'From Local to Global', c: 'LLA 2.0 / Rebrand reveal', f: 'motion', full: 1, o: 'sq', d: 'The rebrand reveal: a globe of connections that collapses into the new "From Local to Global" lockup.' },
+  'terra-partners': { t: 'Terra Expo partners', c: 'Terra Expo 2024 / Partner reveal', f: 'event', full: 1, o: 'land', d: 'Partner logos plugged into a circuit-board network that resolves into the Terra Expo mark.' },
+  'terra-haptix': { t: 'TerraHaptix', c: 'Terra Expo 2024 / Exhibitor film', f: 'event', full: 1, o: 'land', d: 'A HUD-style exhibitor film for a robotics company: drone wireframes, framed field footage and interface type.' },
+  'lla-promo': { t: 'LinkedIn Local Akure 2.0', c: 'LLA 2.0 / Event promotion', f: 'event', full: 1, o: 'sq', d: 'The event promo: a holographic interface opener that connects into the LinkedIn Local Akure 2.0 identity.' },
+  'lla-rebrand': { t: 'From Local to Global', c: 'LLA 2.0 / Rebrand reveal', f: 'event', full: 1, o: 'sq', d: 'The rebrand reveal: a globe of connections that collapses into the new "From Local to Global" lockup.' },
   'dmm-surprises': { t: 'Except surprises', c: 'DO Mark Media / Brand promo', f: 'motion', full: 1, o: 'port', d: 'An agency promo built on a hook: humans ignore most of what they see, except surprises. Kinetic type over teal brand frames.' },
   'dmm-reset': { t: 'Reset & Rise', c: 'DO Mark Media / Case study', f: 'motion', full: 1, o: 'port', ig: 'DSCzdJ_jbkh', d: 'A client case study: a raw manuscript turned into a full brand identity in three weeks, told as a process film.' },
   'dmm-women': { t: 'Women’s History Month', c: 'DO Mark Media / Campaign reel', f: 'motion', full: 1, o: 'port', ig: 'DG5bCTKN3PF', stat: '232 likes / 85 comments', d: 'A campaign reel announcing support for 10 female Nigerian business owners: archive-style stats, kinetic type and a call to apply. The agency’s best-performing reel.' },
@@ -553,9 +554,9 @@ const WORKS = {
   'dmm-brand': { t: 'Starting a brand?', c: 'DO Mark Media / Services reel', f: 'motion', full: 1, o: 'port', ig: 'DHTKjHhIV6r', d: 'Live action meets interface: a hand unlocks services on a glass panel that resolves into the DO Mark Media mark.' },
   'dmm-community': { t: 'Builders Community', c: 'DO Mark Media / Client case study', f: 'motion', full: 1, o: 'port', ig: 'DRucdNdDXrq', d: 'How the agency grew a faith community online: the why, the motion logo, the content and the growth, told as a case study.' },
   'dmm-domolola': { t: 'Omolola: script to screen', c: 'DO Mark Media / Film promo', f: 'motion', full: 1, o: 'port', ig: 'DMf5QTYNsFd', d: 'A behind-the-scenes promo for an indie film, from script read to festival premiere.' },
-  'baraza': { t: 'Baraza Lagos', c: 'HYPE Empire / Summit promo', f: 'motion', full: 1, o: 'port', ig: 'DUngBoQDFT6', d: 'A launch promo for the Baraza Lagos tech and legal summit, partnered with the Nigerian Bar Association: kinetic headlines over editorial event footage.' },
-  'pivot': { t: 'Founder’s O’Clock', c: 'HYPE Empire / PivotHQ event promo', f: 'motion', full: 1, o: 'port', ig: 'DaDv0mRsN3b', stat: '26 likes', d: 'A promo for a founders’ meetup: an AI mascot hook, a map of scattered information and a room of empty seats waiting to be filled.' },
-  'builders': { t: 'Cool kids work in fintech', c: 'Borderless × AfriChange', f: 'motion', full: 1, o: 'land', role: 'Motion graphics lead, edit', d: 'Giant kinetic headlines layered with the speaker. Part of a 20+ video campaign for a Lagos fintech event.' },
+  'baraza': { t: 'Baraza Lagos', c: 'HYPE Empire / Summit promo', f: 'event', full: 1, o: 'port', ig: 'DUngBoQDFT6', d: 'A launch promo for the Baraza Lagos tech and legal summit, partnered with the Nigerian Bar Association: kinetic headlines over editorial event footage.' },
+  'pivot': { t: 'Founder’s O’Clock', c: 'HYPE Empire / PivotHQ event promo', f: 'event', full: 1, o: 'port', ig: 'DaDv0mRsN3b', stat: '26 likes', d: 'A promo for a founders’ meetup: an AI mascot hook, a map of scattered information and a room of empty seats waiting to be filled.' },
+  'builders': { t: 'Cool kids work in fintech', c: 'Borderless × AfriChange', f: 'event', full: 1, o: 'land', role: 'Motion graphics lead, edit', d: 'Giant kinetic headlines layered with the speaker. Part of a 20+ video campaign for a Lagos fintech event.' },
   'edge-cases': { t: "Edge cases aren't edge cases", c: 'TARS / Short', f: 'motion', o: 'port', yt: 'R-Nks71zI1Q', short: 1, d: 'A vertical explainer with a holographic HUD language: face scans, neon UI panels and data callouts.' },
   'metrics': { t: 'The Metrics identity', c: 'The Metrics / Brand motion', f: 'motion', full: 1, o: 'port', d: 'A brand identity reveal: 3D logo build, phone mockups and editorial type.' },
   'motd-david': { t: 'Metric of the Day: David O.', c: 'The Metrics / Spotlight series', f: 'motion', full: 1, o: 'port', d: 'My own episode of the student-spotlight series: a scatter of portraits flies into a profile card that fills in field by field.' },
@@ -563,21 +564,22 @@ const WORKS = {
   'chaos': { t: 'Press 1 for Chaos', c: 'TARS / AI-anchored news show', f: 'ai', o: 'land', yt: 'IWKu6zyaBVs', role: 'Direction, AI generation, edit', tools: 'Veo / ElevenLabs / Premiere', d: 'An AI-generated narrative short: robot desk scenes, an angry candle and illustrated crowds, cut to a news-broadcast frame.' },
   'libations': { t: 'Libations', c: 'Spec / Crate-digger promo', f: 'ai', o: 'port', full: 1, role: 'Concept, design, motion, edit', d: 'A crate-digger promo for Show Dem Camp\'s "Libations", starring me: a spinning record, halftone portraits and stacked type, all cut to the beat.' },
   'maven': { t: 'Indulge in radiance', c: 'Spec / Beauty ad', f: 'ai', o: 'land', full: 1, d: 'A premium skincare spot with elegant serif typography and soft, warm grading.' },
-  'terra-film': { t: 'Terra Expo 2024', c: 'Terra Expo / Event film', f: 'ai', full: 1, o: 'land', role: 'Direction, AI imagery, motion, edit', d: 'The headline film for an AI and drone technology expo: AI-generated cities of the future, kinetic type and the Terra Expo reveal.' },
+  'terra-film': { t: 'Terra Expo 2024', c: 'Terra Expo / Event film', f: 'event', full: 1, o: 'land', role: 'Direction, AI imagery, motion, edit', d: 'The headline film for an AI and drone technology expo: AI-generated cities of the future, kinetic type and the Terra Expo reveal.' },
   'lakowe': { t: 'Lakowe residence', c: 'Private client / Walkthrough', f: 'archviz', full: 1, o: 'land', role: 'Interior viz, camera, edit', tools: 'Twinmotion / D5 / Premiere', d: 'A full interior walkthrough: double-height living room, walk-in closet and a marble-and-gold bath.' },
   'building': { t: 'Terrace house showcase', c: 'Archviz / Exterior', f: 'archviz', o: 'land', full: 1, d: 'Exterior visualization of a contemporary terrace development with street context.' },
   'northgate': { t: 'FUTA North Gate', c: 'Archviz / Campus', f: 'archviz', o: 'land', full: 1, d: 'A campus gateway and landscape proposal, rendered in 4K with aerial and ground-level sequences.' },
 };
-const TAGS = { youtube: 'Story / YouTube', motion: 'Rhythm / Motion', ai: 'Scale / AI', archviz: 'Space / Archviz' };
+const TAGS = { youtube: 'Story / YouTube', motion: 'Rhythm / Motion', event: 'Stage / Events', ai: 'Scale / AI', archviz: 'Space / Archviz' };
 
 // The building: rooms run along -Z and every door sits on the centre line (x = 0).
 const ROOMS = [
   { key: 'lobby', no: '00', theme: 'Lobby', name: 'Edit & Motion', z0: 0, z1: -14 },
   { key: 'youtube', no: '01', theme: 'Story', name: 'YouTube & creators', z0: -14, z1: -32, main: 'tars-longform', frames: ['tokens', 'anna', 'podcast-short', 'habaripay'], line: 'Every edit starts with a reason to keep watching.' },
-  { key: 'motion', no: '02', theme: 'Rhythm', name: 'Motion & brand', z0: -32, z1: -50, main: 'altschool', frames: ['tbe-review', 'anniversary', 'edge-cases', 'builders'], line: 'Motion gives the story a pulse.' },
-  { key: 'ai', no: '03', theme: 'Scale', name: 'AI video', z0: -50, z1: -68, main: 'chaos', frames: ['libations', 'maven', 'terra-film'], line: 'AI lets one editor direct a whole crew.' },
-  { key: 'archviz', no: '04', theme: 'Space', name: 'Architectural viz', z0: -68, z1: -86, main: 'lakowe', frames: ['building', 'northgate'], line: 'Where the architect in me shows up.' },
-  { key: 'exit', no: '05', theme: 'Toolkit', name: 'Tools & exit', z0: -86, z1: -100, line: 'The tools behind the work, then the way out.' },
+  { key: 'motion', no: '02', theme: 'Rhythm', name: 'Motion & brand', z0: -32, z1: -50, main: 'altschool', frames: ['anniversary', 'wia-rebrand', 'edge-cases', 'dmm-women'], line: 'Motion gives the story a pulse.' },
+  { key: 'event', no: '03', theme: 'Stage', name: 'Events & campaigns', z0: -50, z1: -68, main: 'terra-film', frames: ['tbe-review', 'lla-promo', 'terra-haptix', 'builders'], line: 'From first teaser to the recap.' },
+  { key: 'ai', no: '04', theme: 'Scale', name: 'AI video', z0: -68, z1: -86, main: 'chaos', frames: ['libations', 'maven'], line: 'AI lets one editor direct a whole crew.' },
+  { key: 'archviz', no: '05', theme: 'Space', name: 'Architectural viz', z0: -86, z1: -104, main: 'lakowe', frames: ['building', 'northgate'], line: 'Where the architect in me shows up.' },
+  { key: 'exit', no: '06', theme: 'Toolkit', name: 'Tools & exit', z0: -104, z1: -118, line: 'The tools behind the work, then the way out.' },
 ];
 
 /* =====================================================================
@@ -695,14 +697,14 @@ const v3 = (x, y, z) => new THREE.Vector3(x, y, z);
 const loader = new THREE.TextureLoader();
 
 const blueprint = new THREE.GridHelper(220, 110, 0x1c2f45, 0x121c28);
-blueprint.position.set(0, 0, -50); blueprint.material.transparent = true; scene.add(blueprint);
+blueprint.position.set(0, 0, -59); blueprint.material.transparent = true; scene.add(blueprint);
 
-const floor = new THREE.Mesh(new THREE.PlaneGeometry(HALF * 2, 104), new THREE.MeshStandardMaterial({ color: 0x0f1012, roughness: .42, metalness: .25, transparent: true, opacity: 0 }));
-floor.rotation.x = -Math.PI / 2; floor.position.set(0, .005, -52); scene.add(floor);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(HALF * 2, 122), new THREE.MeshStandardMaterial({ color: 0x0f1012, roughness: .42, metalness: .25, transparent: true, opacity: 0 }));
+floor.rotation.x = -Math.PI / 2; floor.position.set(0, .005, -61); scene.add(floor);
 
 /* ---- walls, lintels and the 2D plan ---- */
-const BOUNDS = [0, -14, -32, -50, -68, -86, -100];
-const walls = [[-HALF, 0, -HALF, -100], [HALF, 0, HALF, -100]];
+const BOUNDS = [0, -14, -32, -50, -68, -86, -104, -118];
+const walls = [[-HALF, 0, -HALF, -118], [HALF, 0, HALF, -118]];
 BOUNDS.forEach(z => { walls.push([-HALF, z, -DOOR / 2, z]); walls.push([DOOR / 2, z, HALF, z]); });
 
 const building = new THREE.Group(); scene.add(building);
@@ -730,11 +732,11 @@ BOUNDS.forEach(z => [z + T / 2 + .01, z - T / 2 - .01].forEach(fz => {
   [-1, 1].forEach(sd => { dl(sd * IN, 4.62, fz, sd * (DOOR / 2 + .4), 4.62, fz); dl(sd * IN, 4.72, fz, sd * (DOOR / 2 + .4), 4.72, fz); });
 }));
 [-IN, IN].forEach(x => {                                                     // crown: double rule + chevron frieze along both walls
-  dl(x, 4.62, 0, x, 4.62, -100); dl(x, 4.72, 0, x, 4.72, -100); dl(x, .12, 0, x, .12, -100);
-  for (let z = 0; z > -100; z -= .5) { dl(x, 4.38, z, x, 4.56, z - .25); dl(x, 4.56, z - .25, x, 4.38, z - .5); }
+  dl(x, 4.62, 0, x, 4.62, -118); dl(x, 4.72, 0, x, 4.72, -118); dl(x, .12, 0, x, .12, -118);
+  for (let z = 0; z > -118; z -= .5) { dl(x, 4.38, z, x, 4.56, z - .25); dl(x, 4.56, z - .25, x, 4.38, z - .5); }
 });
-[-1.05, -.95, .95, 1.05].forEach(x => dl(x, .012, 0, x, .012, -100));      // inlaid runner
-for (let z = -1; z > -100; z -= 2) { dl(-.95, .012, z, 0, .012, z - .7); dl(0, .012, z - .7, .95, .012, z); }
+[-1.05, -.95, .95, 1.05].forEach(x => dl(x, .012, 0, x, .012, -118));      // inlaid runner
+for (let z = -1; z > -118; z -= 2) { dl(-.95, .012, z, 0, .012, z - .7); dl(0, .012, z - .7, .95, .012, z); }
 ROOMS.forEach(r => {                                                         // sunburst medallion at each room's centre
   const zc = (r.z0 + r.z1) / 2;
   [1.0, 1.6].forEach(rad => { for (let a = 0; a < 48; a++) { const a0 = a / 48 * Math.PI * 2, a1 = (a + 1) / 48 * Math.PI * 2; dl(Math.cos(a0) * rad, .014, zc + Math.sin(a0) * rad, Math.cos(a1) * rad, .014, zc + Math.sin(a1) * rad); } });
@@ -756,7 +758,7 @@ BOUNDS.forEach(z => {  // door swings
   for (let i = 0; i < n; i++) { const a0 = -Math.PI / 2 * i / n, a1 = -Math.PI / 2 * (i + 1) / n; seg(cx + DOOR * Math.cos(a0), z + DOOR * Math.sin(a0), cx + DOOR * Math.cos(a1), z + DOOR * Math.sin(a1)); }
   seg(cx, z, cx, z - DOOR);
 });
-seg(-10.5, 0, -10.5, -100); BOUNDS.forEach(z => seg(-11, z, -10, z));
+seg(-10.5, 0, -10.5, -118); BOUNDS.forEach(z => seg(-11, z, -10, z));
 ROOMS.forEach(r => { const zc = (r.z0 + r.z1) / 2; seg(-.5, zc, .5, zc); seg(0, zc - .5, 0, zc + .5); });
 const planGeo = new THREE.BufferGeometry();
 planGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
@@ -797,7 +799,7 @@ function infoPanel(room, w) {
     y += 74; g.fillStyle = '#eef6ff'; g.font = `800 64px ${DISPLAY}`; y = wrap(g, w.t, pad, y, W - pad * 2, 68);
     g.fillStyle = '#b8d6f5'; g.font = `400 30px ${SANS}`; g.fillText(w.c, pad, y + 2); y += 56;
     g.fillStyle = 'rgba(90,169,255,.4)'; g.fillRect(pad, y, W - pad * 2, 2); y += 52;
-    [['ROLE', w.role], ['TOOLS', w.tools]].forEach(([k, v]) => { g.fillStyle = '#5aa9ff'; g.font = `400 22px ${MONO}`; g.fillText(k, pad, y); g.fillStyle = '#e1eefc'; g.font = `500 28px ${SANS}`; g.fillText(v, pad + 130, y); y += 46; });
+    [['ROLE', w.role], ['TOOLS', w.tools]].filter(([, v]) => v).forEach(([k, v]) => { g.fillStyle = '#5aa9ff'; g.font = `400 22px ${MONO}`; g.fillText(k, pad, y); g.fillStyle = '#e1eefc'; g.font = `500 28px ${SANS}`; g.fillText(v, pad + 130, y); y += 46; });
     y += 14; g.fillStyle = '#c9dcf0'; g.font = `400 29px ${SANS}`; wrap(g, w.d, pad, y, W - pad * 2, 40);
     g.fillStyle = '#5aa9ff'; g.font = `italic 400 27px ${SANS}`; g.fillText('"' + room.line + '"', pad, H - 46);
   });
@@ -825,7 +827,7 @@ const screens = [], holos = [], picks = [];
 const pick = (mesh, open) => { mesh.userData.pick = picks.length; picks.push({ mesh, open }); };
 const frameMat = new THREE.LineBasicMaterial({ color: 0xd9dde3, transparent: true, opacity: 0 });
 function addScreen(id, roomIdx, x, y, z, rotY, w, isMain) {
-  const h = WORKS[id]?.o === 'port' ? w * 16 / 9 : w * 9 / 16;
+  const o = WORKS[id]?.o, h = o === 'port' ? w * 16 / 9 : o === 'sq' ? w : w * 9 / 16;
   const poster = loader.load(`media/${id}.jpg`); poster.colorSpace = THREE.SRGBColorSpace;
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: poster, transparent: true, opacity: 0, toneMapped: false }));
   mesh.position.set(x, y, z); mesh.rotation.y = rotY; scene.add(mesh);
@@ -874,9 +876,9 @@ ROOMS.forEach((r, i) => {
         const ugc = ev => openPopup({ tag: 'Scale / AI', title: 'ORÍ & Co. UGC ad', sub: 'Spec ad / in production', rows: [['Tools', 'Google Flow / Veo / Premiere']], desc: 'A UGC-style product ad with one consistent AI character, lip-synced dialogue and three hook variants for performance testing.' }, ev);
         pick(addPlaceholder(i, WALL, 2.75, z, R_FACE, 1.45, 'UGC ad', true), ugc); pick(placeHolo(label(2.5, 'ORÍ & Co. UGC ad', 'In production / Flow + Veo'), i, WALL - .05, .9, z, R_FACE, false).mesh, ugc); return;
       }
-      const port = WORKS[id].o === 'port', fw = port ? 1.45 : 2.5;
-      pick(addScreen(id, i, WALL, port ? 2.75 : 2.6, z, R_FACE, fw, false).mesh, ev => openModal(id, ev));
-      pick(placeHolo(label(2.3, WORKS[id].t, WORKS[id].c), i, WALL - .02, port ? .92 : 1.3, z, R_FACE, false).mesh, ev => openModal(id, ev));
+      const port = WORKS[id].o === 'port', sq = WORKS[id].o === 'sq', fw = port ? 1.45 : sq ? 1.75 : 2.5;
+      pick(addScreen(id, i, WALL, port ? 2.75 : sq ? 2.7 : 2.6, z, R_FACE, fw, false).mesh, ev => openModal(id, ev));
+      pick(placeHolo(label(2.3, WORKS[id].t, WORKS[id].c), i, WALL - .02, port ? .92 : sq ? 1.38 : 1.3, z, R_FACE, false).mesh, ev => openModal(id, ev));
     });
   }
   // door sign facing the visitor, announcing the next room
@@ -894,12 +896,12 @@ placeHolo(label(3.2, 'Sizzle 2026', 'Every room in 30 seconds / click to play'),
 placeHolo(holo(4.2, 3, (g, W, H) => {
   const pad = 56; let y = 96;
   g.fillStyle = '#5aa9ff'; g.font = `400 26px ${MONO}`; g.fillText('DIRECTORY / ONE PRACTICE', pad, y); y += 92;
-  g.fillStyle = '#eef6ff'; g.font = `800 76px ${DISPLAY}`; g.fillText('Five rooms.', pad, y); y += 80; g.fillText('One craft.', pad, y); y += 62;
+  g.fillStyle = '#eef6ff'; g.font = `800 76px ${DISPLAY}`; g.fillText('Six rooms.', pad, y); y += 80; g.fillText('One craft.', pad, y); y += 62;
   g.fillStyle = 'rgba(90,169,255,.4)'; g.fillRect(pad, y, W - pad * 2, 2); y += 60;
   ROOMS.slice(1).forEach(r => { g.fillStyle = '#5aa9ff'; g.font = `400 26px ${MONO}`; g.fillText(`${r.no}  ${r.theme.toUpperCase()}`, pad, y); g.fillStyle = '#e1eefc'; g.font = `500 32px ${SANS}`; g.fillText(r.name, pad + 310, y); y += 54; });
   y += 18; g.fillStyle = '#b8d6f5'; g.font = `400 28px ${SANS}`; wrap(g, 'Every room is a different lens on the same work: the story, its rhythm, how it scales and where it lives.', pad, y, W - pad * 2, 38);
 }), 0, HALF - .55, 2.5, -8, R_FACE);
-pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: 'Directory / one practice', title: 'Five rooms. One craft.', desc: 'Every room is a different lens on the same work: the story, its rhythm, how it scales and where it lives.', actions: ROOMS.slice(1).map((r, k) => ({ label: `<span class="mono" style="color:var(--blue)">${r.no} ${r.theme}</span>&nbsp;&nbsp;${r.name}`, fn: () => { closeModal(); goRoom(k + 1); } })) }, ev));
+pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: 'Directory / one practice', title: 'Six rooms. One craft.', desc: 'Every room is a different lens on the same work: the story, its rhythm, how it scales and where it lives.', actions: ROOMS.slice(1).map((r, k) => ({ label: `<span class="mono" style="color:var(--blue)">${r.no} ${r.theme}</span>&nbsp;&nbsp;${r.name}`, fn: () => { closeModal(); goRoom(k + 1); } })) }, ev));
 
 // toolkit: each tool's mark floats in a glass vitrine on a stepped plinth
 const TOOLS = [
@@ -958,12 +960,12 @@ function logo3D(tool) {
 const toolkit = new THREE.Group(); scene.add(toolkit);
 {
   const fl = new THREE.Mesh(new THREE.PlaneGeometry(HALF * 2 - T, 13.7), new THREE.MeshStandardMaterial({ map: terrazzoTex, roughness: .22, metalness: .12, envMap: studioEnv, envMapIntensity: .5 }));
-  fl.rotation.x = -Math.PI / 2; fl.position.set(0, .008, -93); toolkit.add(fl);
+  fl.rotation.x = -Math.PI / 2; fl.position.set(0, .008, -111); toolkit.add(fl);
   const wallSkin = new THREE.MeshStandardMaterial({ map: plasterTex, bumpMap: plasterTex, bumpScale: .6, roughness: .88, metalness: 0 });
-  [-1, 1].forEach(sd => { const w = new THREE.Mesh(new THREE.PlaneGeometry(13.7, 4.3), wallSkin); w.position.set(sd * (HALF - T / 2 - .004), 2.15, -93); w.rotation.y = -sd * Math.PI / 2; toolkit.add(w); });
+  [-1, 1].forEach(sd => { const w = new THREE.Mesh(new THREE.PlaneGeometry(13.7, 4.3), wallSkin); w.position.set(sd * (HALF - T / 2 - .004), 2.15, -111); w.rotation.y = -sd * Math.PI / 2; toolkit.add(w); });
 }
 TOOLS.forEach((tool, i) => {
-  const left = i < 6, x = left ? -3.4 : 3.4, z = left ? -89.6 - i * 1.45 : -90.4 - (i - 6) * 1.45, face = left ? L_FACE : R_FACE;
+  const left = i < 6, x = left ? -3.4 : 3.4, z = left ? -107.6 - i * 1.45 : -108.4 - (i - 6) * 1.45, face = left ? L_FACE : R_FACE;
   const g = new THREE.Group(); g.position.set(x, 0, z); toolkit.add(g);
   // stepped deco plinth
   [[.78, .1, .05], [.66, .72, .46], [.74, .06, .85]].forEach(([w, h, y]) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, w), stoneMat); m.position.y = y; g.add(m); const e = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry), caseEdge); e.position.y = y; g.add(e); });
@@ -976,15 +978,15 @@ TOOLS.forEach((tool, i) => {
   // name plate on the aisle side
   const plate = label(.66, tool.n, 'Toolkit'); plate.material.opacity = 1;
   plate.position.set(left ? .335 : -.335, .62, 0); plate.rotation.y = face; g.add(plate);
-  const open = ev => openPopup({ tag: '05 / Toolkit', title: tool.n, desc: tool.u }, ev);
+  const open = ev => openPopup({ tag: '06 / Toolkit', title: tool.n, desc: tool.u }, ev);
   [glass, plate].forEach(m => pick(m, open));
 });
 
 // exit light
 const exitGlow = new THREE.Mesh(new THREE.PlaneGeometry(DOOR, 3.2), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, toneMapped: false }));
-exitGlow.position.set(0, 1.6, -100.4); scene.add(exitGlow);
+exitGlow.position.set(0, 1.6, -118.4); scene.add(exitGlow);
 const exitBack = new THREE.Mesh(new THREE.PlaneGeometry(60, 40), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, toneMapped: false, fog: false }));
-exitBack.position.set(0, 5, -110); scene.add(exitBack);
+exitBack.position.set(0, 5, -128); scene.add(exitBack);
 
 /* ---- benches ---- */
 const furniture = new THREE.Group(); scene.add(furniture);
@@ -1165,8 +1167,8 @@ ROOMS.slice(1).forEach((r, k) => {
     key(0, r.z1 + 3.4, 0, 1.85, r.z1 - 10);
   }
 });
-key(2.3, -93.2, -HALF, 1.3, -93.2, 1.4, true); key(-2.3, -94.0, HALF, 1.3, -94.0, 1.4, true);   // toolkit: left row, right row, then out
-key(0, -102.4, 0, 1.85, -112); key(0, -104.5, 0, 1.85, -114, .8);
+key(2.3, -111.2, -HALF, 1.3, -111.2, 1.4, true); key(-2.3, -112.0, HALF, 1.3, -112.0, 1.4, true);   // toolkit: left row, right row, then out
+key(0, -120.4, 0, 1.85, -130); key(0, -122.5, 0, 1.85, -132, .8);
 // each key also gets a heading (yaw) and pitch, so turning from one wall to the other rotates the head
 // smoothly through "looking down the hall" instead of swinging a target point past the camera
 K.forEach((k, i) => {
@@ -1202,7 +1204,7 @@ const build = document.querySelector('.build'), nav = document.querySelector('.n
 const $ = id => document.getElementById(id);
 const ui = { intro: $('intro'), tb: $('titleblock'), hud: $('hud'), hudRoom: $('hudRoom'), mm: $('minimap'), mmCount: $('mmCount'), hint: $('hint'), hintText: $('hintText'), bar: $('bar'), mcard: $('mcard') };
 const svg = $('mm'), NS = 'http://www.w3.org/2000/svg';
-const mx = z => 8 + (-z / 100) * 284, my = x => 30 + (x / HALF) * 18;
+const mx = z => 8 + (-z / 118) * 284, my = x => 30 + (x / HALF) * 18;
 const mmRooms = ROOMS.map((r, i) => {
   const rect = document.createElementNS(NS, 'rect');
   Object.entries({ x: mx(r.z0), y: 12, width: mx(r.z1) - mx(r.z0), height: 36, class: 'room' }).forEach(([k, v]) => rect.setAttribute(k, v));
@@ -1221,8 +1223,8 @@ let lastScroll = performance.now(); addEventListener('scroll', () => lastScroll 
    ===================================================================== */
 const OVER = { pos: v3(), tgt: v3(), up: v3() };
 function overhead() {
-  if (camera.aspect >= 1) { OVER.pos.set(17, 70, -50); OVER.tgt.set(17, 0, -50); OVER.up.set(-1, 0, 0); } // plan runs left to right
-  else { OVER.pos.set(0, 92, -42); OVER.tgt.set(0, 0, -42); OVER.up.set(0, 0, -1); }                     // portrait: bottom to top
+  if (camera.aspect >= 1) { OVER.pos.set(19, 80, -59); OVER.tgt.set(19, 0, -59); OVER.up.set(-1, 0, 0); } // plan runs left to right
+  else { OVER.pos.set(0, 104, -51); OVER.tgt.set(0, 0, -51); OVER.up.set(0, 0, -1); }                     // portrait: bottom to top
 }
 function resize() {
   const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -1324,7 +1326,7 @@ function frame(now) {
     h.mesh.material.opacity = want;
     if (h.beam) h.beam.material.opacity = want * .22;
   });
-  const exitOn = range(z, -96, -101);
+  const exitOn = range(z, -114, -119);
   exitGlow.material.opacity = on * (.5 + exitOn * .5); exitBack.material.opacity = exitOn;
 
   // the audience idles: breathing, glancing around, talking with their hands
@@ -1350,10 +1352,10 @@ function frame(now) {
     curRoom = room;
     {
       const rm = ROOMS[room], w = rm.main && WORKS[rm.main];
-      const html = room === 0 ? 'Lobby / <b>start here</b>' : `Room ${rm.no} of 05 / <b>${rm.theme}</b> / ${rm.name}`;
+      const html = room === 0 ? 'Lobby / <b>start here</b>' : `Room ${rm.no} of 06 / <b>${rm.theme}</b> / ${rm.name}`;
       ui.hudRoom.style.opacity = 0;
       clearTimeout(ui.hudSwap); ui.hudSwap = setTimeout(() => { ui.hudRoom.innerHTML = html; ui.hudRoom.style.opacity = 1; }, 220);
-      ui.mmCount.textContent = `${rm.no} / 05`; $('mmName').textContent = room ? `${rm.theme} / click to jump` : 'Floor plan / click to jump';
+      ui.mmCount.textContent = `${rm.no} / 06`; $('mmName').textContent = room ? `${rm.theme} / click to jump` : 'Floor plan / click to jump';
       mmRooms.forEach((m, i) => { m.rect.classList.toggle('cur', i === room); m.t.classList.toggle('cur', i === room); });
       if (w) { $('mcTag').textContent = `${rm.no} / ${rm.theme} / ${rm.name}`; $('mcTitle').textContent = w.t; $('mcDesc').textContent = w.d; }
     }
