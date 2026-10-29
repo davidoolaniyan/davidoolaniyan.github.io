@@ -186,7 +186,7 @@
   .modal-inner { width: min(1100px, 100%); display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; align-items: center; transform: scale(.82); transition: transform .4s cubic-bezier(.2, .8, .2, 1); }
   .modal-inner.solo { grid-template-columns: 1fr; width: min(620px, 100%); }
   .modal .mbody { background: rgba(14, 16, 20, .9); border: 1px solid var(--blue-dim); border-radius: var(--radius); padding: 28px; position: relative; }
-  .modal .mbody::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; background: linear-gradient(180deg, rgba(90, 169, 255, .1), transparent 40%); pointer-events: none; }
+  .modal .mbody::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(90, 169, 255, .1), transparent 40%); pointer-events: none; }
   .modal .msub { color: var(--text); opacity: .75; margin-top: -4px; }
   .modal dl { display: grid; grid-template-columns: 70px 1fr; gap: 6px 14px; margin: 16px 0; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 14.5px; }
   .modal dl:empty { display: none; }
@@ -333,6 +333,47 @@
   .contact > * { position: relative; z-index: 1; }
   @media (max-width: 860px) { section.block::before { top: 34px; width: 96px; height: 50px; } }
   .foot { border-top: 0; background: linear-gradient(var(--rule), var(--rule)) top / 100% 1px no-repeat, linear-gradient(var(--rule-2), var(--rule-2)) 0 4px / 100% 1px no-repeat; }
+
+  /* ---------- the work pop-up, laid out properly ---------- */
+  .modal-inner { width: min(1180px, 100%); grid-template-columns: minmax(0, 1fr) 380px; gap: 32px; align-items: start; }
+  .modal-inner.tall { display: flex; justify-content: center; align-items: flex-start; width: min(1000px, 100%); }
+  .modal-inner.tall .mstage { flex: none; max-width: 55%; }
+  .modal-inner.tall .mbody { flex: 0 1 400px; }
+  .mstage { margin: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .mstage video { display: block; width: 100%; max-height: 74vh; object-fit: contain; background: #000; border: 1px solid var(--rule); box-shadow: 0 0 0 5px var(--bg), 0 0 0 6px var(--rule-2); }
+  .modal-inner.tall .mstage video { height: var(--vh, min(74vh, 760px)); width: calc(var(--vh, min(74vh, 760px)) * var(--arn, .5625)); max-width: 100%; object-fit: contain; }
+  .modal-inner.sq { --vh: min(62vh, 540px); }
+  .mstage .note { margin: 0; color: var(--muted); font-size: 9px; letter-spacing: .16em; }
+  .modal .mbody { max-height: 80vh; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 30px 30px 24px; scrollbar-width: thin; scrollbar-color: var(--rule) transparent; }
+  .mhead { padding-bottom: 18px; border-bottom: 1px solid var(--rule); }
+  .mhead .mono { color: var(--blue); }
+  .modal h3 { font-size: 34px; line-height: 1; margin: 12px 0 8px; text-transform: uppercase; }
+  .modal .msub { opacity: 1; color: var(--muted); margin: 0; font-size: 14.5px; }
+  .modal dl { margin: 0; padding: 16px 0; border-top: 0; grid-template-columns: 92px 1fr; gap: 9px 14px; font-size: 14px; line-height: 1.4; }
+  .modal dl:empty { display: none; }
+  .modal dt { font-size: 9px; padding-top: 4px; }
+  .modal dd { color: var(--text); }
+  .modal #mdesc { margin: 16px 0 0; font-size: 15px; line-height: 1.62; }
+  .modal dl:not(:empty) + #mdesc { margin-top: 0; padding-top: 16px; border-top: 1px solid var(--rule-2); }
+  .modal .acts { margin-top: 22px; gap: 10px; }
+  .modal .acts button { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+  .modal .acts button:first-child { clip-path: var(--cut); background: linear-gradient(180deg, #ffffff, #c4c9d1); color: var(--bg); border-color: transparent; font-weight: 700; }
+  .modal .acts button:first-child:hover { background: linear-gradient(180deg, #ffffff, #dfe3e9); }
+  .modal .more { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--rule-2); }
+  .modal .more:not(.on) { display: none; }
+  .modal .more > .mono { color: var(--muted); font-size: 9px; margin-bottom: 8px; }
+  .modal .more a { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--rule-2); color: var(--text); text-decoration: none; font-size: 14px; transition: color .2s, padding .2s; }
+  .modal .more a:hover { color: var(--blue); padding-left: 6px; }
+  .modal .hint-close { margin-top: 20px; font-size: 9px; color: var(--muted); opacity: .7; }
+  .close { top: 22px; right: 26px; z-index: 2; background: rgba(10, 10, 11, .8); }
+  @media (max-width: 860px) {
+    .modal { align-items: start; overflow-y: auto; padding: 64px 16px 24px; }
+    .modal-inner, .modal-inner.tall { display: grid; grid-template-columns: 1fr; gap: 18px; }
+    .modal-inner.tall .mstage { max-width: none; }
+    .modal-inner.tall .mstage video { height: 62vh; width: calc(62vh * var(--arn, .5625)); margin: 0 auto; }
+    .modal .mbody { max-height: none; overflow: visible; padding: 22px 20px; }
+    .modal h3 { font-size: 28px; }
+  }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
 <script type="importmap">
@@ -472,7 +513,7 @@
       <div class="reveal">
       <p>I'm David Oluwabukunmi Olaniyan, a video editor and motion designer finishing a master's in architecture at FUTA, Nigeria. Architecture taught me composition, light and how people move through space. Editing taught me how they move through time.</p>
       </div>
-      <div class="tools reveal"><span style="--c:#ea77ff">Premiere Pro</span><span style="--c:#9999ff">After Effects</span><span style="--c:#e8e8ea">DaVinci Resolve</span><span style="--c:#e87d0d">Blender</span><span style="--c:#4285f4">Veo / Flow</span><span style="--c:#f2f2f2">ElevenLabs</span><span style="--c:#d97757">Claude Code</span><span style="--c:#00c4cc">Canva</span><span style="--c:#f2f2f2">Twinmotion</span><span style="--c:#f2f2f2">D5 Render</span><span style="--c:#3d8bff">Revit</span><span style="--c:#37a5cc">3ds Max</span></div>
+      <div class="tools reveal"><span style="--c:#9999ff">After Effects</span><span style="--c:#e87d0d">Blender</span><span style="--c:#4285f4">Veo / Flow</span><span style="--c:#f2f2f2">ElevenLabs</span><span style="--c:#d97757">Claude Code</span><span style="--c:#00c4cc">Canva</span><span style="--c:#f2f2f2">Twinmotion</span><span style="--c:#f2f2f2">D5 Render</span><span style="--c:#3d8bff">Revit</span><span style="--c:#37a5cc">3ds Max</span></div>
     </div>
   </div>
 </section>
@@ -494,16 +535,14 @@
 <div class="modal" id="modal">
   <button class="close" id="close" aria-label="Close">&times;</button>
   <div class="modal-inner" id="minner">
-    <video id="mvideo" playsinline loop muted controls></video>
+    <figure class="mstage"><video id="mvideo" playsinline loop muted controls></video><figcaption class="note mono" id="mnote"></figcaption></figure>
     <div class="mbody">
-      <div class="mono" id="mtag" style="color:var(--blue)"></div>
-      <h3 id="mtitle"></h3>
-      <div class="msub" id="msub"></div>
+      <header class="mhead"><div class="mono" id="mtag"></div><h3 id="mtitle"></h3><div class="msub" id="msub"></div></header>
       <dl id="mrows"></dl>
       <p id="mdesc"></p>
       <div class="acts" id="macts"></div>
-      <p class="note mono" id="mnote"></p>
-      <p class="hint-close mono">Click outside to go back</p>
+      <div class="more" id="mmore"><div class="mono">More from the series</div><div id="mmorelist"></div></div>
+      <p class="hint-close mono">Esc or click outside to close</p>
     </div>
   </div>
 </div>
@@ -524,9 +563,9 @@ import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
    CONTENT
    ===================================================================== */
 const WORKS = {
-  'tars-longform': { t: 'Claude Code builds a YouTube channel', c: 'TARS / YouTube longform', f: 'youtube', o: 'land', yt: '6gx4nWOU0qg', role: 'Edit, motion, AI b-roll pipeline', tools: 'Premiere / After Effects / Claude Code', d: 'Founder-led longform for an AI SaaS company. Animated UI breakdowns, terminal walkthroughs and hooks built for retention.' },
-  'tokens': { t: 'What are tokens in AI?', c: 'TARS / AI FOMO series', f: 'youtube', o: 'land', yt: 'hZrXS1sTxyE', role: 'Edit, motion graphics, series look', tools: 'Premiere / After Effects', d: 'The lead episode of AI FOMO, an explainer series I edit for TARS. Words split into tokens on screen, a live cost counter, context-window diagrams and chalkboard tips turn an abstract idea into something you can watch.', more: [['System prompts', 'YL0h_X3Sjfg'], ['Prompt engineering', 'g0uWbivAZsc'], ['AI hallucinations', 'vg22qbdl2MQ']] },
-  'bani': { t: 'Bani with AI', c: 'TARS / Bani\'s channel', f: 'youtube', o: 'land', yt: 'RBxowOMMGKg', role: 'Edit, motion graphics, retention hooks', tools: 'Premiere / After Effects / Claude Code', d: 'A creator channel about building with AI: fast edits, animated UI breakdowns and hover-preview hooks. Lead episode: a $1,250-style motion graphics video made with Claude in 39 minutes.', more: [['Playable ads in 25 minutes', 'uGcjJGczf3s'], ['3D portfolio websites', 'WHxho2VNpNI'], ['Claude edited this video', 'OHYY8ZSSbGM']] },
+  'tars-longform': { t: 'Claude Code builds a YouTube channel', c: 'TARS / YouTube longform', f: 'youtube', o: 'land', yt: '6gx4nWOU0qg', role: 'Edit, motion, AI b-roll pipeline', tools: 'After Effects / Claude Code', d: 'Founder-led longform for an AI SaaS company. Animated UI breakdowns, terminal walkthroughs and hooks built for retention.' },
+  'tokens': { t: 'What are tokens in AI?', c: 'TARS / AI FOMO series', f: 'youtube', o: 'land', yt: 'hZrXS1sTxyE', role: 'Edit, motion graphics, series look', tools: 'After Effects', d: 'The lead episode of AI FOMO, an explainer series I edit for TARS. Words split into tokens on screen, a live cost counter, context-window diagrams and chalkboard tips turn an abstract idea into something you can watch.', more: [['System prompts', 'YL0h_X3Sjfg'], ['Prompt engineering', 'g0uWbivAZsc'], ['AI hallucinations', 'vg22qbdl2MQ']] },
+  'bani': { t: 'Bani with AI', c: 'TARS / Bani\'s channel', f: 'youtube', o: 'land', yt: 'RBxowOMMGKg', role: 'Edit, motion graphics, retention hooks', tools: 'After Effects / Claude Code', d: 'A creator channel about building with AI: fast edits, animated UI breakdowns and hover-preview hooks. Lead episode: a $1,250-style motion graphics video made with Claude in 39 minutes.', more: [['Playable ads in 25 minutes', 'uGcjJGczf3s'], ['3D portfolio websites', 'WHxho2VNpNI'], ['Claude edited this video', 'OHYY8ZSSbGM']] },
   'test-edit': { t: 'Why AI products fail', c: 'Creator edit / YouTube', f: 'youtube', o: 'land', full: 1, d: 'Talking-head longform with animated book pages, graph overlays and UI inserts that keep the argument visual.' },
   'anna': { t: 'When AI support gets it right, but still wrong', c: 'TARS / YouTube longform', f: 'youtube', o: 'land', yt: '40sibixDd_I', d: 'An explainer on AI customer support with illustrated scenes, chatbot UI recreations and animated checklists.' },
   'podcast-trailer': { t: 'Podcast trailer', c: 'TARS / Trailer', f: 'youtube', o: 'land', full: 1, d: 'A 30-second trailer cut like a film teaser: cold open, kinetic text and icon animation.' },
@@ -534,7 +573,7 @@ const WORKS = {
   'peace': { t: 'Fintech hot takes', c: 'Borderless × AfriChange / Vox pop', f: 'event', full: 1, o: 'port', d: 'Event vox pop from Founders Connect Lagos: question cards, brand callouts and quick cuts that keep a live-floor interview moving.' },
   'vee': { t: 'Not just listening', c: 'Borderless × AfriChange / Explainer', f: 'event', full: 1, o: 'land', d: 'A speaker-led event explainer with kinetic keywords, icon animation and branded transitions.' },
   'habaripay': { t: 'HabariPay breakdown', c: 'Saamu Eleja / YouTube', f: 'youtube', full: 1, o: 'land', d: 'A 15-minute fintech longform with website callouts, product inserts and clean talking-head pacing.' },
-  'altschool': { t: 'sTaRt made impact', c: 'HYPE Empire / AltSchool', f: 'motion', full: 1, o: 'land', role: 'Kinetic type, edit, sound', tools: 'After Effects / Premiere', d: 'An event case-study film made for HYPE Empire. Bold kinetic type and real community footage turn one event into the pitch for the next edition.' },
+  'altschool': { t: 'sTaRt made impact', c: 'HYPE Empire / AltSchool', f: 'motion', full: 1, o: 'land', role: 'Kinetic type, edit, sound', tools: 'After Effects', d: 'An event case-study film made for HYPE Empire. Bold kinetic type and real community footage turn one event into the pitch for the next edition.' },
   'wia-rebrand': { t: 'Move9ja becomes WiaMove', c: 'WiaMove / Rebrand film', f: 'motion', full: 1, o: 'port', ig: 'DRMgZBejHCk', stat: '64 likes', role: 'Concept, motion, edit', d: 'The rebrand film, start to finish: from “From Nigeria, we built Move9ja” to a vision with no borders, ending on the new WiaMove mark.' },
   'm9-booking': { t: 'Stress-free booking', c: 'Move9ja / Product launch', f: 'motion', full: 1, o: 'port', ig: 'DFaX8qxsXrs', stat: '82 likes / 38 comments', d: 'The flight-booking launch reel: a real search-to-checkout walkthrough on the Move9ja site, animated with lifestyle footage. The account’s best-performing reel.' },
   'wia-africa': { t: '5 African countries', c: 'WiaMove / Destination reel', f: 'motion', full: 1, o: 'port', ig: 'DZCjb24OgNr', d: 'Ghana, Kenya, Rwanda, Senegal and Sierra Leone, each with bold title cards over travel footage, ending on the booking site.' },
@@ -561,11 +600,11 @@ const WORKS = {
   'metrics': { t: 'The Metrics logo reveal', c: 'The Metrics / Brand motion', f: 'motion', full: 1, o: 'sq', d: 'The identity reveal for FUTA’s architecture student body: the M mark built from light on navy, carried onto a hard hat, a sketch and the live Instagram profile.' },
   'motd-david': { t: 'Metric of the Day: David O.', c: 'The Metrics / Spotlight series', f: 'motion', full: 1, o: 'port', d: 'My own episode of the student-spotlight series: a scatter of portraits flies into a profile card that fills in field by field.' },
   'motd-series': { t: 'Metric of the Day', c: 'The Metrics / Spotlight series', f: 'motion', full: 1, o: 'sq', d: 'A weekly series spotlighting architecture students: a clock of cards turns to reveal each feature, then their profile builds out. One template, a dozen episodes.' },
-  'chaos': { t: 'Press 1 for Chaos', c: 'TARS / AI-anchored news show', f: 'ai', o: 'land', yt: 'IWKu6zyaBVs', role: 'Direction, AI generation, edit', tools: 'Veo / ElevenLabs / Premiere', d: 'An AI-generated narrative short: robot desk scenes, an angry candle and illustrated crowds, cut to a news-broadcast frame.' },
+  'chaos': { t: 'Press 1 for Chaos', c: 'TARS / AI-anchored news show', f: 'ai', o: 'land', yt: 'IWKu6zyaBVs', role: 'Direction, AI generation, edit', tools: 'Veo / ElevenLabs', d: 'An AI-generated narrative short: robot desk scenes, an angry candle and illustrated crowds, cut to a news-broadcast frame.' },
   'libations': { t: 'Libations', c: 'Spec / Crate-digger promo', f: 'ai', o: 'port', full: 1, role: 'Concept, design, motion, edit', d: 'A crate-digger promo for Show Dem Camp\'s "Libations", starring me: a spinning record, halftone portraits and stacked type, all cut to the beat.' },
   'maven': { t: 'Indulge in radiance', c: 'Spec / Beauty ad', f: 'ai', o: 'land', full: 1, d: 'A premium skincare spot with elegant serif typography and soft, warm grading.' },
   'terra-film': { t: 'Terra Expo 2024', c: 'Terra Expo / Event film', f: 'event', full: 1, o: 'land', role: 'Direction, AI imagery, motion, edit', d: 'The headline film for an AI and drone technology expo: AI-generated cities of the future, kinetic type and the Terra Expo reveal.' },
-  'lakowe': { t: 'Lakowe residence', c: 'Private client / Walkthrough', f: 'archviz', full: 1, o: 'land', role: 'Interior viz, camera, edit', tools: 'Twinmotion / D5 / Premiere', d: 'A full interior walkthrough: double-height living room, walk-in closet and a marble-and-gold bath.' },
+  'lakowe': { t: 'Lakowe residence', c: 'Private client / Walkthrough', f: 'archviz', full: 1, o: 'land', role: 'Interior viz, camera, edit', tools: 'Twinmotion / D5', d: 'A full interior walkthrough: double-height living room, walk-in closet and a marble-and-gold bath.' },
   'building': { t: 'Terrace house showcase', c: 'Archviz / Exterior', f: 'archviz', o: 'land', full: 1, d: 'Exterior visualization of a contemporary terrace development with street context.' },
   'northgate': { t: 'FUTA North Gate', c: 'Archviz / Campus', f: 'archviz', o: 'land', full: 1, d: 'A campus gateway and landscape proposal, rendered in 4K with aerial and ground-level sequences.' },
 };
@@ -639,12 +678,14 @@ const modal = document.getElementById('modal'), mv = document.getElementById('mv
 const el = id => document.getElementById(id);
 // generic pop-up: video (optional), title block, credit rows, description, actions
 function openPopup(o, ev) {
-  minner.classList.toggle('solo', !o.video); mv.style.display = o.video ? '' : 'none';
+  minner.classList.toggle('solo', !o.video); minner.classList.toggle('tall', !!o.tall); minner.style.setProperty('--arn', o.tall === 'sq' ? '1' : '.5625'); minner.classList.toggle('sq', o.tall === 'sq'); mv.style.display = o.video ? '' : 'none';
   if (o.video) { mv.muted = !o.sound; mv.loop = !o.sound; mv.src = o.video; mv.play().catch(() => { mv.muted = true; mv.play().catch(() => {}); }); } else { mv.pause(); mv.removeAttribute('src'); }
   el('mtag').textContent = o.tag || ''; el('mtitle').textContent = o.title || ''; el('msub').textContent = o.sub || '';
   el('mrows').innerHTML = (o.rows || []).filter(r => r[1]).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
   el('mdesc').textContent = o.desc || ''; el('mnote').textContent = o.note || '';
   const acts = el('macts'); acts.innerHTML = '';
+  el('mmore').classList.toggle('on', !!(o.more && o.more.length));
+  el('mmorelist').innerHTML = (o.more || []).map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener"><span>${t}</span><span>&nearr;</span></a>`).join('');
   (o.actions || []).forEach(a => { const b = document.createElement('button'); b.innerHTML = a.label; b.addEventListener('click', e => { e.stopPropagation(); a.fn(e); }); acts.appendChild(b); });   // keep the click inside the pop-up
   modal.classList.add('on');
   if (ev) { const r = minner.getBoundingClientRect(); minner.style.transformOrigin = `${ev.clientX - r.left}px ${ev.clientY - r.top}px`; } else minner.style.transformOrigin = '';
@@ -654,12 +695,12 @@ function openModal(id, ev) {
   if (!id) return openPopup({ video: 'media/reel.mp4', tag: 'Sizzle 2026', title: 'Every room in 30 seconds', desc: 'A quick cut across YouTube, motion, AI video and archviz. Click any piece in the building or the grid for the full video.' }, ev);
   const w = WORKS[id], yt = v => `https://www.youtube.com/${w.short && v === w.yt ? 'shorts/' : 'watch?v='}${v}`;
   const actions = [];
-  if (w.yt) actions.push({ label: 'Watch the full video on YouTube &nearr;', fn: () => open(yt(w.yt), '_blank', 'noopener') });
-  if (w.ig) actions.push({ label: 'See the original reel on Instagram &nearr;', fn: () => open(`https://www.instagram.com/reel/${w.ig}/`, '_blank', 'noopener') });
-  (w.more || []).forEach(([t, v]) => actions.push({ label: `<span class="mono" style="color:var(--blue)">Series</span>&nbsp;&nbsp;${t} &nearr;`, fn: () => open(yt(v), '_blank', 'noopener') }));
+  if (w.yt) actions.push({ label: 'Watch on YouTube <span>&nearr;</span>', fn: () => open(yt(w.yt), '_blank', 'noopener') });
+  if (w.ig) actions.push({ label: 'Original reel on Instagram <span>&nearr;</span>', fn: () => open(`https://www.instagram.com/reel/${w.ig}/`, '_blank', 'noopener') });
+  const more = (w.more || []).map(([t, v]) => [t, yt(v)]);
   // previews first; the full cut is one click away
-  if (w.full) actions.unshift({ label: 'Watch the full video &rarr;', fn: () => { mv.muted = false; mv.loop = false; mv.src = `media/full/${id}.mp4`; mv.play().catch(() => { mv.muted = true; mv.play().catch(() => {}); }); el('mnote').textContent = 'Full video. Sound on.'; el('macts').firstChild.remove(); } });
-  openPopup({ video: `media/${id}.mp4`, tag: TAGS[w.f], title: w.t, sub: w.c, rows: [['Role', w.role], ['Tools', w.tools], ['On Instagram', w.stat]], desc: w.d, actions, note: w.yt ? 'Preview clip. Full video on YouTube.' : 'Preview clip.' }, ev);
+  if (w.full) actions.unshift({ label: 'Watch the full video <span>&rarr;</span>', fn: () => { mv.muted = false; mv.loop = false; mv.src = `media/full/${id}.mp4`; mv.play().catch(() => { mv.muted = true; mv.play().catch(() => {}); }); el('mnote').textContent = 'Full video. Sound on.'; el('macts').firstChild.remove(); } });
+  openPopup({ video: `media/${id}.mp4`, tag: TAGS[w.f], title: w.t, sub: w.c, rows: [['Role', w.role], ['Tools', w.tools], ['Instagram', w.stat]], desc: w.d, actions, more, tall: w.o === 'port' ? 'port' : w.o === 'sq' ? 'sq' : '', note: w.full ? 'Preview / full video one click away' : w.yt ? 'Preview / full video on YouTube' : 'Preview' }, ev);
 }
 function closeModal() { if (!modal.classList.contains('on')) return; modal.classList.remove('on'); mv.pause(); lenis.start(); }
 document.getElementById('close').addEventListener('click', closeModal);
@@ -873,7 +914,7 @@ ROOMS.forEach((r, i) => {
     r.frames.forEach((id, k) => {
       const z = zc + 3.5 - step * (k + .5);
       if (id === '@ugc') {
-        const ugc = ev => openPopup({ tag: 'Scale / AI', title: 'ORÍ & Co. UGC ad', sub: 'Spec ad / in production', rows: [['Tools', 'Google Flow / Veo / Premiere']], desc: 'A UGC-style product ad with one consistent AI character, lip-synced dialogue and three hook variants for performance testing.' }, ev);
+        const ugc = ev => openPopup({ tag: 'Scale / AI', title: 'ORÍ & Co. UGC ad', sub: 'Spec ad / in production', rows: [['Tools', 'Google Flow / Veo']], desc: 'A UGC-style product ad with one consistent AI character, lip-synced dialogue and three hook variants for performance testing.' }, ev);
         pick(addPlaceholder(i, WALL, 2.75, z, R_FACE, 1.45, 'UGC ad', true), ugc); pick(placeHolo(label(2.5, 'ORÍ & Co. UGC ad', 'In production / Flow + Veo'), i, WALL - .05, .9, z, R_FACE, false).mesh, ugc); return;
       }
       const port = WORKS[id].o === 'port', sq = WORKS[id].o === 'sq', fw = port ? 1.45 : sq ? 1.75 : 2.5;
@@ -905,9 +946,7 @@ pick(holos[holos.length - 1].mesh, ev => openPopup({ tag: 'Directory / one pract
 
 // toolkit: each tool's mark floats in a glass vitrine on a stepped plinth
 const TOOLS = [
-  { n: 'Premiere Pro', ic: 'adobepremierepro', c: '#ea77ff', u: 'Longform and Shorts edits, sound and finishing.' },
   { n: 'After Effects', ic: 'adobeaftereffects', c: '#9999ff', u: 'Motion graphics, kinetic type and UI animation.' },
-  { n: 'DaVinci Resolve', ic: 'davinciresolve', c: '#e8e8ea', u: 'Colour grading and finishing.' },
   { n: 'Blender', ic: 'blender', c: '#e87d0d', u: '3D modelling, scenes and motion assets.' },
   { n: 'Veo / Flow', ic: 'google', c: '#4285f4', u: 'AI video generation for b-roll and narrative shorts.' },
   { n: 'ElevenLabs', ic: 'elevenlabs', c: '#f2f2f2', u: 'AI voice and sound for narration and characters.' },
@@ -965,7 +1004,7 @@ const toolkit = new THREE.Group(); scene.add(toolkit);
   [-1, 1].forEach(sd => { const w = new THREE.Mesh(new THREE.PlaneGeometry(13.7, 4.3), wallSkin); w.position.set(sd * (HALF - T / 2 - .004), 2.15, -111); w.rotation.y = -sd * Math.PI / 2; toolkit.add(w); });
 }
 TOOLS.forEach((tool, i) => {
-  const left = i < 6, x = left ? -3.4 : 3.4, z = left ? -107.6 - i * 1.45 : -108.4 - (i - 6) * 1.45, face = left ? L_FACE : R_FACE;
+  const left = i < 5, x = left ? -3.4 : 3.4, z = left ? -107.9 - i * 1.6 : -108.7 - (i - 5) * 1.6, face = left ? L_FACE : R_FACE;
   const g = new THREE.Group(); g.position.set(x, 0, z); toolkit.add(g);
   // stepped deco plinth
   [[.78, .1, .05], [.66, .72, .46], [.74, .06, .85]].forEach(([w, h, y]) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, w), stoneMat); m.position.y = y; g.add(m); const e = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry), caseEdge); e.position.y = y; g.add(e); });
