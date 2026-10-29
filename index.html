@@ -586,7 +586,7 @@ function openPopup(o, ev) {
   el('mrows').innerHTML = (o.rows || []).filter(r => r[1]).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
   el('mdesc').textContent = o.desc || ''; el('mnote').textContent = o.note || '';
   const acts = el('macts'); acts.innerHTML = '';
-  (o.actions || []).forEach(a => { const b = document.createElement('button'); b.innerHTML = a.label; b.addEventListener('click', a.fn); acts.appendChild(b); });
+  (o.actions || []).forEach(a => { const b = document.createElement('button'); b.innerHTML = a.label; b.addEventListener('click', e => { e.stopPropagation(); a.fn(e); }); acts.appendChild(b); });   // keep the click inside the pop-up
   modal.classList.add('on');
   if (ev) { const r = minner.getBoundingClientRect(); minner.style.transformOrigin = `${ev.clientX - r.left}px ${ev.clientY - r.top}px`; } else minner.style.transformOrigin = '';
   lenis.stop();
@@ -598,7 +598,7 @@ function openModal(id, ev) {
   if (w.yt) actions.push({ label: 'Watch the full video on YouTube &nearr;', fn: () => open(yt(w.yt), '_blank', 'noopener') });
   (w.more || []).forEach(([t, v]) => actions.push({ label: `<span class="mono" style="color:var(--blue)">Series</span>&nbsp;&nbsp;${t} &nearr;`, fn: () => open(yt(v), '_blank', 'noopener') }));
   // previews first; the full cut is one click away
-  if (w.full) actions.unshift({ label: 'Watch the full video &rarr;', fn: () => { mv.muted = false; mv.loop = false; mv.src = `media/full/${id}.mp4`; mv.play().catch(() => {}); el('mnote').textContent = 'Full video. Sound on.'; el('macts').firstChild.remove(); } });
+  if (w.full) actions.unshift({ label: 'Watch the full video &rarr;', fn: () => { mv.muted = false; mv.loop = false; mv.src = `media/full/${id}.mp4`; mv.play().catch(() => { mv.muted = true; mv.play().catch(() => {}); }); el('mnote').textContent = 'Full video. Sound on.'; el('macts').firstChild.remove(); } });
   openPopup({ video: `media/${id}.mp4`, tag: TAGS[w.f], title: w.t, sub: w.c, rows: [['Role', w.role], ['Tools', w.tools]], desc: w.d, actions, note: w.yt ? 'Preview clip. Full video on YouTube.' : 'Preview clip.' }, ev);
 }
 function closeModal() { if (!modal.classList.contains('on')) return; modal.classList.remove('on'); mv.pause(); lenis.start(); }
