@@ -382,6 +382,57 @@
     .modal .mbody { max-height: none; overflow: visible; padding: 22px 20px; }
     .modal h3 { font-size: 28px; }
   }
+
+  /* ---------- phone + tablet navigation ---------- */
+  .menu-btn { display: none; position: relative; width: 44px; height: 40px; border: 1px solid var(--rule); background: rgba(10, 10, 11, .7); backdrop-filter: blur(10px); }
+  .menu-btn i { position: absolute; left: 12px; right: 12px; height: 1.5px; background: var(--text); transition: transform .3s cubic-bezier(.2, .8, .2, 1), top .3s; }
+  .menu-btn i:first-child { top: 15px; } .menu-btn i:last-child { top: 23px; }
+  .menu-open .menu-btn i:first-child { top: 19px; transform: rotate(45deg); }
+  .menu-open .menu-btn i:last-child { top: 19px; transform: rotate(-45deg); }
+  .mnav { position: fixed; inset: 0; z-index: 45; background: rgba(8, 8, 9, .97); backdrop-filter: blur(14px); opacity: 0; visibility: hidden; transition: opacity .3s, visibility 0s .3s; overflow-y: auto; overscroll-behavior: contain; }
+  .menu-open .mnav { opacity: 1; visibility: visible; transition: opacity .3s; }
+  .mnav-in { min-height: 100%; padding: 88px 20px 28px; display: flex; flex-direction: column; max-width: 560px; margin: 0 auto; transform: translateY(10px); transition: transform .35s cubic-bezier(.2, .8, .2, 1); }
+  .menu-open .mnav-in { transform: none; }
+  .mnav-lbl { color: var(--muted); font-size: 9px; margin: 0 0 8px; }
+  .mnav-links { display: flex; flex-direction: column; margin-bottom: 26px; }
+  .mnav-links a { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(30px, 8.5vw, 44px); line-height: 1; padding: 10px 0; border-bottom: 1px solid var(--rule-2); color: var(--text); text-decoration: none; }
+  .mnav-links a:active { color: var(--blue); }
+  .mnav-rooms { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 26px; }
+  .mnav-rooms button { text-align: left; padding: 12px; border: 1px solid var(--rule); color: var(--text); font-size: 10px; letter-spacing: .12em; line-height: 1.5; }
+  .mnav-rooms button b { display: block; color: var(--blue); font-weight: 400; }
+  .mnav-foot { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+  .mnav-foot .reel-btn { display: inline-flex; }
+  .mnav-foot a { color: var(--muted); text-decoration: none; font-size: 10px; }
+  .mnav-foot p { display: flex; gap: 18px; }
+  .touch-only { display: none; }
+  @media (hover: none) { .touch-only { display: inline; } .fine-only { display: none; } }
+
+  /* tablet landscape: keep the top links on one line */
+  @media (min-width: 861px) and (max-width: 1100px) {
+    .nav { padding: 16px 20px; }
+    .nav-links { gap: 2px; }
+    .nav-links a { padding: 9px 9px; }
+    .brand span:last-child { display: none; }
+    .minimap { transform: scale(.85); transform-origin: left bottom; }
+    .intro { bottom: 112px; max-width: 600px; }
+  }
+  @media (max-width: 860px) {
+    .nav-links > .reel-btn { display: none; }
+    .menu-btn { display: block; }
+    .nav { z-index: 50; }
+    .menu-open .nav::before { opacity: 0; }
+  }
+  /* phones: two-up grid with compact cards */
+  @media (max-width: 600px) {
+    .grid { columns: 2; column-gap: 10px; }
+    .work { margin-bottom: 10px; }
+    .work .meta { display: block; padding: 10px 10px 12px; }
+    .work h3 { font-size: 15px; line-height: 1.05; }
+    .work .client { font-size: 11.5px; line-height: 1.35; }
+    .work .tag { display: none; }
+    .filters { gap: 6px; }
+    .filters button { padding: 9px 11px; font-size: 9px; letter-spacing: .1em; }
+  }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
 <script type="importmap">
@@ -398,8 +449,22 @@
   <div class="nav-links mono">
     <a href="#work">All work</a><a href="#cases">Case studies</a><a href="#about">About</a><a href="#contact">Contact</a>
     <button class="reel-btn" data-reel><i></i>Reel</button>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
   </div>
 </nav>
+<div class="mnav" id="mnav" aria-hidden="true">
+  <div class="mnav-in">
+    <div class="mono mnav-lbl">Go to</div>
+    <div class="mnav-links"><a href="#top" data-top>The walkthrough</a><a href="#work">All work</a><a href="#cases">Case studies</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+    <div class="mono mnav-lbl">Jump to a room</div>
+    <div class="mnav-rooms mono" id="mnavRooms"></div>
+    <div class="mnav-foot">
+      <button class="reel-btn" data-reel><i></i>Watch the reel</button>
+      <a class="mono" href="mailto:davielaniyanb@gmail.com">davielaniyanb@gmail.com</a>
+      <p class="mono"><a href="https://www.linkedin.com/in/dhaveid" target="_blank" rel="noopener">LinkedIn</a><a href="https://instagram.com/dha_veid_" target="_blank" rel="noopener">Instagram</a><a href="https://twitter.com/Dha_veid" target="_blank" rel="noopener">X</a></p>
+    </div>
+  </div>
+</div>
 
 <!-- ============ THE WALKTHROUGH ============ -->
 <div class="loader" id="loader"><svg width="120" height="80" viewBox="0 0 120 80"><path d="M10 70V10h100v60H10M10 40h45M75 40h35M55 40a20 20 0 0 1 20 -20" /></svg><span class="mono">Drafting the building</span></div>
@@ -442,7 +507,7 @@
 <section class="block" id="work">
   <div class="eyebrow mono reveal">All work</div>
   <h2 class="big reveal">Every room, on one wall.</h2>
-  <p class="lede reveal" id="worklede">The quick view, if you skipped the tour. Hover to preview. Click for the story behind each piece.</p>
+  <p class="lede reveal" id="worklede">The quick view, if you skipped the tour. <span class="fine-only">Hover to preview. Click</span><span class="touch-only">Tap</span> for the story behind each piece.</p>
   <div class="filters reveal" id="filters">
     <button class="on" data-f="all">All</button>
     <button data-f="youtube">Story / YouTube</button>
@@ -724,6 +789,25 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 const lenis = new Lenis({ lerp: .08 });
 document.querySelectorAll('.nav a[href^="#"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(a.getAttribute('href'), { offset: -10 }); }));
 document.getElementById('skip').addEventListener('click', () => lenis.scrollTo('#work', { offset: -10 }));
+
+// phone + tablet menu
+const menuBtn = document.getElementById('menuBtn'), mnav = document.getElementById('mnav');
+function setMenu(on) {
+  document.body.classList.toggle('menu-open', on);
+  menuBtn.setAttribute('aria-expanded', on); menuBtn.setAttribute('aria-label', on ? 'Close menu' : 'Open menu');
+  mnav.setAttribute('aria-hidden', !on);
+  on ? lenis.stop() : lenis.start();
+}
+menuBtn.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) setMenu(false); });
+matchMedia('(min-width: 861px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+mnav.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault(); setMenu(false);
+  lenis.scrollTo(a.hasAttribute('data-top') ? 0 : a.getAttribute('href'), { offset: -10 });
+}));
+mnav.querySelector('[data-reel]').addEventListener('click', () => setMenu(false), true);
+document.getElementById('mnavRooms').innerHTML = ROOMS.map((r, i) => i ? `<button data-room="${i}"><b>${r.no} / ${r.theme}</b>${r.name}</button>` : '').join('');
+document.querySelectorAll('#mnavRooms button').forEach(b => b.addEventListener('click', () => { setMenu(false); goRoom(+b.dataset.room); }));
 (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
 
 /* =====================================================================
